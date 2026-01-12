@@ -1,19 +1,6 @@
-import { useState, type FormEvent } from 'react'
 import styles from './Contact.module.css'
 
 export function Contact() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: '',
-  })
-
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault()
-    // TODO: Add form submission logic
-    console.log('Form submitted:', formData)
-  }
-
   return (
     <section id="contact" className={styles.contact}>
       <div className={styles.container}>
@@ -21,15 +8,26 @@ export function Contact() {
         <p className={styles.subtitle}>
           Have a question or want to work together? Drop me a message!
         </p>
-        <form className={styles.form} onSubmit={handleSubmit}>
+        <form
+          className={styles.form}
+          name="contact"
+          method="POST"
+          data-netlify="true"
+          data-netlify-honeypot="bot-field"
+        >
+          <input type="hidden" name="form-name" value="contact" />
+          <p hidden>
+            <label>
+              Don't fill this out: <input name="bot-field" />
+            </label>
+          </p>
           <div className={styles.formGroup}>
             <label htmlFor="name" className={styles.label}>Name</label>
             <input
               type="text"
               id="name"
+              name="name"
               className={styles.input}
-              value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               required
             />
           </div>
@@ -38,9 +36,8 @@ export function Contact() {
             <input
               type="email"
               id="email"
+              name="email"
               className={styles.input}
-              value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
               required
             />
           </div>
@@ -48,10 +45,9 @@ export function Contact() {
             <label htmlFor="message" className={styles.label}>Message</label>
             <textarea
               id="message"
+              name="message"
               className={styles.textarea}
               rows={5}
-              value={formData.message}
-              onChange={(e) => setFormData({ ...formData, message: e.target.value })}
               required
             />
           </div>
