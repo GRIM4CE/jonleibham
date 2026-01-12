@@ -1,0 +1,35 @@
+.footer {
+  background: var(--color-bg-dark);
+  color: var(--color-white);
+  padding: 3rem 2rem;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.social {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.socialLink {
+  color: var(--color-white-subtle);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.socialLink:hover {
+  color: var(--color-white);
+}
+
+.copyright {
+  color: var(--color-white-faint);
+  font-size: 0.9rem;
+  margin: 0;
+}
