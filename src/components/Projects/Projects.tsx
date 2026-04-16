@@ -4,7 +4,7 @@ interface Project {
   title: string
   description: string
   technologies: string[]
-  lastUpdated: string
+  built: string
   liveUrl?: string
   repoUrl: string
   screenshot?: string
@@ -14,7 +14,7 @@ interface Utility {
   title: string
   description: string
   technologies: string[]
-  lastUpdated: string
+  built: string
   repoUrl: string
 }
 
@@ -24,7 +24,7 @@ const projects: Project[] = [
     description:
       'A web-based synthesizer application built with Vue 3 and the Web Audio API, allowing users to create and manipulate sounds directly in the browser.',
     technologies: ['Vue 3', 'TypeScript', 'Web Audio API', 'Sass', 'Vite'],
-    lastUpdated: 'April 2026',
+    built: 'January 2024',
     liveUrl: 'https://websynthwizard.com/',
     repoUrl: 'https://github.com/GRIM4CE/web-synth-wizard',
     screenshot: '/web-synth-wizard-screenshot.png',
@@ -37,7 +37,7 @@ const utilities: Utility[] = [
     description:
       'Simple Node.js batch audio converter that converts Apple M4A files to WAV format.',
     technologies: ['Node.js', 'JavaScript'],
-    lastUpdated: 'May 2024',
+    built: 'May 2024',
     repoUrl: 'https://github.com/GRIM4CE/m4a2wav',
   },
   {
@@ -45,7 +45,7 @@ const utilities: Utility[] = [
     description:
       'Node.js image processor prototype built with Sharp.js for batch image manipulation.',
     technologies: ['Node.js', 'Sharp.js'],
-    lastUpdated: 'January 2024',
+    built: 'March 2021',
     repoUrl: 'https://github.com/GRIM4CE/node-image-processor',
   },
   {
@@ -53,7 +53,7 @@ const utilities: Utility[] = [
     description:
       'Script that utilizes the TVDB API to automatically format TV series filenames.',
     technologies: ['Node.js', 'Axios', 'TVDB API'],
-    lastUpdated: 'February 2022',
+    built: 'February 2022',
     repoUrl: 'https://github.com/GRIM4CE/tv-formater',
   },
   {
@@ -61,7 +61,7 @@ const utilities: Utility[] = [
     description:
       'Script to batch rename photo files for a legacy portfolio site.',
     technologies: ['Node.js'],
-    lastUpdated: 'February 2022',
+    built: 'February 2022',
     repoUrl: 'https://github.com/GRIM4CE/photo-rename',
   },
 ]
@@ -94,8 +94,8 @@ export function Projects() {
               <div className={styles.cardContent}>
                 <div className={styles.cardHeader}>
                   <h3 className={styles.cardTitle}>{project.title}</h3>
-                  <span className={styles.lastUpdated}>
-                    {project.lastUpdated}
+                  <span className={styles.built}>
+                    {project.built}
                   </span>
                 </div>
                 <p className={styles.cardDescription}>{project.description}</p>
@@ -138,8 +138,8 @@ export function Projects() {
               <div className={styles.cardContent}>
                 <div className={styles.cardHeader}>
                   <h3 className={styles.cardTitle}>{utility.title}</h3>
-                  <span className={styles.lastUpdated}>
-                    {utility.lastUpdated}
+                  <span className={styles.built}>
+                    {utility.built}
                   </span>
                 </div>
                 <p className={styles.cardDescription}>
