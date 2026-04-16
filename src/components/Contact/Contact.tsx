@@ -1,8 +1,8 @@
 import { type FormEvent, useCallback, useRef } from 'react'
 import styles from './Contact.module.css'
 
-// Email is split into parts and assembled at runtime
-// so bots scraping static HTML can't harvest it
+// Email is split into parts and assembled at runtime to make it
+// harder for bots scraping static HTML to harvest it
 const user = 'jon'
 const domain = 'jonleibham.com'
 
