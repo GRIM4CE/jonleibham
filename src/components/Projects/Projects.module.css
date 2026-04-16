@@ -91,7 +91,7 @@
   color: var(--color-white);
 }
 
-.lastUpdated {
+.built {
   font-size: 0.8rem;
   color: var(--color-white-subtle);
   white-space: nowrap;
