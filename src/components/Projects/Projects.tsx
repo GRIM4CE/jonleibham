@@ -20,6 +20,15 @@ interface Utility {
 
 const projects: Project[] = [
   {
+    title: 'Chat App',
+    description:
+      'A simple real-time chat application built entirely by Claude AI without writing a single line of code. Features basic authentication and WebSocket-based messaging.',
+    technologies: ['Node.js', 'Express', 'WebSockets', 'PostgreSQL', 'JavaScript'],
+    built: 'April 2026',
+    liveUrl: 'https://claude-sandbox-1x1f.onrender.com',
+    repoUrl: 'https://github.com/GRIM4CE/chat-app',
+  },
+  {
     title: 'Web Synth Wizard',
     description:
       'A web-based synthesizer application built with Vue 3 and the Web Audio API, allowing users to create and manipulate sounds directly in the browser.',
