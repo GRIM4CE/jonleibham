@@ -10,17 +10,9 @@ export function Contact() {
         </p>
         <form
           className={styles.form}
-          name="contact"
+          action="https://formspree.io/f/YOUR_FORM_ID"
           method="POST"
-          data-netlify="true"
-          data-netlify-honeypot="bot-field"
         >
-          <input type="hidden" name="form-name" value="contact" />
-          <p hidden>
-            <label>
-              Don't fill this out: <input name="bot-field" />
-            </label>
-          </p>
           <div className={styles.formGroup}>
             <label htmlFor="name" className={styles.label}>Name</label>
             <input
