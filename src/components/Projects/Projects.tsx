@@ -49,7 +49,7 @@ const utilities: Utility[] = [
     repoUrl: 'https://github.com/GRIM4CE/node-image-processor',
   },
   {
-    title: 'tv-formater',
+    title: 'TV Formatter',
     description:
       'Script that utilizes the TVDB API to automatically format TV series filenames.',
     technologies: ['Node.js', 'Axios', 'TVDB API'],
@@ -85,6 +85,9 @@ export function Projects() {
                     src={project.screenshot}
                     alt={`${project.title} screenshot`}
                     className={styles.screenshot}
+                    onError={(e) => {
+                      e.currentTarget.style.display = 'none'
+                    }}
                   />
                 </a>
               )}

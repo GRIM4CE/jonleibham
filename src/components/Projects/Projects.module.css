@@ -134,6 +134,13 @@
   color: var(--color-primary-dark);
 }
 
+.link:focus-visible {
+  color: var(--color-primary-dark);
+  outline: 2px solid var(--color-primary-dark);
+  outline-offset: 2px;
+  text-decoration: underline;
+}
+
 @media (max-width: 480px) {
   .projectsGrid {
     grid-template-columns: 1fr;
