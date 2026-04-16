@@ -1,6 +1,16 @@
+import { useCallback } from 'react'
 import styles from './Contact.module.css'
 
+// Email is split into parts and assembled at runtime
+// so bots scraping static HTML can't harvest it
+const user = 'jon'
+const domain = 'jonleibham.com'
+
 export function Contact() {
+  const handleClick = useCallback(() => {
+    window.location.href = `mailto:${user}@${domain}`
+  }, [])
+
   return (
     <section id="contact" className={styles.contact}>
       <div className={styles.container}>
@@ -8,45 +18,11 @@ export function Contact() {
         <p className={styles.subtitle}>
           Have a question or want to work together? Drop me a message!
         </p>
-        <form
-          className={styles.form}
-          action="https://formspree.io/f/YOUR_FORM_ID"
-          method="POST"
-        >
-          <div className={styles.formGroup}>
-            <label htmlFor="name" className={styles.label}>Name</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              className={styles.input}
-              required
-            />
-          </div>
-          <div className={styles.formGroup}>
-            <label htmlFor="email" className={styles.label}>Email</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              className={styles.input}
-              required
-            />
-          </div>
-          <div className={styles.formGroup}>
-            <label htmlFor="message" className={styles.label}>Message</label>
-            <textarea
-              id="message"
-              name="message"
-              className={styles.textarea}
-              rows={5}
-              required
-            />
-          </div>
-          <button type="submit" className={styles.submitBtn}>
-            Send Message
+        <div className={styles.ctaWrapper}>
+          <button type="button" className={styles.ctaBtn} onClick={handleClick}>
+            Send Me an Email
           </button>
-        </form>
+        </div>
       </div>
     </section>
   )
