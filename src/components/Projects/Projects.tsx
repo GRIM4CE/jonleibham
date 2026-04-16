@@ -6,7 +6,7 @@ interface Project {
   technologies: string[]
   built: string
   liveUrl?: string
-  repoUrl: string
+  repoUrl?: string
   screenshot?: string
 }
 
@@ -19,6 +19,21 @@ interface Utility {
 }
 
 const projects: Project[] = [
+  {
+    title: 'Job Finder',
+    description:
+      'A personal Vue + TypeScript PWA that uses Claude AI to tailor your resume to any job posting, surface skill gaps, and manage the full application pipeline from search to follow-up. Built entirely with Claude AI, zero hand-written code.',
+    technologies: [
+      'Vue 3',
+      'TypeScript',
+      'TailwindCSS',
+      'Claude API',
+      'Node.js',
+      'Express',
+      'SQLite',
+    ],
+    built: 'April 2026',
+  },
   {
     title: 'Chat App',
     description:
@@ -115,26 +130,30 @@ export function Projects() {
                     </span>
                   ))}
                 </div>
-                <div className={styles.links}>
-                  {project.liveUrl && (
-                    <a
-                      href={project.liveUrl}
-                      className={styles.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Live Site
-                    </a>
-                  )}
-                  <a
-                    href={project.repoUrl}
-                    className={styles.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Source Code
-                  </a>
-                </div>
+                {(project.liveUrl || project.repoUrl) && (
+                  <div className={styles.links}>
+                    {project.liveUrl && (
+                      <a
+                        href={project.liveUrl}
+                        className={styles.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Live Site
+                      </a>
+                    )}
+                    {project.repoUrl && (
+                      <a
+                        href={project.repoUrl}
+                        className={styles.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Source Code
+                      </a>
+                    )}
+                  </div>
+                )}
               </div>
             </article>
           ))}
