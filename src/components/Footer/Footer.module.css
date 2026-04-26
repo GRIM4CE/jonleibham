@@ -26,17 +26,6 @@
   margin-bottom: 1.5rem;
 }
 
-.socialLink {
-  color: var(--color-white-subtle);
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.2s;
-}
-
-.socialLink:hover {
-  color: var(--color-white);
-}
-
 .copyright {
   color: var(--color-white-faint);
   font-size: 0.9rem;

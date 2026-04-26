@@ -1,3 +1,4 @@
+import { Section, SectionTitle, Card, Tag, Link, type Tone } from '../../design-system'
 import styles from './Projects.module.css'
 
 interface Project {
@@ -44,6 +45,21 @@ const projects: Project[] = [
     repoUrl: 'https://github.com/GRIM4CE/chat-app',
   },
   {
+    title: 'Todos PWA',
+    description:
+      'A Next.js 16 progressive web app for personal todo management with TOTP-based authentication, Drizzle ORM over Turso (libSQL) in production with a local SQLite fallback, and a daily cleanup cron. Built with Claude AI under my architecture and direction.',
+    technologies: [
+      'Next.js 16',
+      'TypeScript',
+      'Drizzle ORM',
+      'Turso / libSQL',
+      'Tailwind CSS',
+      'TOTP Auth',
+    ],
+    built: 'April 2026',
+    repoUrl: 'https://github.com/GRIM4CE/todos-pwa',
+  },
+  {
     title: 'Web Synth Wizard',
     description:
       'A web-based synthesizer application built with Vue 3 and the Web Audio API, allowing users to create and manipulate sounds directly in the browser.',
@@ -52,6 +68,22 @@ const projects: Project[] = [
     liveUrl: 'https://websynthwizard.com/',
     repoUrl: 'https://github.com/GRIM4CE/web-synth-wizard',
     screenshot: '/web-synth-wizard-screenshot.png',
+  },
+  {
+    title: 'bham',
+    description:
+      'My previous personal portfolio: a TypeScript monorepo housing a custom design system, Storybook documentation, and the portfolio site itself, all deployed via AWS Amplify.',
+    technologies: ['TypeScript', 'Vue', 'Storybook', 'SCSS', 'AWS Amplify', 'Monorepo'],
+    built: 'January 2024',
+    repoUrl: 'https://github.com/GRIM4CE/bham',
+  },
+  {
+    title: 'Sunspot',
+    description:
+      'An end-to-end IoT environmental monitor: an ESP32 firmware (Arduino/C++) reads light (BH1750) and temperature/humidity (DHT22) and posts readings to a Flask + MongoDB API, with an AWS Lambda relay and a Vue 3 dashboard for viewing the data.',
+    technologies: ['ESP32', 'C++ / Arduino', 'Python', 'Flask', 'MongoDB', 'AWS Lambda', 'Vue 3'],
+    built: 'February 2024',
+    repoUrl: 'https://github.com/GRIM4CE/sunspot',
   },
 ]
 
@@ -90,15 +122,24 @@ const utilities: Utility[] = [
   },
 ]
 
+const projectAccents: Tone[] = ['dustyGrape', 'seaGreen', 'magentaBloom']
+const utilityAccents: Tone[] = ['sunflowerGold', 'grapefruitPink', 'seaGreen']
+const techToneRotation: Tone[] = ['dustyGrape', 'seaGreen', 'magentaBloom', 'sunflowerGold']
+
 export function Projects() {
   return (
-    <section id="projects" className={styles.projects}>
-      <div className={styles.container}>
-        <h2 className={styles.title}>My Projects</h2>
-
+    <>
+      <Section id="projects" surface="porcelain">
+        <SectionTitle accent="seaGreen">My Projects</SectionTitle>
         <div className={styles.projectsGrid}>
-          {projects.map((project) => (
-            <article key={project.title} className={styles.projectCard}>
+          {projects.map((project, idx) => (
+            <Card
+              key={project.title}
+              accent={projectAccents[idx % projectAccents.length]}
+              accentSide="top"
+              bg="porcelain"
+              textTone="midnightViolet"
+            >
               {project.screenshot && (
                 <a
                   href={project.liveUrl ?? project.repoUrl}
@@ -118,83 +159,78 @@ export function Projects() {
               <div className={styles.cardContent}>
                 <div className={styles.cardHeader}>
                   <h3 className={styles.cardTitle}>{project.title}</h3>
-                  <span className={styles.built}>
-                    {project.built}
-                  </span>
+                  <span className={styles.built}>{project.built}</span>
                 </div>
                 <p className={styles.cardDescription}>{project.description}</p>
                 <div className={styles.technologies}>
-                  {project.technologies.map((tech) => (
-                    <span key={tech} className={styles.tech}>
+                  {project.technologies.map((tech, i) => (
+                    <Tag
+                      key={tech}
+                      tone={techToneRotation[i % techToneRotation.length]}
+                      variant="soft"
+                    >
                       {tech}
-                    </span>
+                    </Tag>
                   ))}
                 </div>
                 {(project.liveUrl || project.repoUrl) && (
                   <div className={styles.links}>
                     {project.liveUrl && (
-                      <a
-                        href={project.liveUrl}
-                        className={styles.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
+                      <Link href={project.liveUrl} target="_blank" rel="noopener noreferrer">
                         Live Site
-                      </a>
+                      </Link>
                     )}
                     {project.repoUrl && (
-                      <a
-                        href={project.repoUrl}
-                        className={styles.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
+                      <Link href={project.repoUrl} target="_blank" rel="noopener noreferrer">
                         Source Code
-                      </a>
+                      </Link>
                     )}
                   </div>
                 )}
               </div>
-            </article>
+            </Card>
           ))}
         </div>
+      </Section>
 
-        <h3 className={styles.sectionTitle}>Utilities</h3>
+      <Section id="utilities" surface="paleSlate90">
+        <SectionTitle accent="sunflowerGold">Utilities</SectionTitle>
         <div className={styles.utilitiesGrid}>
-          {utilities.map((utility) => (
-            <article key={utility.title} className={styles.utilityCard}>
+          {utilities.map((utility, idx) => (
+            <Card
+              key={utility.title}
+              accent={utilityAccents[idx % utilityAccents.length]}
+              accentSide="left"
+              bg="porcelain"
+              textTone="midnightViolet"
+            >
               <div className={styles.cardContent}>
                 <div className={styles.cardHeader}>
                   <h3 className={styles.cardTitle}>{utility.title}</h3>
-                  <span className={styles.built}>
-                    {utility.built}
-                  </span>
+                  <span className={styles.built}>{utility.built}</span>
                 </div>
-                <p className={styles.cardDescription}>
-                  {utility.description}
-                </p>
+                <p className={styles.cardDescription}>{utility.description}</p>
                 <div className={styles.technologies}>
-                  {utility.technologies.map((tech) => (
-                    <span key={tech} className={styles.tech}>
+                  {utility.technologies.map((tech, i) => (
+                    <Tag
+                      key={tech}
+                      tone={techToneRotation[i % techToneRotation.length]}
+                      variant="soft"
+                    >
                       {tech}
-                    </span>
+                    </Tag>
                   ))}
                 </div>
                 <div className={styles.links}>
-                  <a
-                    href={utility.repoUrl}
-                    className={styles.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
+                  <Link href={utility.repoUrl} target="_blank" rel="noopener noreferrer">
                     Source Code
-                  </a>
+                  </Link>
                 </div>
               </div>
-            </article>
+            </Card>
           ))}
         </div>
-      </div>
-    </section>
+      </Section>
+    </>
   )
 }

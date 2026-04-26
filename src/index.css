@@ -28,16 +28,16 @@
   /* Text colors */
   --color-text: #32161f;
   --color-text-muted: #5b5f97;
-  --color-text-subtle: #6f5466;
+  --color-text-subtle: #502331; /* Midnight Violet +10% */
 
   /* Background colors */
   --color-bg: #fffffb;
-  --color-bg-alt: #f2f2f8;
+  --color-bg-alt: #f8f8fa; /* Pale Slate +90% */
   --color-bg-dark: #32161f;
 
   /* UI colors */
   --color-border: #b8b8d1;
-  --color-tag-bg: #ece9f3;
+  --color-tag-bg: #eaeaf1; /* Pale Slate +70% */
   --color-tag-text: #32161f;
 
   /* White variations */

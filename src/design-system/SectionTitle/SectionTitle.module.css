@@ -1,0 +1,44 @@
+.title {
+  color: var(--color-text);
+  margin-bottom: 3rem;
+  padding-bottom: 0.75rem;
+  position: relative;
+}
+
+.size-md {
+  font-size: 1.8rem;
+}
+
+.size-lg {
+  font-size: 2.5rem;
+}
+
+.align-center {
+  text-align: center;
+}
+
+.align-left {
+  text-align: left;
+}
+
+.text {
+  position: relative;
+  display: inline-block;
+}
+
+.text::after {
+  content: '';
+  position: absolute;
+  bottom: -0.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 64px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--title-accent);
+}
+
+.align-left .text::after {
+  left: 0;
+  transform: none;
+}

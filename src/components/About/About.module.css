@@ -1,34 +1,3 @@
-.about {
-  padding: 6rem 2rem;
-  background: var(--color-bg);
-}
-
-.container {
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.title {
-  font-size: 2.5rem;
-  text-align: center;
-  margin-bottom: 3rem;
-  color: var(--color-text);
-  position: relative;
-  padding-bottom: 0.75rem;
-}
-
-.title::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 64px;
-  height: 4px;
-  border-radius: 2px;
-  background: var(--color-sunflower-gold);
-}
-
 .content {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -43,7 +12,7 @@
   margin-bottom: 1rem;
 }
 
-.skills h3 {
+.skillsHeading {
   font-size: 1.3rem;
   margin-bottom: 1.5rem;
   color: var(--color-text);
@@ -56,72 +25,10 @@
   margin-bottom: 1.5rem;
 }
 
-.tab {
-  padding: 0.5rem 1rem;
-  border: none;
-  background: transparent;
-  color: var(--color-text-muted);
-  font-size: 0.9rem;
-  font-weight: 500;
-  font-family: inherit;
-  cursor: pointer;
-  border-radius: 8px;
-  transition: all 0.2s;
-}
-
-.tab:hover {
-  color: var(--color-text);
-  background: var(--color-bg);
-}
-
-.activeTab {
-  background: var(--color-primary);
-  color: var(--color-white);
-}
-
-.activeTab:hover {
-  background: var(--color-primary);
-  color: var(--color-white);
-}
-
-.tab:nth-child(2).activeTab,
-.tab:nth-child(2).activeTab:hover {
-  background: var(--color-sea-green);
-}
-
-.tab:nth-child(3).activeTab,
-.tab:nth-child(3).activeTab:hover {
-  background: var(--color-sunflower-gold);
-  color: var(--color-midnight-violet);
-}
-
-.tab:nth-child(4).activeTab,
-.tab:nth-child(4).activeTab:hover {
-  background: var(--color-magenta-bloom);
-}
-
-.tab:nth-child(5).activeTab,
-.tab:nth-child(5).activeTab:hover {
-  background: var(--color-grapefruit-pink);
-}
-
 .skillList {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.skillList li {
-  background: var(--color-bg);
-  color: var(--color-text);
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  border: 1px solid var(--color-border);
 }
 
 @media (max-width: 768px) {

@@ -1,0 +1,32 @@
+.link {
+  color: var(--link-tone);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.underline {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.weight-regular {
+  font-weight: 400;
+}
+
+.weight-medium {
+  font-weight: 500;
+}
+
+.weight-semibold {
+  font-weight: 600;
+}
+
+.link:hover {
+  color: var(--link-hover);
+}
+
+.link:focus-visible {
+  outline: 2px solid var(--link-hover);
+  outline-offset: 3px;
+  border-radius: 2px;
+}

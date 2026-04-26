@@ -1,0 +1,23 @@
+.logo {
+  font-weight: 700;
+  color: var(--color-text);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: baseline;
+}
+
+.size-sm {
+  font-size: 1.125rem;
+}
+
+.size-md {
+  font-size: 1.5rem;
+}
+
+.size-lg {
+  font-size: 2rem;
+}
+
+.dot {
+  color: var(--logo-accent);
+}

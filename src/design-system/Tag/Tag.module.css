@@ -1,0 +1,48 @@
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  font-family: inherit;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  line-height: 1.4;
+}
+
+.variant-soft {
+  background: color-mix(in srgb, var(--tag-tone) 14%, transparent);
+  color: var(--tag-tone);
+}
+
+.variant-solid {
+  background: var(--tag-tone);
+  color: var(--tag-text);
+}
+
+.variant-outline {
+  background: transparent;
+  color: var(--tag-tone);
+  border-color: var(--tag-tone);
+}
+
+.interactive {
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, transform 0.15s;
+}
+
+.interactive:hover {
+  transform: translateY(-1px);
+}
+
+.interactive.selected {
+  background: var(--tag-tone);
+  color: var(--tag-text);
+  border-color: var(--tag-tone);
+}
+
+.interactive:focus-visible {
+  outline: 2px solid var(--tag-tone);
+  outline-offset: 2px;
+}

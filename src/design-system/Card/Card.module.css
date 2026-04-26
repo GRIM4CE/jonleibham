@@ -1,0 +1,20 @@
+.card {
+  background: var(--card-bg);
+  color: var(--card-text);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.accent-top {
+  border-top: 4px solid var(--card-accent);
+}
+
+.accent-left {
+  border-left: 4px solid var(--card-accent);
+}
+
+.hoverable:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px var(--color-shadow);
+}
