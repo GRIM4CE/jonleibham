@@ -1,8 +1,7 @@
 import { type FormEvent, useCallback, useRef } from 'react'
+import { Section, SectionTitle, Field, Button } from '../../design-system'
 import styles from './Contact.module.css'
 
-// Email is split into parts and assembled at runtime to make it
-// harder for bots scraping static HTML to harvest it
 const user = 'jon'
 const domain = 'jonleibham.com'
 
@@ -12,7 +11,6 @@ export function Contact() {
   const handleSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    // If the hidden honeypot field is filled, a bot submitted the form
     if (honeypotRef.current?.value) return
 
     const form = e.currentTarget
@@ -30,9 +28,9 @@ export function Contact() {
   }, [])
 
   return (
-    <section id="contact" className={styles.contact}>
-      <div className={styles.container}>
-        <h2 className={styles.title}>Get In Touch</h2>
+    <Section id="contact" surface="porcelain">
+      <div className={styles.inner}>
+        <SectionTitle accent="magentaBloom">Get In Touch</SectionTitle>
         <p className={styles.subtitle}>
           Have a question or want to work together? Drop me a message!
         </p>
@@ -42,41 +40,29 @@ export function Contact() {
               Don't fill this out: <input ref={honeypotRef} name="bot-field" />
             </label>
           </p>
-          <div className={styles.formGroup}>
-            <label htmlFor="name" className={styles.label}>Name</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              className={styles.input}
-              required
-            />
-          </div>
-          <div className={styles.formGroup}>
-            <label htmlFor="email" className={styles.label}>Email</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              className={styles.input}
-              required
-            />
-          </div>
-          <div className={styles.formGroup}>
-            <label htmlFor="message" className={styles.label}>Message</label>
-            <textarea
-              id="message"
-              name="message"
-              className={styles.textarea}
-              rows={5}
-              required
-            />
-          </div>
-          <button type="submit" className={styles.submitBtn}>
+          <Field tone="magentaBloom">
+            <Field.Label htmlFor="name">Name</Field.Label>
+            <Field.Input type="text" id="name" name="name" required />
+          </Field>
+          <Field tone="magentaBloom">
+            <Field.Label htmlFor="email">Email</Field.Label>
+            <Field.Input type="email" id="email" name="email" required />
+          </Field>
+          <Field tone="magentaBloom">
+            <Field.Label htmlFor="message">Message</Field.Label>
+            <Field.Textarea id="message" name="message" rows={5} required />
+          </Field>
+          <Button
+            type="submit"
+            variant="gradient"
+            tone="magentaBloom"
+            gradientTone="flagRed"
+            size="lg"
+          >
             Send Message
-          </button>
+          </Button>
         </form>
       </div>
-    </section>
+    </Section>
   )
 }

@@ -1,0 +1,24 @@
+.section {
+  background: var(--section-bg);
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.pad-sm {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+.pad-md {
+  padding-top: 4.5rem;
+  padding-bottom: 4.5rem;
+}
+
+.pad-lg {
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+}
+
+.container {
+  margin: 0 auto;
+}

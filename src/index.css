@@ -5,47 +5,52 @@
 }
 
 :root {
-  /* Palette: https://coolors.co/palette/8ecae6-219ebc-023047-ffb703-fb8500 */
-  --color-light-blue: #8ecae6;
-  --color-blue: #219ebc;
-  --color-navy: #023047;
-  --color-yellow: #ffb703;
-  --color-orange: #fb8500;
+  /* Palette */
+  --color-pale-slate: #b8b8d1;
+  --color-dusty-grape: #5b5f97;
+  --color-sunflower-gold: #ffc145;
+  --color-porcelain: #fffffb;
+  --color-grapefruit-pink: #ff6b6c;
+  --color-flag-red: #c1292e;
+  --color-black: #020100;
+  --color-midnight-violet: #32161f;
+  --color-magenta-bloom: #e83f6f;
+  --color-sea-green: #32936f;
 
   /* Primary colors */
-  --color-primary: #219ebc;
-  --color-primary-dark: #023047;
+  --color-primary: #5b5f97;
+  --color-primary-dark: #32161f;
 
   /* Accent colors */
-  --color-accent: #ffb703;
-  --color-accent-dark: #fb8500;
+  --color-accent: #ffc145;
+  --color-accent-dark: #e83f6f;
 
   /* Text colors */
-  --color-text: #023047;
-  --color-text-muted: #4a6572;
-  --color-text-subtle: #2d4a59;
+  --color-text: #32161f;
+  --color-text-muted: #5b5f97;
+  --color-text-subtle: #502331; /* Midnight Violet +10% */
 
   /* Background colors */
-  --color-bg: #ffffff;
-  --color-bg-alt: #f0f7fa;
-  --color-bg-dark: #023047;
+  --color-bg: #fffffb;
+  --color-bg-alt: #f8f8fa; /* Pale Slate +90% */
+  --color-bg-dark: #32161f;
 
   /* UI colors */
-  --color-border: #c9dde6;
-  --color-tag-bg: #e8f4f8;
-  --color-tag-text: #023047;
+  --color-border: #b8b8d1;
+  --color-tag-bg: #eaeaf1; /* Pale Slate +70% */
+  --color-tag-text: #32161f;
 
   /* White variations */
-  --color-white: #ffffff;
-  --color-white-muted: rgba(255, 255, 255, 0.9);
-  --color-white-subtle: rgba(255, 255, 255, 0.7);
-  --color-white-faint: rgba(255, 255, 255, 0.5);
+  --color-white: #fffffb;
+  --color-white-muted: rgba(255, 255, 251, 0.9);
+  --color-white-subtle: rgba(255, 255, 251, 0.7);
+  --color-white-faint: rgba(255, 255, 251, 0.5);
 
   /* Transparent/overlay colors */
-  --color-header-bg: rgba(255, 255, 255, 0.95);
-  --color-shadow: rgba(2, 48, 71, 0.1);
-  --color-shadow-dark: rgba(2, 48, 71, 0.2);
-  --color-primary-shadow: rgba(33, 158, 188, 0.3);
+  --color-header-bg: rgba(255, 255, 251, 0.95);
+  --color-shadow: rgba(50, 22, 31, 0.1);
+  --color-shadow-dark: rgba(50, 22, 31, 0.2);
+  --color-primary-shadow: rgba(91, 95, 151, 0.3);
 
   /* Typography */
   font-family: 'Source Sans 3', sans-serif;

@@ -1,20 +1,3 @@
-.about {
-  padding: 6rem 2rem;
-  background: var(--color-bg);
-}
-
-.container {
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.title {
-  font-size: 2.5rem;
-  text-align: center;
-  margin-bottom: 3rem;
-  color: var(--color-text);
-}
-
 .content {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -29,7 +12,7 @@
   margin-bottom: 1rem;
 }
 
-.skills h3 {
+.skillsHeading {
   font-size: 1.3rem;
   margin-bottom: 1.5rem;
   color: var(--color-text);
@@ -42,51 +25,10 @@
   margin-bottom: 1.5rem;
 }
 
-.tab {
-  padding: 0.5rem 1rem;
-  border: none;
-  background: transparent;
-  color: var(--color-text-muted);
-  font-size: 0.9rem;
-  font-weight: 500;
-  font-family: inherit;
-  cursor: pointer;
-  border-radius: 8px;
-  transition: all 0.2s;
-}
-
-.tab:hover {
-  color: var(--color-text);
-  background: var(--color-bg);
-}
-
-.activeTab {
-  background: var(--color-primary);
-  color: var(--color-white);
-}
-
-.activeTab:hover {
-  background: var(--color-primary);
-  color: var(--color-white);
-}
-
 .skillList {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.skillList li {
-  background: var(--color-bg);
-  color: var(--color-text);
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  border: 1px solid var(--color-border);
 }
 
 @media (max-width: 768px) {
