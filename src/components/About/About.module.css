@@ -13,6 +13,20 @@
   text-align: center;
   margin-bottom: 3rem;
   color: var(--color-text);
+  position: relative;
+  padding-bottom: 0.75rem;
+}
+
+.title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 64px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--color-sunflower-gold);
 }
 
 .content {
@@ -68,6 +82,27 @@
 .activeTab:hover {
   background: var(--color-primary);
   color: var(--color-white);
+}
+
+.tab:nth-child(2).activeTab,
+.tab:nth-child(2).activeTab:hover {
+  background: var(--color-sea-green);
+}
+
+.tab:nth-child(3).activeTab,
+.tab:nth-child(3).activeTab:hover {
+  background: var(--color-sunflower-gold);
+  color: var(--color-midnight-violet);
+}
+
+.tab:nth-child(4).activeTab,
+.tab:nth-child(4).activeTab:hover {
+  background: var(--color-magenta-bloom);
+}
+
+.tab:nth-child(5).activeTab,
+.tab:nth-child(5).activeTab:hover {
+  background: var(--color-grapefruit-pink);
 }
 
 .skillList {

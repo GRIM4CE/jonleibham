@@ -13,6 +13,20 @@
   text-align: center;
   margin-bottom: 3rem;
   color: var(--color-text);
+  position: relative;
+  padding-bottom: 0.75rem;
+}
+
+.title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 64px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--color-sea-green);
 }
 
 .comingSoon {
@@ -33,6 +47,15 @@
   border-radius: 12px;
   overflow: hidden;
   transition: transform 0.2s, box-shadow 0.2s;
+  border-top: 4px solid var(--color-primary);
+}
+
+.card:nth-child(3n + 2) {
+  border-top-color: var(--color-sea-green);
+}
+
+.card:nth-child(3n + 3) {
+  border-top-color: var(--color-magenta-bloom);
 }
 
 .card:hover {

@@ -25,6 +25,22 @@
   text-decoration: none;
 }
 
+.logoDot {
+  color: var(--color-sunflower-gold);
+}
+
+.navLinks li:nth-child(1) a:hover {
+  color: var(--color-sea-green);
+}
+
+.navLinks li:nth-child(2) a:hover {
+  color: var(--color-magenta-bloom);
+}
+
+.navLinks li:nth-child(3) a:hover {
+  color: var(--color-grapefruit-pink);
+}
+
 .navLinks {
   display: flex;
   gap: 2rem;

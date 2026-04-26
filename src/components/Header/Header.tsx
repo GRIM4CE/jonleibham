@@ -4,7 +4,7 @@ export function Header() {
   return (
     <header className={styles.header}>
       <nav className={styles.nav}>
-        <a href="#" className={styles.logo}>Jon Leibham</a>
+        <a href="#" className={styles.logo}>Jon Leibham<span className={styles.logoDot}>.</span></a>
         <ul className={styles.navLinks}>
           <li><a href="#about">About</a></li>
           <li><a href="#projects">Projects</a></li>

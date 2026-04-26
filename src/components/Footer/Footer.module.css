@@ -2,6 +2,15 @@
   background: var(--color-bg-dark);
   color: var(--color-white);
   padding: 3rem 2rem;
+  border-top: 4px solid;
+  border-image: linear-gradient(
+      90deg,
+      var(--color-dusty-grape) 0%,
+      var(--color-sea-green) 33%,
+      var(--color-sunflower-gold) 66%,
+      var(--color-magenta-bloom) 100%
+    )
+    1;
 }
 
 .container {

@@ -13,6 +13,20 @@
   text-align: center;
   margin-bottom: 1rem;
   color: var(--color-text);
+  position: relative;
+  padding-bottom: 0.75rem;
+}
+
+.title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 64px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--color-magenta-bloom);
 }
 
 .subtitle {
@@ -52,7 +66,7 @@
 .input:focus,
 .textarea:focus {
   outline: none;
-  border-color: var(--color-primary);
+  border-color: var(--color-magenta-bloom);
 }
 
 .textarea {
@@ -61,7 +75,7 @@
 }
 
 .submitBtn {
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  background: linear-gradient(135deg, var(--color-magenta-bloom) 0%, var(--color-flag-red) 100%);
   color: var(--color-white);
   border: none;
   padding: 1rem 2rem;
@@ -74,5 +88,5 @@
 
 .submitBtn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 20px var(--color-primary-shadow);
+  box-shadow: 0 10px 20px rgba(232, 63, 111, 0.35);
 }
