@@ -15,7 +15,7 @@ export function Footer() {
             href={`mailto:${email}`}
             tone="sunflowerGold"
             hoverTone="porcelain"
-            aria-label="Email Jon Leibham"
+            aria-label="Get in touch — email Jon Leibham"
           >
             Get in touch
           </Link>

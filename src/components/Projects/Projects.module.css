@@ -24,35 +24,11 @@
   border-bottom: 1px solid var(--color-border);
 }
 
-/* Generated header: soft tinted band + large monogram, per-card --tint. */
-.cardMedia {
-  position: relative;
-  height: 120px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  border-bottom: 1px solid var(--color-border);
-  background:
-    radial-gradient(
-      120% 120% at 25% 20%,
-      color-mix(in srgb, var(--tint) 42%, transparent),
-      transparent 60%
-    ),
-    linear-gradient(
-      135deg,
-      color-mix(in srgb, var(--tint) 88%, #1a1024),
-      color-mix(in srgb, var(--tint) 55%, #1a1024)
-    );
-}
-
-.monogram {
-  font-size: 3.25rem;
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: -0.03em;
-  color: rgba(255, 255, 255, 0.92);
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+/* A thin tech-tinted rule at the top of each card — a subtle spot of color
+   instead of a heavy banner. */
+.accentRule {
+  height: 4px;
+  background: var(--tint);
 }
 
 .cardContent {
@@ -68,7 +44,9 @@
 }
 
 .cardTitle {
-  font-size: 1.25rem;
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
   color: var(--color-text);
 }
 

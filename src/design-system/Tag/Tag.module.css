@@ -13,7 +13,8 @@
 
 .variant-soft {
   background: color-mix(in srgb, var(--tag-tone) 14%, transparent);
-  color: var(--tag-tone);
+  /* Darken the tone for text so soft tags clear WCAG AA (4.5:1) on light surfaces. */
+  color: color-mix(in srgb, var(--tag-tone) 90%, black);
 }
 
 .variant-solid {

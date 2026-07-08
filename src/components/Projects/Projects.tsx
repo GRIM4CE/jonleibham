@@ -278,11 +278,17 @@ export function Projects() {
               bg="porcelain"
               textTone="midnightViolet"
             >
-              {project.screenshot ? (
+              <div
+                className={styles.accentRule}
+                style={{ '--tint': tintFor(project.technologies) } as CSSProperties}
+                aria-hidden="true"
+              />
+              {project.screenshot && (
                 <a
                   href={project.liveUrl ?? project.repoUrl}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label={`${project.title} screenshot (opens in a new tab)`}
                 >
                   <img
                     src={project.screenshot}
@@ -293,12 +299,6 @@ export function Projects() {
                     }}
                   />
                 </a>
-              ) : (
-                <div
-                  className={styles.accentRule}
-                  style={{ '--tint': tintFor(project.technologies) } as CSSProperties}
-                  aria-hidden="true"
-                />
               )}
               <div className={styles.cardContent}>
                 <div className={styles.cardHeader}>
