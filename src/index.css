@@ -9,7 +9,7 @@
   --color-pale-slate: #b8b8d1;
   --color-dusty-grape: #5b5f97;
   --color-sunflower-gold: #ffc145;
-  --color-porcelain: #fffffb;
+  --color-porcelain: #fffdf7;
   --color-grapefruit-pink: #ff6b6c;
   --color-flag-red: #c1292e;
   --color-black: #020100;
@@ -31,12 +31,12 @@
   --color-text-subtle: #502331; /* Midnight Violet +10% */
 
   /* Background colors */
-  --color-bg: #fffffb;
-  --color-bg-alt: #f8f8fa; /* Pale Slate +90% */
+  --color-bg: #fffdf7; /* Warm white */
+  --color-bg-alt: #f6f0e6; /* Warm cream */
   --color-bg-dark: #32161f;
 
   /* UI colors */
-  --color-border: #b8b8d1;
+  --color-border: #e7ddcb; /* Warm sand */
   --color-tag-bg: #eaeaf1; /* Pale Slate +70% */
   --color-tag-text: #32161f;
 
@@ -66,6 +66,56 @@
 
 html {
   scroll-behavior: smooth;
+}
+
+/* Visible only to screen readers */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Skip link: hidden until focused by keyboard */
+.skip-link {
+  position: absolute;
+  left: 0.5rem;
+  top: -4rem;
+  z-index: 1000;
+  padding: 0.75rem 1.25rem;
+  background: var(--color-bg-dark);
+  color: var(--color-white);
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 0.5rem;
+  outline: 2px solid var(--color-sunflower-gold);
+  outline-offset: 2px;
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 body {

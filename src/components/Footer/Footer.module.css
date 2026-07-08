@@ -6,9 +6,7 @@
   border-image: linear-gradient(
       90deg,
       var(--color-dusty-grape) 0%,
-      var(--color-sea-green) 33%,
-      var(--color-sunflower-gold) 66%,
-      var(--color-magenta-bloom) 100%
+      var(--color-sunflower-gold) 100%
     )
     1;
 }
@@ -19,6 +17,12 @@
   text-align: center;
 }
 
+.cta {
+  font-size: 1.15rem;
+  color: var(--color-white);
+  margin: 0 0 2rem;
+}
+
 .social {
   display: flex;
   justify-content: center;
@@ -27,7 +31,7 @@
 }
 
 .copyright {
-  color: var(--color-white-faint);
+  color: var(--color-white-subtle);
   font-size: 0.9rem;
   margin: 0;
 }

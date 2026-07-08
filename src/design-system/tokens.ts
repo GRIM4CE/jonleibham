@@ -31,6 +31,6 @@ export type Surface = (typeof surfaces)[number]
 
 export const surfaceColor: Record<Surface, string> = {
   porcelain: 'var(--color-porcelain)',
-  paleSlate90: '#f8f8fa',
-  dustyGrape90: '#eeeff5',
+  paleSlate90: '#f6f0e6', /* Warm cream */
+  dustyGrape90: '#efe7d9', /* Warm sand */
 }

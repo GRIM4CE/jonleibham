@@ -26,7 +26,15 @@
 .subtitle {
   font-size: 1.5rem;
   color: var(--color-white-muted);
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.tagline {
+  font-size: 1.15rem;
+  line-height: 1.6;
+  color: var(--color-white-muted);
+  max-width: 640px;
+  margin: 0 auto 2.5rem;
 }
 
 .cta {

@@ -1,16 +1,39 @@
 .content {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
+  grid-template-columns: 260px 1fr;
+  gap: 2.5rem;
   align-items: start;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.photo {
+  width: 100%;
+  height: 100%;
+  align-self: start;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: 16px;
+  box-shadow: 0 12px 32px var(--color-shadow-dark);
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
 }
 
 .text p {
-  font-size: 1.1rem;
-  line-height: 1.8;
+  font-size: 1rem;
+  line-height: 1.6;
   color: var(--color-text-subtle);
   margin-bottom: 1rem;
 }
+
+.text p:last-child {
+  margin-bottom: 0;
+}
+
 
 .skillsHeading {
   font-size: 1.3rem;
@@ -18,22 +41,26 @@
   color: var(--color-text);
 }
 
-.tabs {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
-}
-
 .skillList {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
+  /* Reserve space for the tallest tab (Languages wraps to 3 rows) so
+     switching tabs doesn't change the column height — keeps the photo static. */
+  align-content: flex-start;
+  min-height: 7.5rem;
 }
 
 @media (max-width: 768px) {
   .content {
     grid-template-columns: 1fr;
     gap: 2rem;
+  }
+
+  .photo {
+    height: auto;
+    aspect-ratio: 4 / 5;
+    max-width: 260px;
+    margin: 0 auto;
   }
 }

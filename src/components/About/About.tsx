@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Section, SectionTitle, Tag, type Tone } from '../../design-system'
+import { Section, SectionTitle, Tag, Tabs } from '../../design-system'
 import styles from './About.module.css'
 
 const skillCategories = {
@@ -12,15 +12,13 @@ const skillCategories = {
 
 type Category = keyof typeof skillCategories
 
-const categoryTones: Record<Category, Tone> = {
-  'Languages & Frameworks': 'dustyGrape',
-  Testing: 'seaGreen',
-  'Data & APIs': 'sunflowerGold',
-  'DevOps & Tools': 'magentaBloom',
-  AI: 'grapefruitPink',
+const categoryLabels: Record<Category, string> = {
+  'Languages & Frameworks': 'Languages',
+  Testing: 'Testing',
+  'Data & APIs': 'Data & APIs',
+  'DevOps & Tools': 'DevOps',
+  AI: 'AI',
 }
-
-const skillRotation: Tone[] = ['dustyGrape', 'seaGreen', 'magentaBloom', 'sunflowerGold', 'grapefruitPink']
 
 export function About() {
   const [activeTab, setActiveTab] = useState<Category>('Languages & Frameworks')
@@ -29,47 +27,63 @@ export function About() {
     <Section id="about" surface="paleSlate90">
       <SectionTitle accent="sunflowerGold">About Me</SectionTitle>
       <div className={styles.content}>
-        <div className={styles.text}>
-          <p>
-            I'm a Senior Software Engineer with a focus on frontend development.
-            I specialize in building design systems and monorepos that enable
-            teams to deliver seamless, consistent user experiences at scale.
-          </p>
-          <p>
-            I'm passionate about crafting intuitive interfaces, establishing
-            robust component libraries, and creating developer tooling that
-            makes teams more productive.
-          </p>
-          <p>
-            When I'm not coding, you can find me in my workshop doing woodworking,
-            building synthesizers, experimenting in the kitchen, or relaxing with
-            my wife and son.
-          </p>
-        </div>
-        <div className={styles.skills}>
+        <img
+          src="/jon-leibham.jpg"
+          srcSet="/jon-leibham.jpg 900w, /jon-leibham@2x.jpg 1400w"
+          sizes="(max-width: 768px) 100vw, 300px"
+          width={900}
+          height={763}
+          alt="Jon Leibham"
+          className={styles.photo}
+          loading="lazy"
+        />
+        <div className={styles.main}>
+          <div className={styles.text}>
+            <p>
+              I'm a Senior Software Engineer with 10+ years focused on frontend.
+              I build the design systems and monorepos that let teams ship
+              consistent experiences at scale — from migrating a 1.5M+ listing
+              platform to Vue 3 and the Composition API, to a Storybook design
+              system unifying five applications.
+            </p>
+            <p>
+              The fundamentals are where I go deep: I've cut bundle size by 80%,
+              brought load times from 2s to 0.5s, and built the component
+              libraries and developer tooling that make teams faster.
+            </p>
+            <p>
+              Lately I ship complete, AI-native products end to end, self-hosted
+              and security-first, from guardrailed trading engines to
+              Claude-powered PWAs running on my own hardware.
+            </p>
+            <p>
+              When I'm not coding, you can find me in my workshop doing woodworking,
+              building synthesizers, experimenting in the kitchen, or relaxing with
+              my wife and son.
+            </p>
+          </div>
+          <div className={styles.skills}>
           <h3 className={styles.skillsHeading}>Technologies I work with:</h3>
 
-          <div className={styles.tabs}>
-            {(Object.keys(skillCategories) as Category[]).map((category) => (
-              <Tag
-                key={category}
-                tone={categoryTones[category]}
-                textTone={category === 'Data & APIs' ? 'midnightViolet' : 'porcelain'}
-                interactive
-                selected={activeTab === category}
-                onClick={() => setActiveTab(category)}
-              >
-                {category}
-              </Tag>
-            ))}
-          </div>
+          <Tabs
+            items={Object.keys(skillCategories)}
+            active={activeTab}
+            onChange={(value) => setActiveTab(value as Category)}
+            renderLabel={(category) => categoryLabels[category as Category]}
+            label="Technology categories"
+          />
 
-          <div className={styles.skillList}>
-            {skillCategories[activeTab].map((skill, i) => (
-              <Tag key={skill} tone={skillRotation[i % skillRotation.length]} variant="soft">
+          <div
+            className={styles.skillList}
+            aria-live="polite"
+            aria-label={`${activeTab} technologies`}
+          >
+            {skillCategories[activeTab].map((skill) => (
+              <Tag key={skill} tone="dustyGrape" variant="soft">
                 {skill}
               </Tag>
             ))}
+          </div>
           </div>
         </div>
       </div>

@@ -1,20 +1,21 @@
 .card {
   background: var(--card-bg);
   color: var(--card-text);
-  border-radius: 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
   overflow: hidden;
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: border-color 0.2s ease, transform 0.2s ease;
 }
 
-.accent-top {
-  border-top: 4px solid var(--card-accent);
-}
-
-.accent-left {
-  border-left: 4px solid var(--card-accent);
+/* Accent sides intentionally render no visible bar — kept for API
+   compatibility. The clean look relies on a single hairline border. */
+.accent-top,
+.accent-left,
+.accent-none {
+  border-color: var(--color-border);
 }
 
 .hoverable:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 24px var(--color-shadow);
+  border-color: var(--card-accent);
+  transform: translateY(-2px);
 }
