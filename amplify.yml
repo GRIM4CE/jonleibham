@@ -5,7 +5,12 @@ frontend:
       commands:
         - nvm install 24
         - nvm use 24
-        - npm ci
+        - node -v && npm -v
+        # Vite 8's rolldown/oxc toolchain has platform-specific wasm32-wasi
+        # optional deps (@emnapi/*) that npm prunes from a macOS-generated
+        # lockfile, so `npm ci` fails the strict sync check on the linux-x64
+        # builder. `npm install` reconciles them instead of erroring out.
+        - npm install --no-audit --no-fund
     build:
       commands:
         - npm run build
