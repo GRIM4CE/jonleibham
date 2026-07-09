@@ -152,7 +152,7 @@ const projects: Project[] = [
     description:
       'A legacy design portfolio kept as an archive of past work. A Nuxt 4 site with project galleries, fully prerendered to static HTML at build time for fast loads and clean SEO, and deployed via AWS Amplify.',
     technologies: ['Nuxt 4', 'Vue', 'TypeScript', 'SCSS', 'AWS Amplify'],
-    built: 'January 2024',
+    built: 'August 2022',
     liveUrl: 'https://bhamdesigns.com',
     repoUrl: 'https://github.com/GRIM4CE/bhamdesigns',
   },
