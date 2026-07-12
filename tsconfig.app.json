@@ -24,5 +24,9 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src"]
+  "include": ["src"],
+  // Stories are dev-only (they import @storybook/*, which is not installed in
+  // the Amplify production build). They're typechecked via tsconfig.stories.json
+  // (`npm run typecheck:stories`) with a full install, not by the prod build.
+  "exclude": ["src/**/*.stories.tsx", "src/**/*.test.ts", "src/**/*.test.tsx"]
 }
