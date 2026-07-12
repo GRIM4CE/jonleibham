@@ -3,14 +3,21 @@ frontend:
   phases:
     preBuild:
       commands:
-        - nvm install 24
-        - nvm use 24
+        # Reuse the Node 24.x already baked into the Amplify build image (see
+        # .nvmrc); only fall back to a download if the image lacks it. Avoids
+        # re-fetching the Node tarball on every build.
+        - nvm use 2>/dev/null || nvm install
         - node -v && npm -v
         # Vite 8's rolldown/oxc toolchain has platform-specific wasm32-wasi
         # optional deps (@emnapi/*) that npm prunes from a macOS-generated
         # lockfile, so `npm ci` fails the strict sync check on the linux-x64
         # builder. `npm install` reconciles them instead of erroring out.
-        - npm install --no-audit --no-fund
+        #
+        # PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD skips the ~hundreds-of-MB Chromium
+        # download pulled in by the playwright/@vitest test deps — the
+        # production build only runs `tsc -b && vite build` and never a browser.
+        # --prefer-offline reuses the cached npm store when node_modules is warm.
+        - PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm install --no-audit --no-fund --prefer-offline
     build:
       commands:
         - npm run build
