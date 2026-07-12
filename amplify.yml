@@ -13,11 +13,14 @@ frontend:
         # lockfile, so `npm ci` fails the strict sync check on the linux-x64
         # builder. `npm install` reconciles them instead of erroring out.
         #
-        # PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD skips the ~hundreds-of-MB Chromium
-        # download pulled in by the playwright/@vitest test deps — the
-        # production build only runs `tsc -b && vite build` and never a browser.
-        # --prefer-offline reuses the cached npm store when node_modules is warm.
-        - PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm install --no-audit --no-fund --prefer-offline
+        # --omit=dev skips the Storybook/Vitest/Playwright/ESLint tree entirely
+        # (~250 packages). The production build only needs `tsc -b && vite build`,
+        # whose tools live in "dependencies"; test/lint tooling is dev-only and
+        # never runs on Amplify. This shrinks the install and the cached
+        # node_modules that Amplify restores/saves on every build.
+        # PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD is a belt-and-suspenders guard against
+        # a Chromium download; --prefer-offline reuses the warm npm store.
+        - PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm install --omit=dev --no-audit --no-fund --prefer-offline
     build:
       commands:
         - npm run build
