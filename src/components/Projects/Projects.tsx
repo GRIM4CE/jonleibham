@@ -51,28 +51,21 @@ const projects: Project[] = [
   {
     title: 'Stonk',
     description:
-      'A personal options-income and stock-discovery cockpit with Claude in the loop for screening, discovery, and conversational research. Deterministic screeners rank covered-call setups across a ~600-name universe, surface undervalued and turnaround names, and flag meme spikes, with Discord/email alerts on holdings and a Claude chat agent that drives the same screeners via tool use. Informational only, not investment advice. Architected and directed end-to-end, implemented with AI pair-programming.',
+      'My covered-call income and stock-discovery cockpit, with Claude in the loop for screening and discovery. Deterministic screeners rank the best near-dated covered-call setups across a ~600-name universe, dig up undervalued and turnaround names, and track my open positions — with Discord and email alerts when a fresh setup or a buy-back target hits. Market data is pluggable: yfinance, Tradier, or the Schwab Trader API.',
     technologies: ['FastAPI', 'Python', 'Vue 3', 'TypeScript', 'Claude API', 'Docker'],
-    built: 'May 2026',
-  },
-  {
-    title: 'Traitor',
-    description:
-      'A security-first engine for automated equity trading against the Schwab Trader API. Strategies are treated as untrusted and only emit intents; the engine independently enforces hard guardrails: symbol allowlists, per-order/day dollar caps, cash-only limit orders, and an equity-floor auto-halt kill switch. Real orders require two independent opt-ins, secrets are Fernet-encrypted at rest, and every decision (including blocked orders) is written to an append-only audit journal. Architected and directed end-to-end, implemented with AI pair-programming.',
-    technologies: ['Python', 'Schwab Trader API', 'Vue 3', 'Cryptography (Fernet)', '1Password CLI'],
     built: 'July 2026',
   },
   {
     title: 'Finance PWA',
     description:
-      'A private, installable household finance PWA built to replace a stack of Google Sheets: net worth, budgets, recurring bills, transactions, and a stock portfolio for a two-person household. Handles multi-currency accounts, AI-assisted CSV/PDF statement import and categorization, and historical net-worth snapshots. Self-hosted on a Synology NAS and reachable only over a private Tailscale network. Architected and directed end-to-end, implemented with AI pair-programming.',
+      'A private, installable finance PWA I built to replace a stack of Google Sheets: net worth, budgets, recurring bills, transactions, and a stock portfolio for a two-person household. Handles multi-currency accounts, AI-assisted CSV/PDF statement import and categorization, and historical net-worth snapshots. Self-hosted on a Synology NAS, reachable only over Tailscale.',
     technologies: ['SvelteKit', 'Svelte 5', 'TypeScript', 'Tailwind CSS v4', 'libSQL', 'PWA'],
     built: 'April 2026',
   },
   {
     title: 'Job Finder',
     description:
-      'A personal Vue + TypeScript PWA that uses Claude AI to tailor your resume to any job posting, surface skill gaps, and manage the full application pipeline from search to follow-up. Architected and directed end-to-end, implemented with AI pair-programming.',
+      'A Vue + TypeScript PWA that uses Claude to tailor my resume to any job posting, call out skill gaps, and track the whole application pipeline from first search to follow-up.',
     technologies: [
       'Vue 3',
       'TypeScript',
@@ -87,7 +80,7 @@ const projects: Project[] = [
   {
     title: 'Todos PWA',
     description:
-      'A Next.js 16 progressive web app for personal and household todo and habit tracking with TOTP-based authentication and a daily cleanup cron, self-hosted on a Synology NAS behind Tailscale. Architected and directed end-to-end, implemented with AI pair-programming.',
+      'A Next.js 16 PWA for personal and household todos and habit tracking, with TOTP auth and a daily cleanup cron. Self-hosted on a Synology NAS behind Tailscale.',
     technologies: [
       'Next.js 16',
       'TypeScript',
@@ -101,14 +94,14 @@ const projects: Project[] = [
   {
     title: 'Uppercut',
     description:
-      'A self-hosted uploader PWA for your NAS: snap photos, record video or voice notes, upload documents, and send messages from any device, and they land as neatly organized files with JSON metadata on your own storage. Installs to the home screen and captures straight from the device camera and mic. Access is locked to a private Tailscale network, with nothing exposed to the public internet. Architected and directed end-to-end, implemented with AI pair-programming.',
+      'A self-hosted uploader PWA for my NAS: snap a photo, record video or a voice note, upload a document, or fire off a message from any device, and it all lands as neatly organized files with JSON metadata on my own storage. Installs to the home screen and captures straight from the device camera and mic. Locked behind Tailscale — nothing exposed to the public internet.',
     technologies: ['React', 'Vite', 'Express', 'Docker', 'Tailscale'],
     built: 'July 2026',
   },
   {
     title: 'Joebot',
     description:
-      "A Discord bot that answers in one specific person's voice. It builds a persona profile from a corpus of things he's actually written, then replies in-character when mentioned (with server-side web search for current events) or dodges with a weighted-random canned one-liner. Hard-capped Claude usage and a hand-maintained guardrails file keep it on-brand. Architected and directed end-to-end, implemented with AI pair-programming.",
+      "A Discord bot that answers in one specific friend's voice. It builds a persona profile from a corpus of things he's actually written, then replies in-character when mentioned (with server-side web search for current events) or dodges with a weighted-random canned one-liner. Hard-capped Claude usage and a hand-maintained guardrails file keep it on-brand.",
     technologies: ['TypeScript', 'Node.js', 'Claude API', 'Discord.js'],
     built: 'June 2026',
   },
@@ -131,7 +124,7 @@ const projects: Project[] = [
   {
     title: 'Chat App',
     description:
-      'A real-time chat application I architected and directed end-to-end, implemented with AI pair-programming. Features basic authentication and WebSocket-based messaging.',
+      'A real-time chat app with WebSocket messaging and basic auth — a small full-stack exercise in Node, Express, and PostgreSQL.',
     technologies: ['Node.js', 'Express', 'WebSockets', 'PostgreSQL', 'JavaScript'],
     built: 'April 2026',
     liveUrl: 'https://claude-sandbox-1x1f.onrender.com',
@@ -140,7 +133,7 @@ const projects: Project[] = [
   {
     title: 'Web Synth Wizard',
     description:
-      'A web-based synthesizer application built with Vue 3 and the Web Audio API, allowing users to create and manipulate sounds directly in the browser.',
+      'A synthesizer that runs entirely in the browser, built on Vue 3 and the Web Audio API — patch together and tweak sounds with no plugins or installs.',
     technologies: ['Vue 3', 'TypeScript', 'Web Audio API', 'Sass', 'Vite'],
     built: 'January 2024',
     liveUrl: 'https://websynthwizard.com/',
@@ -150,7 +143,7 @@ const projects: Project[] = [
   {
     title: 'bhamdesigns',
     description:
-      'A legacy design portfolio kept as an archive of past work. A Nuxt 4 site with project galleries, fully prerendered to static HTML at build time for fast loads and clean SEO, and deployed via AWS Amplify.',
+      'My old design portfolio, kept around as an archive of past work — a Nuxt 4 site with project galleries, fully prerendered to static HTML at build time for fast loads and clean SEO, deployed on AWS Amplify.',
     technologies: ['Nuxt 4', 'Vue', 'TypeScript', 'SCSS', 'AWS Amplify'],
     built: 'August 2022',
     liveUrl: 'https://bhamdesigns.com',
@@ -178,7 +171,7 @@ const utilities: Utility[] = [
   {
     title: 'm4a2wav',
     description:
-      'Simple Node.js batch audio converter that converts Apple M4A files to WAV format.',
+      'Small Node.js batch converter that turns Apple M4A files into WAVs.',
     technologies: ['Node.js', 'JavaScript'],
     built: 'May 2024',
     repoUrl: 'https://github.com/GRIM4CE/m4a2wav',
@@ -194,7 +187,7 @@ const utilities: Utility[] = [
   {
     title: 'TV Formatter',
     description:
-      'Script that utilizes the TVDB API to automatically format TV series filenames.',
+      'Script that uses the TVDB API to auto-format TV series filenames.',
     technologies: ['Node.js', 'Axios', 'TVDB API'],
     built: 'February 2022',
     repoUrl: 'https://github.com/GRIM4CE/tv-formater',
