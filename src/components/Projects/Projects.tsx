@@ -51,15 +51,8 @@ const projects: Project[] = [
   {
     title: 'Stonk',
     description:
-      'A personal options-income and stock-discovery cockpit with Claude in the loop for screening, discovery, and conversational research. Deterministic screeners rank covered-call setups across a ~600-name universe, surface undervalued and turnaround names, and flag meme spikes, with Discord/email alerts on holdings and a Claude chat agent that drives the same screeners via tool use. Informational only, not investment advice. Architected and directed end-to-end, implemented with AI pair-programming.',
+      'A personal covered-call income and stock-discovery cockpit with Claude in the loop for screening and discovery. Deterministic screeners rank the best near-dated covered-call setups across a ~600-name universe, surface undervalued bargains and turnaround candidates, and track your open positions, with Discord/email alerts on fresh setups and buy-back targets for calls you\'ve sold. Pluggable market-data providers (yfinance, Tradier, or the Schwab Trader API). Informational only, not investment advice. Architected and directed end-to-end, implemented with AI pair-programming.',
     technologies: ['FastAPI', 'Python', 'Vue 3', 'TypeScript', 'Claude API', 'Docker'],
-    built: 'May 2026',
-  },
-  {
-    title: 'Traitor',
-    description:
-      'A security-first engine for automated equity trading against the Schwab Trader API. Strategies are treated as untrusted and only emit intents; the engine independently enforces hard guardrails: symbol allowlists, per-order/day dollar caps, cash-only limit orders, and an equity-floor auto-halt kill switch. Real orders require two independent opt-ins, secrets are Fernet-encrypted at rest, and every decision (including blocked orders) is written to an append-only audit journal. Architected and directed end-to-end, implemented with AI pair-programming.',
-    technologies: ['Python', 'Schwab Trader API', 'Vue 3', 'Cryptography (Fernet)', '1Password CLI'],
     built: 'July 2026',
   },
   {
