@@ -29,6 +29,102 @@ function tintFor(technologies: string[]): string {
   return FALLBACK_TINT
 }
 
+// --- Tag categories & filter grouping ------------------------------------
+
+// Collapse framework variants and meta-frameworks onto a canonical family name,
+// so filtering by "React" also matches "React 19" and "Next.js", and "Vue"
+// matches "Nuxt". Cards keep their original tag text; only filtering uses this.
+const TECH_ALIASES: Record<string, string> = {
+  'Next.js': 'React',
+  Nuxt: 'Vue',
+  SvelteKit: 'Svelte',
+  TailwindCSS: 'Tailwind CSS',
+}
+
+function canonicalTech(tech: string): string {
+  // Strip a trailing version token: "React 19" → "React", "Tailwind CSS v4" → "Tailwind CSS".
+  const base = tech.replace(/\s+v?\d+(?:\.\d+)*$/i, '').trim()
+  return TECH_ALIASES[base] ?? base
+}
+
+// Each technology belongs to a discipline, which drives its tag color. Keyed by
+// canonical name, so version variants (React 19) and meta-frameworks (Next.js)
+// inherit their family's category automatically.
+type TechCategory = 'frontend' | 'backend' | 'devops' | 'embedded' | 'testing'
+
+const CATEGORY_TONE: Record<TechCategory, Tone> = {
+  frontend: 'dustyGrape', // indigo
+  backend: 'seaGreen', // green
+  devops: 'sunflowerGold', // gold
+  embedded: 'flagRed', // red
+  testing: 'magentaBloom', // pink (reserved — nothing maps here yet)
+}
+
+const TECH_CATEGORY: Record<string, TechCategory> = {
+  // Frontend — UI frameworks, styling, browser/app APIs
+  React: 'frontend',
+  Vue: 'frontend',
+  Svelte: 'frontend',
+  Vite: 'frontend',
+  PWA: 'frontend',
+  'Tailwind CSS': 'frontend',
+  Sass: 'frontend',
+  SCSS: 'frontend',
+  'React Three Fiber': 'frontend',
+  'Web Audio API': 'frontend',
+  Swift: 'frontend',
+  SwiftUI: 'frontend',
+  PDFKit: 'frontend',
+  macOS: 'frontend',
+  // Backend — servers, runtimes, APIs, databases, AI
+  FastAPI: 'backend',
+  Express: 'backend',
+  Flask: 'backend',
+  'Node.js': 'backend',
+  WebSockets: 'backend',
+  'Discord.js': 'backend',
+  Axios: 'backend',
+  'TVDB API': 'backend',
+  'Sharp.js': 'backend',
+  ffmpeg: 'backend',
+  'MLX Whisper': 'backend',
+  'Claude API': 'backend',
+  'TOTP Auth': 'backend',
+  Python: 'backend',
+  SQLite: 'backend',
+  PostgreSQL: 'backend',
+  MongoDB: 'backend',
+  libSQL: 'backend',
+  'Turso (libSQL)': 'backend',
+  // DevOps / cloud / infra / tooling
+  Docker: 'devops',
+  'AWS Lambda': 'devops',
+  'AWS Amplify': 'devops',
+  'AWS Cognito': 'devops',
+  Tailscale: 'devops',
+  uv: 'devops',
+  // Embedded
+  ESP32: 'embedded',
+  'C++ / Arduino': 'embedded',
+}
+
+// TypeScript and JavaScript run on both sides of the stack, so they borrow their
+// color from the card: frontend if the card ships any UI tech, otherwise backend.
+const WEB_LANGUAGES = new Set(['TypeScript', 'JavaScript'])
+
+function categoryOf(tech: string): TechCategory | undefined {
+  return TECH_CATEGORY[canonicalTech(tech)]
+}
+
+function toneForTech(tech: string, technologies: string[]): Tone {
+  if (WEB_LANGUAGES.has(tech)) {
+    const shipsUi = technologies.some((t) => categoryOf(t) === 'frontend')
+    return CATEGORY_TONE[shipsUi ? 'frontend' : 'backend']
+  }
+  const category = categoryOf(tech)
+  return category ? CATEGORY_TONE[category] : 'paleSlate' // neutral grey for anything unmapped
+}
+
 interface Project {
   title: string
   description: string
@@ -48,6 +144,23 @@ interface Utility {
 }
 
 const projects: Project[] = [
+  {
+    title: 'Recipe Book',
+    description:
+      'A recipe app for two, styled after a Highball-inspired grid of colorful recipe cards with search, category filtering, and serving-size scaling. Anyone can browse; only I can add or edit — from the web app or a bearer-token API. A React 19 front end with an Express 5 backend on AWS Lambda, Turso (libSQL) for data, and S3 presigned uploads for photos, all behind Cognito auth on AWS Amplify.',
+    technologies: [
+      'React 19',
+      'TypeScript',
+      'Vite',
+      'Express 5',
+      'AWS Lambda',
+      'Turso (libSQL)',
+      'AWS Cognito',
+    ],
+    built: 'July 2026',
+    liveUrl: 'https://recipes.jonleibham.com/',
+    repoUrl: 'https://github.com/GRIM4CE/recipe-book',
+  },
   {
     title: 'Stonk',
     description:
@@ -69,7 +182,7 @@ const projects: Project[] = [
     technologies: [
       'Vue 3',
       'TypeScript',
-      'TailwindCSS',
+      'Tailwind CSS',
       'Claude API',
       'Node.js',
       'Express',
@@ -207,10 +320,14 @@ const cardAccent: Tone = 'dustyGrape'
 const ALL_FILTER = 'All'
 
 // Technologies used by more than one item make useful filters; single-use
-// tech would just create dead-end filters showing one card.
+// tech would just create dead-end filters showing one card. Grouped by canonical
+// family (so React 19 / Next.js all count toward "React"), deduped per item.
 function deriveFilters(items: { technologies: string[] }[]): string[] {
   const counts = new Map<string, number>()
-  items.forEach((item) => item.technologies.forEach((t) => counts.set(t, (counts.get(t) ?? 0) + 1)))
+  items.forEach((item) => {
+    const families = new Set(item.technologies.map(canonicalTech))
+    families.forEach((f) => counts.set(f, (counts.get(f) ?? 0) + 1))
+  })
   return Array.from(counts.entries())
     .filter(([, n]) => n >= 2)
     .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
@@ -246,12 +363,16 @@ export function Projects() {
   const visibleProjects =
     projectFilter === ALL_FILTER
       ? projects
-      : projects.filter((project) => project.technologies.includes(projectFilter))
+      : projects.filter((project) =>
+          project.technologies.some((t) => canonicalTech(t) === projectFilter),
+        )
 
   const visibleUtilities =
     utilityFilter === ALL_FILTER
       ? utilities
-      : utilities.filter((utility) => utility.technologies.includes(utilityFilter))
+      : utilities.filter((utility) =>
+          utility.technologies.some((t) => canonicalTech(t) === utilityFilter),
+        )
 
   return (
     <>
@@ -304,7 +425,7 @@ export function Projects() {
                   {project.technologies.map((tech) => (
                     <Tag
                       key={tech}
-                      tone="dustyGrape"
+                      tone={toneForTech(tech, project.technologies)}
                       variant="soft"
                     >
                       {tech}
@@ -373,7 +494,7 @@ export function Projects() {
                   {utility.technologies.map((tech) => (
                     <Tag
                       key={tech}
-                      tone="dustyGrape"
+                      tone={toneForTech(tech, utility.technologies)}
                       variant="soft"
                     >
                       {tech}
