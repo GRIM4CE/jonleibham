@@ -46,6 +46,12 @@
   flex: 1;
 }
 
+/* Heading and chips stack on mobile and pair up on desktop; `contents` keeps
+   them in the scope's own column until then. */
+.topRow {
+  display: contents;
+}
+
 .filters {
   padding: 20px var(--gutter) 0;
 }
@@ -74,12 +80,30 @@
   counter-increment: row;
 }
 
+/*
+ * One grid serves both designs. Mobile runs three rows — title beside the
+ * year, then the blurb, then the stack line — with the spine spanning all of
+ * them. Desktop respans the same cells into four columns. Every cell has to be
+ * a direct child for that to work, so `.content` and `.head` are
+ * `display: contents`: they group the markup for reading order and contribute
+ * nothing to the layout.
+ */
 .row {
-  display: flex;
-  gap: 16px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-areas:
+    'spine title year'
+    'spine blurb blurb'
+    'spine stack stack';
+  column-gap: 16px;
   padding: 20px var(--gutter);
   border-top: 1px solid var(--hairline-soft);
   transition: background-color 0.15s ease;
+}
+
+.content,
+.head {
+  display: contents;
 }
 
 .row:hover {
@@ -117,7 +141,7 @@
 }
 
 .spine {
-  flex: none;
+  grid-area: spine;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -145,19 +169,11 @@
   background: var(--row-spine);
 }
 
-.content {
-  flex: 1;
-  min-width: 0;
-}
-
-.head {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 10px;
-}
-
+/* Title and year share a baseline across two grid columns. */
 .rowTitle {
+  grid-area: title;
+  align-self: baseline;
+  min-width: 0;
   font-size: 19px;
   font-weight: 800;
   line-height: 1.15;
@@ -165,7 +181,8 @@
 }
 
 .year {
-  flex: none;
+  grid-area: year;
+  align-self: baseline;
   font-family: var(--font-mono);
   font-size: 10px;
   font-weight: 500;
@@ -173,6 +190,8 @@
 }
 
 .blurb {
+  grid-area: blurb;
+  min-width: 0;
   margin-top: 7px;
   font-size: 13px;
   line-height: 1.5;
@@ -180,7 +199,11 @@
   text-wrap: pretty;
 }
 
+/* The mobile stack: one mono line. Its desktop counterpart is `.stackChips`,
+   and exactly one of the two is ever rendered. */
 .stackLine {
+  grid-area: stack;
+  min-width: 0;
   margin-top: 10px;
   font-family: var(--font-mono);
   font-size: 9.5px;
@@ -188,6 +211,15 @@
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: var(--tint-deep);
+}
+
+.stackChips {
+  display: none;
+}
+
+/* Column headings belong to the desktop index only. */
+.columnHeads {
+  display: none;
 }
 
 /* ── Utilities collapse ───────────────────────────────────────────────────*/
@@ -332,4 +364,207 @@
 .filterScope:has(input[name='work-filter'][value='AI']:checked) .collapse {
   margin-top: 0;
   padding-top: 0;
+}
+
+/* ── Desktop ───────────────────────────────────────────────────────────────
+ * The index is the one screen whose structure genuinely changes: the stack
+ * leaves the mono line for chips in a column of their own, and the year moves
+ * off the title's baseline into a right-aligned column. Everything else is the
+ * mobile screen at a larger measure.
+ *
+ * This screen is capped wider than the others because it is the only one that
+ * needs the width — four columns do not fit in 760.
+ */
+@media (min-width: 768px) {
+  .screen {
+    --col-cap: 960px;
+  }
+
+  .topRow {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 40px;
+  }
+
+  .header {
+    flex: none;
+  }
+
+  .headerRow {
+    gap: 18px;
+  }
+
+  .heading {
+    font-size: 52px;
+    letter-spacing: -0.04em;
+  }
+
+  .meta {
+    margin-top: 16px;
+    font-size: 11.5px;
+    letter-spacing: 0.07em;
+  }
+
+  .filters {
+    flex: none;
+    padding: 0;
+  }
+
+  .counterScope {
+    margin-top: 32px;
+  }
+
+  /* The same four tracks as the rows below, so the labels sit over their
+     columns. The rule under it is the only line between head and first row,
+     which is why rows switch from a top border to a bottom one. */
+  .columnHeads {
+    display: grid;
+    grid-template-columns: 44px 1fr 300px 64px;
+    column-gap: 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--hairline);
+  }
+
+  .columnHead {
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--tint-deep);
+  }
+
+  .columnHead:last-child {
+    text-align: right;
+  }
+
+  .row {
+    grid-template-columns: 44px 1fr 300px 64px;
+    grid-template-areas:
+      'spine title stack year'
+      'spine blurb stack year';
+    column-gap: 24px;
+    padding: 22px 0;
+    border-top: none;
+    border-bottom: 1px solid var(--hairline-soft);
+  }
+
+  /* Just the number here — the spine bar is a mobile device for holding the
+     row together when the columns are stacked. */
+  .spine {
+    align-items: flex-start;
+    padding-left: 14px;
+  }
+
+  .bar {
+    display: none;
+  }
+
+  .index {
+    font-size: 11px;
+  }
+
+  .rowTitle {
+    font-size: 22px;
+    letter-spacing: -0.03em;
+  }
+
+  .blurb {
+    margin-top: 8px;
+    font-size: 14px;
+    max-width: 52ch;
+  }
+
+  .stackLine {
+    display: none;
+  }
+
+  .stackChips {
+    grid-area: stack;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    gap: 6px;
+    min-width: 0;
+  }
+
+  .stackChip {
+    padding: 6px 11px;
+    border-radius: var(--radius-pill);
+    background: var(--tint-fill);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 500;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .year {
+    justify-self: end;
+    align-self: start;
+    padding-top: 4px;
+    font-size: 11px;
+  }
+
+  .collapse {
+    margin-inline: 0;
+    padding-bottom: 0;
+  }
+
+  .utilityRows .row {
+    margin-inline: 0;
+  }
+}
+
+/*
+ * 768–1023: the rail still eats 72px and the pane is capped at 960, but four
+ * columns plus a 300px stack column crowd the title out. The stack column is
+ * the one the handoff drops here.
+ *
+ * Dropping the *column* is not the same as dropping the stack. The chips go
+ * and the mono line comes back in their place, under the blurb exactly as on
+ * mobile — otherwise this band would be the only width at which the page never
+ * says what anything is built with.
+ */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .columnHeads,
+  .row {
+    grid-template-columns: 44px 1fr 64px;
+  }
+
+  .row {
+    grid-template-areas:
+      'spine title year'
+      'spine blurb year'
+      'spine stack year';
+  }
+
+  .columnHead:nth-child(3) {
+    display: none;
+  }
+
+  .stackChips {
+    display: none;
+  }
+
+  .stackLine {
+    display: block;
+  }
+}
+
+/*
+ * 1024–1279: the stack column is back but the rail has taken 248px and the
+ * pane has not yet reached its 960 cap, so the four tracks are competing for
+ * around 680px. At the drawn 300px the stack leaves the project title barely
+ * 200px and every blurb breaks over three lines. Narrowing the two fixed
+ * columns hands that width back to the title, which is the column that has to
+ * be readable.
+ */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .columnHeads,
+  .row {
+    grid-template-columns: 40px 1fr 220px 56px;
+    column-gap: 18px;
+  }
 }

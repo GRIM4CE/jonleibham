@@ -144,3 +144,110 @@
 .email {
   flex: 1;
 }
+
+/* ── Desktop ───────────────────────────────────────────────────────────────
+ * Portrait beside the heading at the top of the column, then bio, stack and
+ * contact running the full column beneath it — the same stack order as mobile,
+ * only wider.
+ */
+@media (min-width: 768px) {
+  .portraitRow {
+    align-items: flex-end;
+    gap: 32px;
+  }
+
+  .portrait {
+    width: 216px;
+    height: 264px;
+  }
+
+  .identity {
+    flex: 1;
+    min-width: 0;
+    padding-top: 0;
+    padding-bottom: 6px;
+  }
+
+  .name {
+    font-size: 54px;
+    line-height: 0.98;
+    letter-spacing: -0.045em;
+  }
+
+  .role {
+    margin-top: 18px;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+  }
+
+  .location {
+    margin-top: 8px;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+  }
+
+  .bio {
+    padding: 30px 0 0;
+  }
+
+  .bioLead,
+  .bioBody {
+    font-size: 17px;
+    line-height: 1.6;
+    /* Body measure. Never the full pane width. */
+    max-width: 62ch;
+  }
+
+  .bioBody {
+    margin-top: 14px;
+  }
+
+  .stack {
+    padding: 32px 0 0;
+  }
+
+  .stackLabel {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+  }
+
+  .panel {
+    gap: 8px;
+    margin-top: 18px;
+  }
+
+  .foot {
+    padding: 0;
+  }
+
+  .offClock {
+    gap: 14px;
+    padding: 22px 0 0;
+  }
+
+  .offClockText {
+    font-size: 13.5px;
+  }
+
+  .actions {
+    gap: 16px;
+    padding-top: 20px;
+  }
+
+  /* Sized to its label rather than stretched: the row no longer has two
+     circular marks holding the other end. */
+  .email {
+    flex: none;
+  }
+}
+
+/*
+ * From 1024 the rail's foot appears and carries Email / LinkedIn / GitHub on
+ * every screen, so the marks here would be a second copy of the same two
+ * links. Below that the rail is icon-only and has no foot, so they stay.
+ */
+@media (min-width: 1024px) {
+  .actions > a:not(.email) {
+    display: none;
+  }
+}

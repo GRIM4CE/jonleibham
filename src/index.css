@@ -92,6 +92,45 @@
   }
 }
 
+/* ── Desktop ───────────────────────────────────────────────────────────────
+   Below 768 the mobile design stands untouched. From 768 up the bottom tab bar
+   becomes a persistent left rail and each screen becomes a single flush-left
+   column with the remaining width left as open ground.
+
+   Three steps, matching the handoff's responsive plan:
+     768–1023   rail collapses to an icon-only 72px column
+     1024–1279  rail at full width, tighter pane padding, smaller hero
+     1280+      the desktop as drawn
+
+   `--col-cap` is the width of the column itself; each screen overrides it in
+   its own module (760 default, 860 on Career, 960 on Work). The pane padding
+   is added on top of it in App.module.css. */
+@media (min-width: 768px) {
+  :root {
+    --rail-width: 72px;
+    --pane-pad-block-start: 48px;
+    --pane-pad-inline: 48px;
+    --pane-pad-block-end: 48px;
+    --col-cap: 760px;
+    --hero-size: 72px;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --rail-width: 248px;
+  }
+}
+
+@media (min-width: 1280px) {
+  :root {
+    --pane-pad-block-start: 60px;
+    --pane-pad-inline: 72px;
+    --pane-pad-block-end: 56px;
+    --hero-size: 92px;
+  }
+}
+
 body {
   margin: 0;
   min-width: 320px;

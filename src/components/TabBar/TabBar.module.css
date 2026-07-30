@@ -1,6 +1,9 @@
 /*
  * The raised bar the whole app sits on. No fill behind the active tab, no pill
  * and no indicator rule — color alone carries the state.
+ *
+ * The brand block and the foot belong to the rail; below 768 they are not
+ * rendered at all, which also keeps them out of the accessibility tree.
  */
 .tabs {
   flex: none;
@@ -9,6 +12,16 @@
   padding: 12px 12px max(26px, env(safe-area-inset-bottom));
   background: var(--ground-raised);
   border-top: 1px solid var(--hairline-soft);
+}
+
+.brand,
+.foot {
+  display: none;
+}
+
+/* The four anchors are the grid's cells, so the wrapper has to disappear. */
+.destinations {
+  display: contents;
 }
 
 .tab {
@@ -28,4 +41,179 @@
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+/* ── Rail ──────────────────────────────────────────────────────────────────
+ * From 768 the bar stands up as a full-height column on the left. `order`
+ * rather than a DOM change: the nav stays last in source order, as it was on
+ * mobile, so nothing about the reading order shifts with the viewport.
+ *
+ * At this step it is icon-only at 72px wide — the labels and the brand and
+ * contact blocks come back at 1024, where there is room for them.
+ */
+@media (min-width: 768px) {
+  .tabs {
+    order: -1;
+    width: var(--rail-width);
+    display: flex;
+    flex-direction: column;
+    padding: 36px 16px 30px;
+    background: var(--ground-raised);
+    border-top: none;
+    border-right: 1px solid var(--hairline-soft);
+  }
+
+  .destinations {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .tab {
+    flex-direction: row;
+    justify-content: center;
+    gap: 13px;
+    height: 46px;
+    min-height: 0;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    transition:
+      color 0.15s ease,
+      background-color 0.15s ease;
+  }
+
+  .tab:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 251, 0.05);
+  }
+
+  .icon {
+    flex: none;
+    width: 19px;
+    height: 19px;
+  }
+
+  /* Icon-only until the rail is wide enough to carry text. The label is still
+     in the document for the tooltip and for assistive tech. */
+  .label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
+@media (min-width: 1024px) {
+  .tabs {
+    padding: 36px 24px 30px;
+  }
+
+  .brand {
+    display: block;
+    padding: 0 12px;
+  }
+
+  .wordmark {
+    display: block;
+    font-size: 20px;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+
+  .wordmarkTitle {
+    display: block;
+    margin-top: 10px;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+  }
+
+  .destinations {
+    margin-top: 44px;
+  }
+
+  .tab {
+    justify-content: flex-start;
+    padding: 0 12px;
+  }
+
+  /* Restores the label the 72px rail suppressed. */
+  .label {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip-path: none;
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: inherit;
+    letter-spacing: normal;
+    text-transform: none;
+  }
+
+  /* Pinned to the bottom edge: contact is reachable from every screen, which
+     is the whole reason the rail earns its width. */
+  .foot {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: auto;
+    padding-top: 30px;
+  }
+
+  .availability {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 9px 13px;
+    border: 1px solid var(--success-line);
+    background: var(--success-fill);
+    border-radius: var(--radius-pill);
+  }
+
+  .dot {
+    display: block;
+    flex: none;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--success);
+  }
+
+  .availabilityLabel {
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--success);
+  }
+
+  .contact {
+    display: flex;
+    gap: 7px;
+  }
+
+  /* The rail's own 40px step, between the design system's sm and md. */
+  .contactAction {
+    height: 40px;
+    font-size: 12px;
+  }
+
+  .contact > .contactAction:first-child {
+    flex: 1;
+  }
+
+  .contact > .contactAction:not(:first-child) {
+    flex: none;
+    width: 40px;
+    padding: 0;
+  }
 }

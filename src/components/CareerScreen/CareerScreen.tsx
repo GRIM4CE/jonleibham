@@ -34,6 +34,22 @@ export function CareerScreen() {
       <ol className={styles.timeline}>
         {roles.map((role, index) => (
           <li key={role.company} className={styles.entry}>
+            {/*
+             * The desktop gutter. Hidden below 768, where the same dates read
+             * off the mono line under the company instead — and `aria-hidden`
+             * because that line is still in the document at every width, so
+             * without it the years would be announced twice.
+             *
+             * Roles that carry a tenure badge put their range on top and the
+             * tenure beneath; Freelance has only the range, in `badge`.
+             */}
+            <span className={styles.dates} aria-hidden="true">
+              <span className={role.current ? styles.datesRangeCurrent : styles.datesRange}>
+                {role.dates || role.badge}
+              </span>
+              {role.dates && <span className={styles.datesTenure}>{role.badge}</span>}
+            </span>
+
             <span className={styles.rail} aria-hidden="true">
               <i
                 className={[
@@ -58,7 +74,9 @@ export function CareerScreen() {
               </div>
               {role.title && (
                 <p className={styles.role}>
-                  {role.title} · {role.dates}
+                  {role.title}
+                  {/* Folded away on desktop, where the gutter has the years. */}
+                  <span className={styles.roleDates}> · {role.dates}</span>
                 </p>
               )}
               {role.proofPoints.map((point) => (
@@ -71,20 +89,27 @@ export function CareerScreen() {
         ))}
       </ol>
 
-      <div className={styles.education}>
-        <span className={styles.educationIcon} aria-hidden="true">
-          <Icon name="graduationCap" size={19} />
-        </span>
-        <div>
-          <p className={styles.degree}>{education.degree}</p>
-          <p className={styles.school}>{education.school}</p>
+      {/*
+       * Two stacked blocks on mobile — `display: contents` keeps them that way
+       * — and a single pinned card on desktop, where the degree and the "why"
+       * line share one tinted row separated by a rule.
+       */}
+      <div className={styles.foot}>
+        <div className={styles.education}>
+          <span className={styles.educationIcon} aria-hidden="true">
+            <Icon name="graduationCap" size={19} />
+          </span>
+          <div>
+            <p className={styles.degree}>{education.degree}</p>
+            <p className={styles.school}>{education.school}</p>
+          </div>
         </div>
-      </div>
 
-      <p className={styles.footer}>
-        <span className={styles.footerLabel}>Why</span>
-        <span className={styles.footerText}>{profile.why}</span>
-      </p>
+        <p className={styles.footer}>
+          <span className={styles.footerLabel}>Why</span>
+          <span className={styles.footerText}>{profile.why}</span>
+        </p>
+      </div>
     </section>
   )
 }

@@ -1,6 +1,14 @@
 import { Button, Icon } from '../../design-system'
 import { metrics, profile } from '../../data/profile'
+import { projects } from '../../data/projects'
 import styles from './HomeScreen.module.css'
+
+/**
+ * The featured project, which is also what the Work index puts first. Taken
+ * from the data rather than named here, so promoting a different project moves
+ * this card with it.
+ */
+const latest = projects.find((project) => project.featured) ?? projects[0]
 
 /**
  * Who Jon is, three numbers that prove it, and two ways to act — the twenty
@@ -60,6 +68,23 @@ export function HomeScreen() {
           Get in touch
         </Button>
       </div>
+
+      {/*
+       * Desktop only. The mobile screen has no room for it and reaches the
+       * same project through the Work tab; here the column is tall enough that
+       * the space below the actions would otherwise just be empty.
+       */}
+      <a className={styles.latest} href={`#p-${latest.id}`}>
+        <span className={styles.latestMeta}>
+          <span className={styles.latestLabel}>Latest</span>
+          <span className={styles.latestDate}>{latest.shipped}</span>
+        </span>
+        <span className={styles.latestBody}>
+          <span className={styles.latestTitle}>{latest.title}</span>
+          <span className={styles.latestBlurb}>{latest.blurb}</span>
+        </span>
+        <Icon name="chevronRight" size={18} className={styles.latestChevron} />
+      </a>
 
       <p className={styles.now}>
         <span className={styles.nowLabel}>Now</span>
