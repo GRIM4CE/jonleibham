@@ -1,8 +1,11 @@
-/* The border, fill and radius both call sites share. Gap and padding differ
-   between Home and the rail, so those stay with the screens. */
+/* Gap and padding belong to the pill, not to whoever places it — without them
+   the dot sits flush against the label and the pill has no inset at all. These
+   are Home's values; the rail is roomier and overrides both. */
 .pill {
   display: flex;
   align-items: center;
+  gap: 7px;
+  padding: 6px 12px 6px 10px;
   border: 1px solid var(--success-line);
   background: var(--success-fill);
   border-radius: var(--radius-pill);
