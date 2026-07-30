@@ -219,3 +219,191 @@
   line-height: 1.4;
   color: var(--text-tertiary);
 }
+
+/* The date gutter is a desktop device; on mobile the years read off the mono
+   line under the company. */
+.dates {
+  display: none;
+}
+
+.foot {
+  display: contents;
+}
+
+/* ── Desktop ───────────────────────────────────────────────────────────────
+ * The one structural change is the gutter: dates leave the entry body for a
+ * 132px column of their own on the far left, ahead of the rail. The dot and
+ * line treatment is untouched.
+ *
+ * Two labels move rather than disappear. The gutter and the right-aligned
+ * badge say the same thing, so only one can be visible — but the copy that
+ * loses is hidden the accessible way, not with `display: none`, so a screen
+ * reader still hears the role, the years and the tenure at every width.
+ */
+@media (min-width: 768px) {
+  .screen {
+    --col-cap: 860px;
+  }
+
+  .header {
+    align-items: flex-end;
+  }
+
+  .heading {
+    font-size: 52px;
+    letter-spacing: -0.04em;
+  }
+
+  .meta {
+    margin-top: 16px;
+    font-size: 11.5px;
+    letter-spacing: 0.07em;
+    text-transform: none;
+  }
+
+  .timeline {
+    padding: 40px 0 0;
+  }
+
+  .entry {
+    gap: 28px;
+  }
+
+  .dates {
+    display: block;
+    flex: none;
+    width: 132px;
+    padding-top: 3px;
+  }
+
+  .datesRange,
+  .datesRangeCurrent {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--text-primary);
+  }
+
+  .datesRangeCurrent {
+    color: var(--accent);
+  }
+
+  .datesTenure {
+    display: block;
+    margin-top: 7px;
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+  }
+
+  /* Superseded by the gutter, kept for assistive tech. */
+  .badge,
+  .badgeNow,
+  .roleDates {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .rail {
+    padding-top: 5px;
+  }
+
+  .dot {
+    width: 12px;
+    height: 12px;
+  }
+
+  .company {
+    font-size: 26px;
+    letter-spacing: -0.035em;
+  }
+
+  .companyMuted {
+    font-size: 21px;
+  }
+
+  .role {
+    margin-top: 9px;
+    font-size: 10.5px;
+  }
+
+  .proof,
+  .proofMuted {
+    font-size: 15px;
+    line-height: 1.55;
+    max-width: 62ch;
+  }
+
+  .proof {
+    margin-top: 14px;
+  }
+
+  .proof + .proof {
+    margin-top: 9px;
+  }
+
+  .entryBody {
+    padding-bottom: 30px;
+  }
+
+  /* Education and the "why" line become one row, pinned to the bottom. */
+  .foot {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-top: auto;
+    padding: 22px 26px;
+    border-radius: var(--radius-card-sm);
+    background: var(--tint-fill-strong);
+  }
+
+  .education {
+    flex: none;
+    margin: 0;
+    padding: 0;
+    gap: 20px;
+    border-radius: 0;
+    background: none;
+  }
+
+  .educationIcon {
+    width: 44px;
+    height: 44px;
+  }
+
+  .degree {
+    font-size: 16px;
+  }
+
+  .school {
+    margin-top: 7px;
+    font-size: 10px;
+  }
+
+  .footer {
+    margin-top: 0;
+    padding: 0 0 0 20px;
+    border-left: 1px solid rgba(184, 184, 209, 0.22);
+  }
+
+  /* The label is redundant once the line sits inside the education card. */
+  .footerLabel {
+    display: none;
+  }
+
+  .footerText {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    text-wrap: pretty;
+  }
+}

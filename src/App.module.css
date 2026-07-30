@@ -73,3 +73,50 @@
 .app:has([data-screen='about']:target) [data-tab='about'] {
   color: var(--accent);
 }
+
+/* ── Desktop ───────────────────────────────────────────────────────────────
+ * The shell turns on its side: the bar that was pinned to the bottom becomes a
+ * rail pinned to the left. The nav still comes last in source order — it is
+ * TabBar.module.css that pulls it to the front visually with `order`, so the
+ * document a screen reader walks is unchanged from mobile.
+ */
+@media (min-width: 768px) {
+  .app {
+    flex-direction: row;
+  }
+
+  .viewport {
+    min-width: 0;
+  }
+
+  /*
+   * The pane. Screens position their own content with `var(--gutter)`, so
+   * zeroing it here moves the horizontal inset out to the pane in one move
+   * rather than overriding a padding rule in all five modules.
+   *
+   * The cap goes on the section itself rather than an inner wrapper: the
+   * ground behind it is the same color, so a narrow section and a wide section
+   * holding a narrow column are indistinguishable — and this way no screen
+   * needs an extra element. `--col-cap` is set per screen.
+   */
+  .viewport > section {
+    --gutter: 0px;
+    padding: var(--pane-pad-block-start) var(--pane-pad-inline) var(--pane-pad-block-end);
+    max-width: calc(var(--col-cap) + var(--pane-pad-inline) * 2);
+  }
+
+  /*
+   * In the rail a tab is a row with room behind it, so the active one takes a
+   * tinted fill as well as the accent color. Same selector list as above —
+   * split out only because the fill has nowhere to sit on the bottom bar.
+   */
+  .app:not(:has(section:target)) [data-tab='home'],
+  .app:has([data-screen='home']:target) [data-tab='home'],
+  .app:has([data-screen='work']:target) [data-tab='work'],
+  .app:has(section[data-detail]:target) [data-tab='work'],
+  .app:has([data-screen='career']:target) [data-tab='career'],
+  .app:has([data-screen='about']:target) [data-tab='about'] {
+    background: var(--featured-tint-hover);
+    font-weight: 800;
+  }
+}

@@ -145,3 +145,105 @@
   line-height: 1.4;
   color: var(--text-tertiary);
 }
+
+/* ── Desktop ───────────────────────────────────────────────────────────────
+ * No structural change: the same column, one step larger, with the hero image
+ * inline where it already was.
+ */
+@media (min-width: 768px) {
+  .nav {
+    padding-inline: 0;
+  }
+
+  .counter {
+    font-size: 10.5px;
+  }
+
+  .head {
+    padding: 30px 0 0;
+  }
+
+  .category {
+    padding: 7px 13px;
+    font-size: 10px;
+    letter-spacing: 0.13em;
+  }
+
+  .title {
+    margin-top: 16px;
+    font-size: 54px;
+    letter-spacing: -0.045em;
+  }
+
+  .standfirst {
+    margin-top: 14px;
+    font-size: 18px;
+    line-height: 1.5;
+    max-width: 48ch;
+  }
+
+  .hero {
+    height: 212px;
+    margin: 22px 0 0;
+  }
+
+  .facts {
+    margin: 20px 0 0;
+    padding: 15px 0;
+    max-width: 540px;
+  }
+
+  .fact + .fact {
+    padding-left: 24px;
+  }
+
+  .factLabel {
+    font-size: 9px;
+    letter-spacing: 0.13em;
+  }
+
+  .factValue {
+    margin-top: 8px;
+    font-size: 14px;
+  }
+
+  .body {
+    padding: 20px 0 0;
+  }
+
+  .bodyLabel {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+  }
+
+  .bodyText {
+    margin-top: 11px;
+    font-size: 15.5px;
+    line-height: 1.6;
+    max-width: 74ch;
+  }
+
+  .chips {
+    gap: 7px;
+    margin-top: 16px;
+    max-width: 560px;
+  }
+
+  .actions {
+    gap: 12px;
+    padding: 22px 0 0;
+  }
+}
+
+/*
+ * Same story as the Home actions: two `block` buttons splitting a 390px phone
+ * is right, and splitting a 760px column is a pair of banners. From 480 they
+ * size to their labels. The class is doubled to outweigh Button's own
+ * `block` rule, which is otherwise an even specificity match.
+ */
+@media (min-width: 480px) {
+  .actions.actions > * {
+    width: auto;
+    height: 52px;
+  }
+}

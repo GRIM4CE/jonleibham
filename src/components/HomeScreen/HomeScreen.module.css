@@ -205,3 +205,210 @@
   line-height: 1.4;
   color: var(--text-tertiary);
 }
+
+/* The Latest card belongs to the desktop column only. */
+.latest {
+  display: none;
+}
+
+/* ── Tablet actions ────────────────────────────────────────────────────────
+ * The two actions stack full-width on a phone, which is right at 390 and wrong
+ * the moment there is real width to fill — a 56px button run across 700px of
+ * pane reads as a banner, not a button. From 480 they sit side by side and
+ * take only the width their labels need.
+ *
+ * 480 rather than 768: the shell is full-width now, so the stretch starts long
+ * before the rail does.
+ */
+@media (min-width: 480px) {
+  .actions {
+    flex-direction: row;
+    gap: 12px;
+  }
+
+  /*
+   * The class is doubled to outweigh the `width: 100%` that Button's `block`
+   * prop sets. Written singly the two rules tie on specificity and the winner
+   * would come down to which module the bundler emitted last.
+   */
+  .actions.actions > * {
+    width: auto;
+    height: 52px;
+  }
+}
+
+/* ── Desktop ───────────────────────────────────────────────────────────────
+ * Same stack order as mobile at a bigger measure. The one addition is the
+ * Latest card, which fills the space the taller column opens up above the Now
+ * line. The brand row hands off to the rail later, at 1024 — see the bottom of
+ * this file.
+ */
+@media (min-width: 768px) {
+  .hero {
+    padding: 0;
+  }
+
+  .title {
+    line-height: 0.92;
+    letter-spacing: -0.05em;
+  }
+
+  .role {
+    margin-top: 26px;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+  }
+
+  .location {
+    margin-top: 9px;
+    font-size: 10.5px;
+    letter-spacing: 0.11em;
+  }
+
+  .positioning {
+    margin-top: 22px;
+    font-size: 19px;
+    /* The lead measure. Body copy never runs the full pane width. */
+    max-width: 46ch;
+  }
+
+  .employers {
+    gap: 14px;
+    margin: 28px 0 0;
+    padding: 14px 0;
+  }
+
+  .employer {
+    gap: 14px;
+    font-size: 11px;
+  }
+
+  .metrics {
+    margin: 0;
+    max-width: 540px;
+  }
+
+  .metric {
+    padding: 20px 0 18px;
+  }
+
+  .metric + .metric {
+    padding-left: 26px;
+  }
+
+  .metricValue {
+    font-size: 38px;
+    letter-spacing: -0.035em;
+  }
+
+  .metricLabel {
+    margin-top: 11px;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+  }
+
+  /* Already a row by this point; only the gutter has to go. */
+  .actions {
+    padding: 12px 0 0;
+  }
+
+  /*
+   * Pinned above the Now line. `margin-top: auto` is what does it, so this and
+   * the Now line are the only two things in the column allowed to claim the
+   * slack.
+   */
+  .latest {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+    margin-top: auto;
+    padding: 22px 26px;
+    border-radius: var(--radius-card-sm);
+    background: var(--featured-tint);
+    transition: background-color 0.15s ease;
+  }
+
+  .latest:hover {
+    background: var(--featured-tint-hover);
+  }
+
+  .latestMeta {
+    flex: none;
+  }
+
+  .latestLabel {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .latestDate {
+    display: block;
+    margin-top: 8px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--text-tertiary);
+  }
+
+  .latestBody {
+    flex: 1;
+    min-width: 0;
+    padding-left: 26px;
+    border-left: 1px solid var(--hairline);
+  }
+
+  .latestTitle {
+    display: block;
+    font-size: 22px;
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+  }
+
+  .latestBlurb {
+    display: block;
+    margin-top: 8px;
+    font-size: 14px;
+    line-height: 1.45;
+    color: var(--text-secondary);
+    text-wrap: pretty;
+  }
+
+  .latestChevron {
+    flex: none;
+    color: var(--accent);
+  }
+
+  /* The Now line no longer needs the auto margin: the Latest card above it
+     has already taken the slack. */
+  .now {
+    margin-top: 0;
+    gap: 14px;
+    padding: 22px 0 0;
+  }
+
+  .nowLabel {
+    font-size: 10px;
+  }
+
+  .nowText {
+    font-size: 14px;
+  }
+}
+
+/*
+ * The brand row goes only once the rail is wide enough to have taken over both
+ * its jobs. Between 768 and 1023 the rail is icon-only and has no head or
+ * foot, so the name and — more to the point — the "open to roles" pill still
+ * have to live here, or they are on no screen at any width.
+ */
+@media (min-width: 1024px) {
+  .brandRow {
+    display: none;
+  }
+}
