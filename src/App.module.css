@@ -25,8 +25,18 @@
  * The scroll container. Every screen is designed to fit 844px; anything taller
  * (a small device, a long project body) scrolls here, which is what keeps the
  * tab bar from ever scrolling away.
+ *
+ * `position: relative` is load-bearing. The screens hide their radios and
+ * checkboxes — the machinery that stands in for state — with `position:
+ * absolute`, and an absolute box is clipped by its containing block, not by
+ * whatever happens to be scrolling above it. With no positioned ancestor those
+ * inputs are laid out against the page itself, so the document stretches down
+ * to reach an input's static position far inside the un-scrolled content and
+ * the whole shell scrolls away beneath the tab bar. Making the scroller the
+ * containing block puts them back where they flow.
  */
 .viewport {
+  position: relative;
   flex: 1;
   min-height: 0;
   overflow-y: auto;

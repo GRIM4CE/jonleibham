@@ -58,4 +58,14 @@ describe('screen routing', () => {
   it('hides screens by default so only the targeted one shows', () => {
     expect(appCss).toMatch(/\.viewport > section \{[^}]*display: none/)
   })
+
+  /*
+   * Screens fake state with `position: absolute` radios and checkboxes. An
+   * absolute box is clipped by its containing block, so without one on the
+   * scroller those inputs are laid out against the page, the document grows to
+   * reach the deepest one and the shell scrolls out from under the tab bar.
+   */
+  it('makes the scroller the containing block for the hidden inputs', () => {
+    expect(appCss).toMatch(/\.viewport \{[^}]*position: relative/)
+  })
 })
