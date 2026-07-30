@@ -26,7 +26,14 @@ Node version 24.12.0 is pinned via Volta.
 - `<Name>.module.css` — CSS Modules scoped styles
 - `index.ts` — Barrel re-export
 
-Reusable primitives live in `src/design-system/<Name>/` with the same shape.
+Reusable primitives live in `src/design-system/<Name>/` with the same shape. A file
+that exports both a component and a helper trips the `react-refresh` lint rule, so
+helpers get their own module — see `Tag/tagVariant.ts` and `Icon/icons.ts`.
+
+**Content** is static data in `src/data/`: `projects.ts` (the Work index and every
+detail screen), `career.ts`, `stack.ts` and `profile.ts`. The index shows seven
+curated projects; the five utilities sit behind the collapse. Promoting or demoting
+one is a data edit and nothing more.
 
 **Styling:** CSS Modules for component scoping, global design tokens (colors, typography) defined in `src/index.css`. No CSS framework — vanilla CSS only.
 
@@ -34,17 +41,21 @@ Reusable primitives live in `src/design-system/<Name>/` with the same shape.
 
 Consequences to keep in mind when editing:
 
-- **No hooks, no event handlers, no browser APIs in components.** Anything that needs `useState` or `onClick` has to become CSS. Tab bars and filters use `<Tabs>`, which renders a hidden radio group; the consuming stylesheet reveals content with `:has(input[value='…']:checked)`. Because CSS can't compare two attribute values, every tab/filter needs its own rule — the tests in `about.test.ts` and `projects.test.ts` fail when the rules and the data drift apart.
+- **No hooks, no event handlers, no browser APIs in components.** Anything that needs `useState` or `onClick` has to become CSS. Tab bars and filters use `<Tabs>`, which renders a hidden radio group; the consuming stylesheet reveals content with `:has(input[value='…']:checked)`. The utilities collapse uses a checkbox for the same reason. Because CSS can't compare two attribute values, every tab/filter needs its own rule — the tests in `src/data/projects.test.ts` and `src/data/stack.test.ts` fail when the rules and the data drift apart.
 - **No inline `style` attributes.** The CSP in `amplify.yml` sets `style-src 'self'` with no `'unsafe-inline'`, so style attributes are dropped in production. Components set CSS custom properties through the tone classes in `src/design-system/tones.module.css` instead — `toneClass('accent', 'dustyGrape')`, `surfaceClass('porcelain')`.
-- **Build-time values freeze.** The footer's copyright year and the obfuscated email are evaluated during the build, not in the browser.
+- **CSS Modules scopes ids, not just class names.** A `#home` selector inside a `.module.css` compiles to `#App-module_home_4GdE4` and matches nothing in the rendered markup — no build error, no styling. Cross-module hooks are data attributes instead: `data-screen`, `data-tab`, `data-detail`, `data-cat`, `data-stack`. `src/App.test.ts` fails if an id selector reappears.
+- **Build-time values freeze.** Anything derived from `Date` or the environment is evaluated during the build, not in the browser.
 
-**No backend:** Contact is a `mailto:` link in the footer. There is no form.
+**Navigation:** the five screens (Home, Work, Career, About) and one detail screen per project all live in the same document. `src/App.module.css` shows whichever screen the URL hash targets and falls back to Home when nothing is targeted, so every screen has a real URL and the browser's own back button works. A detail screen keeps the Work tab lit via `:has(section[data-detail]:target)`.
+
+**No backend:** Contact is a `mailto:` link — the secondary action on Home and the primary action on About. There is no form.
 
 **Deployment:** AWS Amplify configured in `amplify.yml` — builds with `npm run build`, serves from `dist/`, includes security headers and immutable asset caching.
 
 ## Key Files
 
 - `src/index.css` — Color palette and global CSS variables
+- `src/App.module.css` — The app shell and the `:target` routing rules
 - `src/design-system/tones.module.css` — Tone/surface classes that replace inline CSS-var styles
 - `scripts/prerender.mjs` — Static HTML generation and the zero-JS assertions
 - `index.html` — Page shell: SEO meta tags, Open Graph, Twitter cards, favicon/PWA config

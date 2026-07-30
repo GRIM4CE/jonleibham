@@ -1,0 +1,207 @@
+/*
+ * Flush-left and asymmetric throughout. Nothing is centered except button
+ * labels; the whitespace all falls on the right.
+ */
+.screen {
+  padding-top: 14px;
+}
+
+/* ── Brand row ────────────────────────────────────────────────────────────*/
+.brandRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-inline: var(--gutter);
+}
+
+/* The wordmark is the name, unpunctuated — no trailing period anywhere. */
+.wordmark {
+  font-size: 17px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.availability {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex: none;
+  padding: 6px 12px 6px 10px;
+  border: 1px solid var(--success-line);
+  background: var(--success-fill);
+  border-radius: var(--radius-pill);
+}
+
+.dot {
+  display: block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--success);
+}
+
+.availabilityLabel {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--success);
+}
+
+/* ── Hero ─────────────────────────────────────────────────────────────────*/
+.hero {
+  padding: 40px var(--gutter) 0;
+}
+
+.title {
+  font-size: var(--hero-size);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -0.045em;
+}
+
+.role {
+  margin-top: 20px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.location {
+  margin-top: 7px;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.positioning {
+  margin-top: 16px;
+  font-size: 15.5px;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  max-width: 32ch;
+  text-wrap: pretty;
+}
+
+/* ── Employer row ─────────────────────────────────────────────────────────
+   All three read at the same weight and color on purpose, so the row scans as
+   one unit rather than trailing off. */
+.employers {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 22px var(--gutter) 0;
+  padding: 11px 0;
+  list-style: none;
+  border-top: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--hairline);
+}
+
+.employer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--text-primary);
+}
+
+.separator {
+  display: block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--tint);
+}
+
+/* ── Metric strip ─────────────────────────────────────────────────────────*/
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 0 var(--gutter);
+  padding: 0;
+}
+
+/* Source order is dt then dd so the <dl> stays valid; the strip shows the
+   number above its label. */
+.metric {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+  padding: 15px 0 14px;
+}
+
+.metric + .metric {
+  padding-left: 16px;
+  border-left: 1px solid var(--hairline);
+}
+
+.metricValue {
+  margin: 0;
+  font-size: 25px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+/* Only the unit character carries the accent. */
+.metricUnit {
+  color: var(--accent);
+}
+
+/* Single words, so they never wrap and the three columns stay level. */
+.metricLabel {
+  margin-top: 8px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  white-space: nowrap;
+}
+
+/* ── Actions ──────────────────────────────────────────────────────────────*/
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px var(--gutter) 0;
+}
+
+/* ── Now line ─────────────────────────────────────────────────────────────*/
+.now {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px var(--gutter);
+}
+
+.nowLabel {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.nowText {
+  font-size: 12.5px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--text-tertiary);
+}

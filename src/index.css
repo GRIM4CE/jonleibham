@@ -5,11 +5,13 @@
 }
 
 :root {
-  /* Palette */
+  /* ── Source palette ──────────────────────────────────────────────────────
+     The nine brand colors. Roles below are drawn from these plus the tint and
+     shade steps of the same ramp; prefer a role token over a raw palette color. */
   --color-pale-slate: #b8b8d1;
   --color-dusty-grape: #5b5f97;
   --color-sunflower-gold: #ffc145;
-  --color-porcelain: #fffdf7;
+  --color-porcelain: #fffffb;
   --color-grapefruit-pink: #ff6b6c;
   --color-flag-red: #c1292e;
   --color-black: #020100;
@@ -17,55 +19,138 @@
   --color-magenta-bloom: #e83f6f;
   --color-sea-green: #32936f;
 
-  /* Primary colors */
-  --color-primary: #5b5f97;
-  --color-primary-dark: #32161f;
+  /* ── Roles ───────────────────────────────────────────────────────────────
+     Dossier: midnight ground, Sunflower Gold as the single accent, Dusty Grape
+     for tinted fills, Pale Slate for secondary text. */
+  --ground: #1a0f16;
+  --ground-raised: #241521; /* tab bar */
+  --surface: #2e1d26; /* image wells, empty media */
 
-  /* Accent colors */
-  --color-accent: #ffc145;
-  --color-accent-dark: #e83f6f;
+  --accent: #ffc145;
+  --accent-press: #ffac06;
+  --on-accent: #32161f; /* text on gold fills */
 
-  /* Text colors */
-  --color-text: #32161f;
-  --color-text-muted: #5b5f97;
-  --color-text-subtle: #502331; /* Midnight Violet +10% */
+  --text-primary: #fffffb;
+  --text-secondary: #b8b8d1;
+  --text-tertiary: #8989b2;
 
-  /* Background colors */
-  --color-bg: #fffdf7; /* Warm white */
-  --color-bg-alt: #f6f0e6; /* Warm cream */
-  --color-bg-dark: #32161f;
+  --tint: #5b5f97;
+  --tint-fill: rgba(91, 95, 151, 0.3); /* chip fills */
+  --tint-fill-strong: rgba(91, 95, 151, 0.24); /* education card */
+  --tint-deep: #787bae; /* stack lines on index rows */
 
-  /* UI colors */
-  --color-border: #e7ddcb; /* Warm sand */
-  --color-tag-bg: #eaeaf1; /* Pale Slate +70% */
-  --color-tag-text: #32161f;
+  --success: #46c093;
+  --success-line: rgba(50, 147, 111, 0.45);
+  --success-fill: rgba(50, 147, 111, 0.14);
 
-  /* White variations */
-  --color-white: #fffffb;
-  --color-white-muted: rgba(255, 255, 251, 0.9);
-  --color-white-subtle: rgba(255, 255, 251, 0.7);
-  --color-white-faint: rgba(255, 255, 251, 0.5);
+  --hairline: rgba(184, 184, 209, 0.18);
+  --hairline-soft: rgba(184, 184, 209, 0.14);
+  --border-outline: rgba(184, 184, 209, 0.34);
+  --border-muted: rgba(184, 184, 209, 0.28);
 
-  /* Transparent/overlay colors */
-  --color-header-bg: rgba(255, 255, 251, 0.95);
-  --color-shadow: rgba(50, 22, 31, 0.1);
-  --color-shadow-dark: rgba(50, 22, 31, 0.2);
-  --color-primary-shadow: rgba(91, 95, 151, 0.3);
+  --hover-wash: rgba(255, 255, 251, 0.06);
+  --row-hover: rgba(255, 255, 251, 0.04);
+  --featured-tint: rgba(255, 193, 69, 0.07);
+  --featured-tint-hover: rgba(255, 193, 69, 0.12);
 
-  /* Typography */
-  font-family: 'Source Sans 3', sans-serif;
+  /* Category chip fills on the detail screen — coding is by category, not decoration. */
+  --chip-cloud-fill: rgba(255, 193, 69, 0.2);
+  --chip-data-fill: rgba(50, 147, 111, 0.22);
+
+  /* ── Geometry ─────────────────────────────────────────────────────────── */
+  --gutter: 26px;
+  --radius-pill: 999px;
+  --radius-card: 22px;
+  --radius-card-sm: 20px;
+  --content-max: 480px;
+
+  /* ── Type ─────────────────────────────────────────────────────────────── */
+  --font-body: 'Figtree', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', monospace;
+  --hero-size: 54px;
+
+  /* ── Motion ───────────────────────────────────────────────────────────── */
+  --screen-fade: 180ms;
+
+  font-family: var(--font-body);
   line-height: 1.5;
   font-weight: 400;
-  color: var(--color-text);
-  background-color: var(--color-bg);
+  color: var(--text-primary);
+  background-color: var(--ground);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color-scheme: dark;
 }
 
-html {
-  scroll-behavior: smooth;
+/* Scale the gutter down and drop the hero on narrow phones. */
+@media (max-width: 359px) {
+  :root {
+    --gutter: 20px;
+    --hero-size: 44px;
+  }
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--ground);
+  color: var(--text-primary);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  line-height: 1.2;
+  font-weight: 900;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* Keyboard focus is themed everywhere — never the browser default. */
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+::selection {
+  background: rgba(255, 193, 69, 0.3);
+}
+
+/* Metadata, numbers, years, stacks and labels. Never body copy. */
+.mono {
+  font-family: var(--font-mono);
 }
 
 /* Visible only to screen readers */
@@ -88,26 +173,19 @@ html {
   top: -4rem;
   z-index: 1000;
   padding: 0.75rem 1.25rem;
-  background: var(--color-bg-dark);
-  color: var(--color-white);
-  border-radius: 8px;
-  font-weight: 600;
-  text-decoration: none;
+  background: var(--accent);
+  color: var(--on-accent);
+  border-radius: var(--radius-pill);
+  font-weight: 800;
   transition: top 0.2s ease;
 }
 
 .skip-link:focus {
   top: 0.5rem;
-  outline: 2px solid var(--color-sunflower-gold);
-  outline-offset: 2px;
 }
 
 /* Respect users who prefer reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
   *,
   *::before,
   *::after {
@@ -116,27 +194,4 @@ html {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-}
-
-body {
-  margin: 0;
-  min-width: 320px;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  margin: 0;
-  line-height: 1.2;
-}
-
-p {
-  margin: 0;
-}
-
-a {
-  color: inherit;
-}
-
-img {
-  max-width: 100%;
-  display: block;
 }

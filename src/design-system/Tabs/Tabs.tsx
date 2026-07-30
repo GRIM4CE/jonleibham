@@ -16,7 +16,14 @@ export interface TabsProps {
   /** Optional map from item value to display text. */
   renderLabel?: (item: string) => string
   align?: 'left' | 'center'
+  /**
+   * `chips` is the gold-filled filter row on Work; `underline` is the
+   * segmented stack selector on About.
+   */
+  variant?: TabsVariant
 }
+
+export type TabsVariant = 'chips' | 'underline'
 
 /**
  * A tab bar with no JavaScript behind it.
@@ -28,11 +35,25 @@ export interface TabsProps {
  * reveals the matching content with `:has(input[value="…"]:checked)`.
  *
  * Because CSS cannot compare one attribute value against another, each item
- * needs its own rule in the consumer's stylesheet. See `About.module.css` and
- * `Projects.module.css`.
+ * needs its own rule in the consumer's stylesheet. See `WorkScreen.module.css`
+ * and `AboutScreen.module.css`.
  */
-export function Tabs({ name, items, active, label, renderLabel, align = 'left' }: TabsProps) {
-  const className = [styles.tabs, align === 'center' ? styles.center : ''].filter(Boolean).join(' ')
+export function Tabs({
+  name,
+  items,
+  active,
+  label,
+  renderLabel,
+  align = 'left',
+  variant = 'underline',
+}: TabsProps) {
+  const className = [
+    styles.tabs,
+    styles[`variant-${variant}`],
+    align === 'center' ? styles.center : '',
+  ]
+    .filter(Boolean)
+    .join(' ')
 
   return (
     <fieldset className={className}>
