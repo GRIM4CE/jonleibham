@@ -81,6 +81,32 @@ first-line marker:
 Explicit `register_assets` calls are the legacy path and are not needed for
 marker-bearing uploads.
 
+### Unresolved contract question — settle before writing the generator
+
+The `DesignSync` schema references three things this spec does not yet account
+for:
+
+- `_ds_manifest.json`, described as compiled from the `@dsCard` markers by
+  "the app's self-check"
+- a `report_validate` method
+- its `counts` shape: `{total, bad, thin, variantsIdentical, iterations}`
+
+`thin` and `variantsIdentical` imply the upload path expects previews to be
+*validated* — that a card is not near-empty, and that a variant grid shows
+actual visual difference between its variants. `iterations` implies a
+fix-and-recheck loop. The generator as described below emits HTML and stops.
+
+Resolve first: whether the bundle must emit a `.render-check.json`, whether
+anything local compiles `_ds_manifest.json` or the app derives it from the
+markers, and whether `report_validate` is required after `write_files` or is
+optional telemetry. This changes the generator's output contract, so it is
+settled before the generator is written, not discovered mid-implementation.
+
+One concrete consequence for the card list: `MediaWell` is a fixed-height empty
+well and `Portrait` renders a single image. Both are prime `thin` candidates. If
+a thinness check exists, those two cards need deliberate content — several
+sizes, a filled state — rather than one faithful instance.
+
 ### The generator
 
 `scripts/build-design-bundle.mjs`, modelled on the existing
@@ -129,10 +155,22 @@ base64-embedding woff2 subsets, which would bloat every card.
 
 Prove the pipeline end-to-end with the four components that **already exist** —
 Button, Tag, Icon, Tabs — plus a Colors card. Five cards, zero extraction work.
-Upload them and confirm they render in the Design System pane before extracting
-anything. If the card format is wrong, that surfaces after four components
-instead of twelve. Extraction is the predictable part; the upload contract is
-not.
+Upload them and confirm they render before extracting anything. If the card
+format is wrong, that surfaces after four components instead of twelve.
+Extraction is the predictable part; the upload contract is not.
+
+**The render gate is user-owned.** `list_files` and `get_file` confirm *upload*,
+not *render* — nothing available here can see the Design System pane. So after
+`write_files` succeeds, the user opens the pane and confirms three things:
+
+1. the five cards are visible against the dark ground, not invisible-on-dark;
+2. fonts either applied or fell back acceptably;
+3. variants within a card are visually distinct from one another.
+
+**Extraction does not begin until that confirmation comes back.** Without this
+being someone's explicit job, a 200 from `write_files` gets mistaken for a
+passing gate and twelve components get extracted against an unverified
+contract — the exact failure this sequencing exists to prevent.
 
 `design-bundle/` is build output and is added to `.gitignore`, alongside `dist`
 and `storybook-static`.
@@ -157,6 +195,24 @@ rule, so any helper gets its own module — see `Tag/tagVariant.ts` and
 
 These are three shapes each written more than once today. Extracting them
 removes real duplication.
+
+**An extracted component owns its internal shape only. Every call site keeps its
+own positioning and visibility wrapper in its existing module.** The three are
+structurally identical but sit in materially different layout contexts:
+
+- `CareerScreen`'s `.footer` lives inside `.foot`, which is `display: contents`
+  on mobile and a pinned tinted card from 768 up.
+- `AboutScreen`'s `.offClock` sits in its own `.foot` beside `.actions`.
+- `TabBar`'s availability pill and `HomeScreen`'s are shown at *different
+  breakpoints* — `TabBar`'s comment records that Home's brand row hides above
+  768 rather than saying it twice.
+
+Collapsing those three stylesheets into one is how the desktop layouts diverge
+with nothing failing. `npm run build` will not catch it and neither will
+`App.test.ts`; only looking at the rendered breakpoints will.
+
+Detail worth not dropping: About's label is `Off&nbsp;clock`, with a
+non-breaking space.
 
 ### Single-use primitives
 
@@ -218,8 +274,9 @@ No extraction step is reported as done without that output.
 
 ## Order of work
 
+0. Resolve the validation/manifest contract question above.
 1. Build the export pipeline; upload five cards from the existing components;
-   **confirm they render in the pane**.
+   **user confirms they render in the pane**.
 2. Extract the three duplicated components; verify.
 3. Extract the five primitives; verify.
 4. Stories for `Tabs` and all eight new components.
