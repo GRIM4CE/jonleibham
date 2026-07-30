@@ -1,0 +1,11 @@
+{
+  // Stories and tests import @storybook/* and vitest, which the production
+  // build omits. Typechecked here against a full install instead.
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.dev.tsbuildinfo",
+    "types": ["node", "vite/client", "vitest/globals"]
+  },
+  "include": ["src/**/*.stories.tsx", "src/**/*.test.ts"],
+  "exclude": []
+}

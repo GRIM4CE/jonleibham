@@ -1,52 +1,124 @@
+# Two deployable apps on one repo.
+#
+# Amplify reads this file from the repository root and it overrides console
+# build settings for every app pointed at the repo — which is exactly why each
+# app needs an entry here rather than its own file. Set each Amplify app to
+# "monorepo" and give it the matching appRoot.
+#
+# packages/design-system is deliberately absent: it is a shared library, not a
+# deployable, and both apps below compile it from source.
 version: 1
-frontend:
-  phases:
-    preBuild:
-      commands:
-        # Reuse the Node 24.x already baked into the Amplify build image (see
-        # .nvmrc); only fall back to a download if the image lacks it. Avoids
-        # re-fetching the Node tarball on every build.
-        - nvm use 2>/dev/null || nvm install
-        - node -v && npm -v
-        # Vite 8's rolldown/oxc toolchain has platform-specific wasm32-wasi
-        # optional deps (@emnapi/*) that npm prunes from a macOS-generated
-        # lockfile, so `npm ci` fails the strict sync check on the linux-x64
-        # builder. `npm install` reconciles them instead of erroring out.
-        #
-        # --omit=dev skips the Storybook/Vitest/Playwright/ESLint tree entirely
-        # (~250 packages). The production build only needs `tsc -b && vite build`,
-        # whose tools live in "dependencies"; test/lint tooling is dev-only and
-        # never runs on Amplify. This shrinks the install and the cached
-        # node_modules that Amplify restores/saves on every build.
-        # PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD is a belt-and-suspenders guard against
-        # a Chromium download; --prefer-offline reuses the warm npm store.
-        - PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm install --omit=dev --no-audit --no-fund --prefer-offline
-    build:
-      commands:
-        - npm run build
-  artifacts:
-    baseDirectory: dist
-    files:
-      - '**/*'
-  cache:
-    paths:
-      - node_modules/**/*
-  customHeaders:
-    - pattern: '**/*'
-      headers:
-        - key: X-Frame-Options
-          value: DENY
-        - key: X-Content-Type-Options
-          value: nosniff
-        - key: Referrer-Policy
-          value: strict-origin-when-cross-origin
-        - key: Strict-Transport-Security
-          value: 'max-age=63072000; includeSubDomains; preload'
-        - key: Content-Security-Policy
-          value: "default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests"
-        - key: Permissions-Policy
-          value: 'accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=(), interest-cohort=()'
-    - pattern: '/assets/**'
-      headers:
-        - key: Cache-Control
-          value: 'public, max-age=31536000, immutable'
+applications:
+  # ── The portfolio ────────────────────────────────────────────────────────
+  - appRoot: apps/portfolio-site
+    frontend:
+      phases:
+        preBuild:
+          commands:
+            # Reuse the Node 24.x already baked into the Amplify build image
+            # (see .nvmrc); only fall back to a download if the image lacks it.
+            - nvm use 2>/dev/null || nvm install
+            - node -v && npm -v
+            # npm workspaces install from the repository root, and the single
+            # lockfile lives there. Amplify runs these commands from appRoot,
+            # so the install has to walk back up.
+            #
+            # `npm install` rather than `npm ci`: Vite 8's rolldown/oxc
+            # toolchain has platform-specific wasm32-wasi optional deps
+            # (@emnapi/*) that npm prunes from a macOS-generated lockfile, so
+            # `npm ci` fails the strict sync check on the linux-x64 builder.
+            #
+            # The old single-package spec used --omit=dev. It is dropped here
+            # rather than carried over: a root install now resolves three
+            # workspaces at once, and the flag's exact effect on workspace
+            # linking has not been verified on the builder. Worth revisiting as
+            # an optimisation once both apps deploy green — not while the
+            # deploy itself is the thing being proven.
+            #
+            # PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD avoids a ~300MB Chromium pull
+            # that only the browser-mode Vitest project would use.
+            - cd ../.. && PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm install --no-audit --no-fund --prefer-offline
+        build:
+          commands:
+            - npm run build
+      artifacts:
+        baseDirectory: dist
+        files:
+          - '**/*'
+      cache:
+        paths:
+          - ../../node_modules/**/*
+      customHeaders:
+        - pattern: '**/*'
+          headers:
+            - key: X-Frame-Options
+              value: DENY
+            - key: X-Content-Type-Options
+              value: nosniff
+            - key: Referrer-Policy
+              value: strict-origin-when-cross-origin
+            - key: Strict-Transport-Security
+              value: 'max-age=63072000; includeSubDomains; preload'
+            # The site prerenders to zero JavaScript, so this can stay strict.
+            # scripts/prerender.mjs fails the build if a script tag or an
+            # inline style attribute survives.
+            - key: Content-Security-Policy
+              value: "default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests"
+            - key: Permissions-Policy
+              value: 'accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=(), interest-cohort=()'
+        - pattern: '/assets/**'
+          headers:
+            - key: Cache-Control
+              value: 'public, max-age=31536000, immutable'
+
+  # ── Storybook ────────────────────────────────────────────────────────────
+  - appRoot: apps/storybook
+    frontend:
+      phases:
+        preBuild:
+          commands:
+            - nvm use 2>/dev/null || nvm install
+            - node -v && npm -v
+            - cd ../.. && PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm install --no-audit --no-fund --prefer-offline
+        build:
+          commands:
+            - npm run build-storybook
+      artifacts:
+        baseDirectory: storybook-static
+        files:
+          - '**/*'
+      cache:
+        paths:
+          - ../../node_modules/**/*
+      customHeaders:
+        - pattern: '**/*'
+          headers:
+            # SAMEORIGIN, not DENY. iframe.html IS Storybook's preview canvas —
+            # every story renders inside a same-origin iframe, and DENY leaves
+            # the whole canvas blank.
+            - key: X-Frame-Options
+              value: SAMEORIGIN
+            - key: X-Content-Type-Options
+              value: nosniff
+            - key: Referrer-Policy
+              value: strict-origin-when-cross-origin
+            - key: Strict-Transport-Security
+              value: 'max-age=63072000; includeSubDomains; preload'
+            # Far looser than the portfolio's, and every relaxation was checked
+            # against a real build-storybook output:
+            #   'unsafe-inline' — index.html has 3 inline <script> blocks and
+            #                     iframe.html has 5
+            #   'unsafe-eval'   — sb-manager/globals-runtime.js and the syntax
+            #                     highlighter chunk both call eval()
+            #   worker-src blob: — the same bundles construct new Worker
+            #   frame-src/frame-ancestors 'self' — the preview iframe
+            # The zero-JS CSP above is a property of the portfolio, not of this
+            # repository.
+            - key: Content-Security-Policy
+              value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self'; worker-src 'self' blob:; frame-src 'self'; frame-ancestors 'self'; base-uri 'self'; object-src 'none'"
+            - key: Permissions-Policy
+              value: 'accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=(), interest-cohort=()'
+        - pattern: '/assets/**'
+          headers:
+            - key: Cache-Control
+              value: 'public, max-age=31536000, immutable'

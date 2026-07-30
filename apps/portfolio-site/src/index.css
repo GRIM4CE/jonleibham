@@ -1,0 +1,48 @@
+/* App-level globals. The design tokens these reference live in the
+   design-system package — components need them to render standalone,
+   which is why Storybook imports that file directly. */
+@import '@jonleibham/design-system/tokens.css';
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--ground);
+  color: var(--text-primary);
+}
+
+
+/* Metadata, numbers, years, stacks and labels. Never body copy. */
+.mono {
+  font-family: var(--font-mono);
+}
+
+/* Visible only to screen readers */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Skip link: hidden until focused by keyboard */
+.skip-link {
+  position: absolute;
+  left: 0.5rem;
+  top: -4rem;
+  z-index: 1000;
+  padding: 0.75rem 1.25rem;
+  background: var(--accent);
+  color: var(--on-accent);
+  border-radius: var(--radius-pill);
+  font-weight: 800;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 0.5rem;
+}
