@@ -24,9 +24,9 @@ export function CareerScreen() {
           variant="outline"
           size="sm"
           download
-          aria-label="Download résumé (PDF)"
+          aria-label="Download resume (PDF)"
         >
-          Résumé
+          Resume
           <Icon name="download" size={13} />
         </Button>
       </div>
