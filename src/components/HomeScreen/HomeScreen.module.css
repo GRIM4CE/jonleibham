@@ -18,9 +18,7 @@
 /* The wordmark is the name, unpunctuated — no trailing period anywhere. */
 .wordmark {
   font-size: 17px;
-  font-weight: 900;
   letter-spacing: -0.02em;
-  line-height: 1;
 }
 
 /* Spacing only — the pill's border, fill and radius are AvailabilityPill's. */

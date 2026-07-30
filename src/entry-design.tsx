@@ -1,6 +1,16 @@
 import type { ReactElement } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
-import { AvailabilityPill, Button, Icon, LabeledNote, Tabs, Tag, toneClass, tones } from './design-system'
+import {
+  AvailabilityPill,
+  Button,
+  Icon,
+  LabeledNote,
+  Tabs,
+  Tag,
+  toneClass,
+  tones,
+  Wordmark,
+} from './design-system'
 import type { IconName } from './design-system'
 import { Section } from './designCardChrome'
 
@@ -143,6 +153,19 @@ export const cards: DesignCard[] = [
           />
         </Section>
       </>
+    ),
+  },
+  {
+    slug: 'wordmark',
+    name: 'Wordmark',
+    group: 'Brand',
+    subtitle: 'Name alone, and name over a role line',
+    viewport: { width: 520, height: 190 },
+    render: () => (
+      <div className="dsc-col">
+        <Wordmark name="Jon Leibham" />
+        <Wordmark name="Jon Leibham" title="Senior Software Engineer" />
+      </div>
     ),
   },
   {

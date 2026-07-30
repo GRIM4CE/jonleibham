@@ -116,23 +116,10 @@
     padding: 0 12px;
   }
 
+  /* Size and tracking only — both inherit down to the name span. */
   .wordmark {
-    display: block;
     font-size: 20px;
-    font-weight: 900;
     letter-spacing: -0.03em;
-    line-height: 1;
-  }
-
-  .wordmarkTitle {
-    display: block;
-    margin-top: 10px;
-    font-family: var(--font-mono);
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--text-tertiary);
   }
 
   .destinations {

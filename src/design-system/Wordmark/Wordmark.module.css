@@ -1,0 +1,22 @@
+.wordmark {
+  display: flex;
+  flex-direction: column;
+}
+
+/* No font-size and no letter-spacing: Home wants 17px/-0.02em and the rail
+   wants 20px/-0.03em, and both inherit from the screens' own class. */
+.name {
+  font-weight: 900;
+  line-height: 1;
+}
+
+/* Sets its own size, so it does not pick up the name's. */
+.title {
+  margin-top: 10px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
