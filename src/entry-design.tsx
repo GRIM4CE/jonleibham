@@ -74,7 +74,7 @@ export const cards: DesignCard[] = [
     name: 'Button',
     group: 'Components',
     subtitle: 'Solid / outline / ghost / icon, four sizes',
-    viewport: { width: 720, height: 410 },
+    viewport: { width: 720, height: 395 },
     render: () => (
       <>
         <Section label="Variants">
@@ -173,7 +173,7 @@ export const cards: DesignCard[] = [
     name: 'AvailabilityPill',
     group: 'Components',
     subtitle: 'Status dot and label',
-    viewport: { width: 520, height: 140 },
+    viewport: { width: 520, height: 165 },
     render: () => (
       <div className="dsc-col">
         <AvailabilityPill>Open to roles</AvailabilityPill>
