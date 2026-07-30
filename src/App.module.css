@@ -1,0 +1,77 @@
+/*
+ * The app shell and its routing.
+ *
+ * The site ships no JavaScript, so "navigation" is `:target`: every screen is
+ * in the document at once, hidden by default, and revealed when the URL hash
+ * names it. That buys real URLs, working back/forward and deep links — none of
+ * which a radio group would give — at the cost of one larger HTML file.
+ *
+ * Screens are matched on `data-screen`, not on a class or an id. CSS Modules
+ * rewrites class names per file, so a class could not reach markup owned by
+ * another module — and this pipeline scopes *ids* too, which silently turns a
+ * `#home` rule into one that matches nothing. Data attributes are the one
+ * selector the transform leaves alone, which is also why the tab bar is matched
+ * on `data-tab`. The ids stay in the markup for `:target` and the URL.
+ */
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  max-width: var(--content-max);
+  margin: 0 auto;
+  background: var(--ground);
+  overflow: hidden;
+}
+
+/*
+ * The scroll container. Every screen is designed to fit 844px; anything taller
+ * (a small device, a long project body) scrolls here, which is what keeps the
+ * tab bar from ever scrolling away.
+ */
+.viewport {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  -webkit-overflow-scrolling: touch;
+}
+
+.viewport > section {
+  display: none;
+  flex: 1;
+  flex-direction: column;
+}
+
+.viewport > section:target {
+  display: flex;
+  animation: screenIn var(--screen-fade) ease-out;
+}
+
+/* Home is the landing screen, so it shows whenever no screen is targeted. */
+.app:not(:has(section:target)) [data-screen='home'] {
+  display: flex;
+  animation: screenIn var(--screen-fade) ease-out;
+}
+
+@keyframes screenIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/*
+ * Active tab. Detail screens are pushed onto the Work stack, so they keep Work
+ * lit rather than lighting nothing.
+ */
+.app:not(:has(section:target)) [data-tab='home'],
+.app:has([data-screen='home']:target) [data-tab='home'],
+.app:has([data-screen='work']:target) [data-tab='work'],
+.app:has(section[data-detail]:target) [data-tab='work'],
+.app:has([data-screen='career']:target) [data-tab='career'],
+.app:has([data-screen='about']:target) [data-tab='about'] {
+  color: var(--accent);
+}

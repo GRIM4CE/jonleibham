@@ -1,0 +1,335 @@
+.screen {
+  padding-top: 18px;
+}
+
+/* ── Header ───────────────────────────────────────────────────────────────*/
+.header {
+  padding-inline: var(--gutter);
+}
+
+.headerRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.heading {
+  font-size: 32px;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.035em;
+}
+
+.search {
+  flex: none;
+  color: var(--text-tertiary);
+}
+
+.meta {
+  margin-top: 12px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--text-tertiary);
+}
+
+/* ── Filtering ────────────────────────────────────────────────────────────
+ * The chips are a radio group (see Tabs.tsx) and this scope wraps both them
+ * and the rows, so `:has()` can read the selection and hide what does not
+ * match. No JavaScript is involved.
+ */
+.filterScope {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.filters {
+  padding: 20px var(--gutter) 0;
+}
+
+/*
+ * One counter for both lists, so the utilities continue the projects' numbering
+ * when they are expanded. Rows hidden by a filter generate no box and so do not
+ * increment — which is exactly the renumbering the spec asks for.
+ */
+.counterScope {
+  counter-reset: row;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin-top: 22px;
+}
+
+.rows,
+.utilityRows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.rowItem {
+  counter-increment: row;
+}
+
+.row {
+  display: flex;
+  gap: 16px;
+  padding: 20px var(--gutter);
+  border-top: 1px solid var(--hairline-soft);
+  transition: background-color 0.15s ease;
+}
+
+.row:hover {
+  background: var(--row-hover);
+}
+
+/*
+ * The featured project. A flat tint, not a gradient — there are no gradients
+ * anywhere in this design.
+ */
+.featured {
+  background: var(--featured-tint);
+}
+
+.featured:hover {
+  background: var(--featured-tint-hover);
+}
+
+/* ── Row accents ──────────────────────────────────────────────────────────
+   Gold marks the featured project; the other two alternate so no two adjacent
+   spines share a color. */
+.accent-gold {
+  --row-index: var(--accent);
+  --row-spine: var(--accent);
+}
+
+.accent-green {
+  --row-index: var(--success);
+  --row-spine: var(--color-sea-green);
+}
+
+.accent-grape {
+  --row-index: var(--text-secondary);
+  --row-spine: var(--tint);
+}
+
+.spine {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.index {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--row-index);
+}
+
+/* The number itself, drawn from the counter rather than the markup. */
+.index::before {
+  content: counter(row, decimal-leading-zero);
+}
+
+.bar {
+  display: block;
+  width: 3px;
+  flex: 1;
+  border-radius: 2px;
+  background: var(--row-spine);
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+}
+
+.head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.rowTitle {
+  font-size: 19px;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+}
+
+.year {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--text-tertiary);
+}
+
+.blurb {
+  margin-top: 7px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  text-wrap: pretty;
+}
+
+.stackLine {
+  margin-top: 10px;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--tint-deep);
+}
+
+/* ── Utilities collapse ───────────────────────────────────────────────────*/
+.collapse {
+  margin: auto var(--gutter) 0;
+  padding: 16px 0 22px;
+}
+
+.toggle {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  margin: 0;
+  pointer-events: none;
+}
+
+.collapseHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  cursor: pointer;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--hairline-soft);
+}
+
+.collapseLabel {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.collapseHeader:hover .collapseLabel {
+  color: var(--text-primary);
+}
+
+.toggle:focus-visible + .collapseHeader {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* The two-line preview shown while the collapse is shut. */
+.summary {
+  display: flex;
+  flex-direction: column;
+}
+
+.summaryLine {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 13px 0 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.chevron {
+  flex: none;
+  color: var(--accent);
+  transition: transform 0.22s ease-out;
+}
+
+/* Expanded: the preview gives way to full index rows, chevron rotates. */
+.utilityRows {
+  display: none;
+}
+
+.collapse:has(.toggle:checked) .summary {
+  display: none;
+}
+
+.collapse:has(.toggle:checked) .utilityRows {
+  display: block;
+  margin-top: 4px;
+}
+
+.collapse:has(.toggle:checked) .chevron {
+  transform: rotate(90deg);
+}
+
+/* Rows inside the collapse sit flush with the screen's gutter. */
+.utilityRows .row {
+  margin-inline: calc(var(--gutter) * -1);
+}
+
+/* ── Filter rules ─────────────────────────────────────────────────────────
+ * CSS cannot compare an input's value to a row's `data-cat`, so each chip
+ * needs its own rule. Keep in step with `filters` in src/data/projects.ts.
+ */
+
+/* Products: the seven projects, no utilities and no collapse. */
+.filterScope:has(input[name='work-filter'][value='Products']:checked) .rowItem:not([data-cat~='product']) {
+  display: none;
+}
+
+.filterScope:has(input[name='work-filter'][value='Products']:checked) .collapse {
+  display: none;
+}
+
+/* Utilities: the collapse contents become the index, and its chrome goes away. */
+.filterScope:has(input[name='work-filter'][value='Utilities']:checked) .rows {
+  display: none;
+}
+
+.filterScope:has(input[name='work-filter'][value='Utilities']:checked) .collapseHeader,
+.filterScope:has(input[name='work-filter'][value='Utilities']:checked) .summary {
+  display: none;
+}
+
+.filterScope:has(input[name='work-filter'][value='Utilities']:checked) .utilityRows {
+  display: block;
+}
+
+.filterScope:has(input[name='work-filter'][value='Utilities']:checked) .collapse {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+/*
+ * AI spans both lists — three projects and one utility — so the collapse is
+ * forced open and filtered rather than hidden.
+ */
+.filterScope:has(input[name='work-filter'][value='AI']:checked) .rowItem:not([data-cat~='ai']) {
+  display: none;
+}
+
+.filterScope:has(input[name='work-filter'][value='AI']:checked) .collapseHeader,
+.filterScope:has(input[name='work-filter'][value='AI']:checked) .summary {
+  display: none;
+}
+
+.filterScope:has(input[name='work-filter'][value='AI']:checked) .utilityRows {
+  display: block;
+}
+
+.filterScope:has(input[name='work-filter'][value='AI']:checked) .collapse {
+  margin-top: 0;
+  padding-top: 0;
+}

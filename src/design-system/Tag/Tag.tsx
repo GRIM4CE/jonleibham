@@ -1,45 +1,24 @@
-import type { ButtonHTMLAttributes, ReactNode } from 'react'
-import { toneClass } from '../tones'
-import type { Tone } from '../tokens'
+import type { ReactNode } from 'react'
 import styles from './Tag.module.css'
 
-export type TagVariant = 'soft' | 'solid' | 'outline'
+/**
+ * Chips are color-coded by what the technology *is*, not for decoration:
+ * cloud and infra read gold, data stores read green, everything else takes the
+ * neutral grape tint.
+ */
+export type TagVariant = 'neutral' | 'cloud' | 'data'
 
-export interface TagProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'type'> {
-  tone?: Tone
+/** sm = detail-screen tech chips, md = the About stack chips. */
+export type TagSize = 'sm' | 'md'
+
+export interface TagProps {
   variant?: TagVariant
-  selected?: boolean
-  interactive?: boolean
-  textTone?: Tone
+  size?: TagSize
   children: ReactNode
 }
 
-export function Tag({
-  tone = 'dustyGrape',
-  variant = 'soft',
-  selected = false,
-  interactive = false,
-  textTone = 'porcelain',
-  children,
-  ...rest
-}: TagProps) {
-  const className = [
-    styles.tag,
-    styles[`variant-${variant}`],
-    interactive ? styles.interactive : '',
-    selected ? styles.selected : '',
-    toneClass('accent', tone),
-    toneClass('text', textTone),
-  ]
-    .filter(Boolean)
-    .join(' ')
+export function Tag({ variant = 'neutral', size = 'sm', children }: TagProps) {
+  const className = [styles.tag, styles[`variant-${variant}`], styles[`size-${size}`]].join(' ')
 
-  if (interactive) {
-    return (
-      <button type="button" className={className} {...rest}>
-        {children}
-      </button>
-    )
-  }
   return <span className={className}>{children}</span>
 }

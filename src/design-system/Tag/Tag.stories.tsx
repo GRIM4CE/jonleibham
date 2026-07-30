@@ -1,40 +1,58 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { Tag } from './Tag'
-import { tones } from '../tokens'
+import { tagVariantFor } from './tagVariant'
 
 const meta = {
   title: 'Design System/Tag',
   component: Tag,
-  parameters: { layout: 'centered' },
+  parameters: {
+    layout: 'centered',
+    backgrounds: { default: 'ground', values: [{ name: 'ground', value: '#1a0f16' }] },
+  },
   tags: ['autodocs'],
   argTypes: {
-    tone: { control: 'select', options: tones },
-    textTone: { control: 'select', options: tones },
-    variant: { control: 'inline-radio', options: ['soft', 'solid', 'outline'] },
-    interactive: { control: 'boolean' },
-    selected: { control: 'boolean' },
+    variant: { control: 'inline-radio', options: ['neutral', 'cloud', 'data'] },
+    size: { control: 'inline-radio', options: ['sm', 'md'] },
   },
 } satisfies Meta<typeof Tag>
 
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const Soft: Story = {
-  args: { tone: 'dustyGrape', variant: 'soft', children: 'TypeScript' },
+export const Neutral: Story = {
+  args: { variant: 'neutral', size: 'sm', children: 'TypeScript' },
 }
 
-export const Solid: Story = {
-  args: { tone: 'sunflowerGold', variant: 'solid', textTone: 'midnightViolet', children: 'AI' },
+/** Cloud and infrastructure read gold. */
+export const Cloud: Story = {
+  args: { variant: 'cloud', size: 'sm', children: 'AWS Lambda' },
 }
 
-export const Outline: Story = {
-  args: { tone: 'seaGreen', variant: 'outline', children: 'Vue 3' },
+/** Data stores read green. */
+export const Data: Story = {
+  args: { variant: 'data', size: 'sm', children: 'Turso (libSQL)' },
 }
 
-export const InteractiveTab: Story = {
-  args: { tone: 'magentaBloom', interactive: true, selected: true, children: 'Testing' },
+/** The larger step, used for the About screen's stack chips. */
+export const Medium: Story = {
+  args: { variant: 'neutral', size: 'md', children: 'Design Systems' },
 }
 
-export const InteractiveTabIdle: Story = {
-  args: { tone: 'magentaBloom', interactive: true, selected: false, children: 'Testing' },
+/**
+ * A real stack, colored by `tagVariantFor` — the coding is by category, not
+ * decoration.
+ */
+export const Stack: Story = {
+  args: { children: null },
+  render: () => (
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, maxWidth: 340 }}>
+      {['React 19', 'TypeScript', 'Express 5', 'AWS Lambda', 'Turso (libSQL)', 'AWS Cognito'].map(
+        (tech) => (
+          <Tag key={tech} variant={tagVariantFor(tech)}>
+            {tech}
+          </Tag>
+        ),
+      )}
+    </div>
+  ),
 }

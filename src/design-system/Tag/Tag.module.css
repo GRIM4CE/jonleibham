@@ -1,49 +1,39 @@
+/*
+ * Tech chips. Mono, pill, flat fill — the color says what the technology is
+ * (cloud, data, everything else), so the fills are named by category rather
+ * than driven by the generic tone scale.
+ */
 .tag {
   display: inline-flex;
   align-items: center;
-  padding: 0.25rem 0.75rem;
-  border-radius: 999px;
-  font-size: 0.85rem;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-mono);
   font-weight: 500;
-  font-family: inherit;
-  border: 1px solid transparent;
   white-space: nowrap;
-  line-height: 1.4;
+  line-height: 1;
 }
 
-.variant-soft {
-  background: color-mix(in srgb, var(--ds-accent) 14%, transparent);
-  /* Darken the tone for text so soft tags clear WCAG AA (4.5:1) on light surfaces. */
-  color: color-mix(in srgb, var(--ds-accent) 90%, black);
+.size-sm {
+  padding: 6px 11px;
+  font-size: 10px;
 }
 
-.variant-solid {
-  background: var(--ds-accent);
-  color: var(--ds-text);
+.size-md {
+  padding: 7px 12px;
+  font-size: 10.5px;
 }
 
-.variant-outline {
-  background: transparent;
-  color: var(--ds-accent);
-  border-color: var(--ds-accent);
+.variant-neutral {
+  background: var(--tint-fill);
+  color: var(--text-primary);
 }
 
-.interactive {
-  cursor: pointer;
-  transition: background 0.15s, color 0.15s, transform 0.15s;
+.variant-cloud {
+  background: var(--chip-cloud-fill);
+  color: var(--accent);
 }
 
-.interactive:hover {
-  transform: translateY(-1px);
-}
-
-.interactive.selected {
-  background: var(--ds-accent);
-  color: var(--ds-text);
-  border-color: var(--ds-accent);
-}
-
-.interactive:focus-visible {
-  outline: 2px solid var(--ds-accent);
-  outline-offset: 2px;
+.variant-data {
+  background: var(--chip-data-fill);
+  color: var(--success);
 }

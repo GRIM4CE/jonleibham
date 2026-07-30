@@ -1,0 +1,146 @@
+.screen {
+  padding-top: 20px;
+}
+
+/* ── Portrait row ─────────────────────────────────────────────────────────*/
+.portraitRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  padding-inline: var(--gutter);
+}
+
+.portrait {
+  flex: none;
+  width: 104px;
+  height: 130px;
+  object-fit: cover;
+  border-radius: var(--radius-card);
+  background: var(--surface);
+}
+
+.identity {
+  padding-top: 6px;
+}
+
+.name {
+  font-size: 30px;
+  font-weight: 900;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+}
+
+.role {
+  margin-top: 11px;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.location {
+  margin-top: 6px;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+/* ── Bio ──────────────────────────────────────────────────────────────────*/
+.bio {
+  padding: 24px var(--gutter) 0;
+}
+
+.bioLead {
+  font-size: 14.5px;
+  line-height: 1.62;
+  color: var(--text-primary);
+  text-wrap: pretty;
+}
+
+.bioBody {
+  margin-top: 13px;
+  font-size: 14.5px;
+  line-height: 1.62;
+  color: var(--text-secondary);
+  text-wrap: pretty;
+}
+
+/* ── Stack ────────────────────────────────────────────────────────────────*/
+.stack {
+  padding: 24px var(--gutter) 0;
+}
+
+.stackLabel {
+  margin-bottom: 14px;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.panel {
+  display: none;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 15px;
+}
+
+/*
+ * One rule per group: CSS cannot compare the checked radio's value against a
+ * panel's `data-stack`, so the pairing is written out. Keep in step with
+ * `stackGroups` in src/data/stack.ts.
+ */
+.stack:has(input[name='stack-tab'][value='Frontend']:checked) .panel[data-stack='Frontend'],
+.stack:has(input[name='stack-tab'][value='Systems']:checked) .panel[data-stack='Systems'],
+.stack:has(input[name='stack-tab'][value='Testing']:checked) .panel[data-stack='Testing'],
+.stack:has(input[name='stack-tab'][value='Platform']:checked) .panel[data-stack='Platform'] {
+  display: flex;
+}
+
+/* ── Foot ─────────────────────────────────────────────────────────────────*/
+.foot {
+  margin-top: auto;
+  padding: 0 var(--gutter) 22px;
+}
+
+.offClock {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 15px 0;
+  border-top: 1px solid rgba(184, 184, 209, 0.16);
+}
+
+.offClockLabel {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.offClockText {
+  font-size: 12.5px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--text-tertiary);
+}
+
+.actions {
+  display: flex;
+  gap: 9px;
+}
+
+/* The email action takes the room the two circular marks leave. */
+.email {
+  flex: 1;
+}

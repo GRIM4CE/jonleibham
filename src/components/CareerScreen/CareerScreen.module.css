@@ -1,0 +1,221 @@
+.screen {
+  padding-top: 16px;
+}
+
+/* ── Header ───────────────────────────────────────────────────────────────*/
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding-inline: var(--gutter);
+}
+
+.heading {
+  font-size: 32px;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.035em;
+}
+
+.meta {
+  margin-top: 10px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+/* ── Timeline ─────────────────────────────────────────────────────────────*/
+.timeline {
+  list-style: none;
+  margin: 0;
+  padding: 26px var(--gutter) 0;
+}
+
+.entry {
+  display: flex;
+  gap: 15px;
+}
+
+.rail {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 4px;
+}
+
+.dot {
+  display: block;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+
+.dotCurrent {
+  background: var(--accent);
+}
+
+.dotPast {
+  border: 2px solid var(--text-secondary);
+}
+
+/* The last entry closes the timeline: a fainter dot and no line below it. */
+.dotLast {
+  border-color: rgba(184, 184, 209, 0.5);
+}
+
+/* Flat, not a fade — this design has no gradients. */
+.line {
+  display: block;
+  width: 2px;
+  flex: 1;
+  background: rgba(184, 184, 209, 0.22);
+}
+
+.lineCurrent {
+  background: rgba(255, 193, 69, 0.35);
+}
+
+.entryBody {
+  flex: 1;
+  min-width: 0;
+  padding-bottom: 22px;
+}
+
+.entryHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.company {
+  font-size: 20px;
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+/* The freelance years are context, not a headline role. */
+.companyMuted {
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+.badge {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 500;
+  color: var(--text-tertiary);
+}
+
+.badgeNow {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+}
+
+.role {
+  margin-top: 7px;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.proof {
+  margin-top: 11px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  text-wrap: pretty;
+}
+
+.proof + .proof {
+  margin-top: 8px;
+}
+
+.proofMuted {
+  margin-top: 8px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-tertiary);
+  text-wrap: pretty;
+}
+
+/* ── Education ────────────────────────────────────────────────────────────*/
+.education {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 22px var(--gutter) 0;
+  padding: 16px 18px;
+  border-radius: var(--radius-card-sm);
+  background: var(--tint-fill-strong);
+}
+
+.educationIcon {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.degree {
+  font-size: 13.5px;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.school {
+  margin-top: 5px;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  color: var(--text-secondary);
+}
+
+/* ── Footer line ──────────────────────────────────────────────────────────*/
+.footer {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px var(--gutter);
+}
+
+.footerLabel {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.footerText {
+  font-size: 12.5px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--text-tertiary);
+}
