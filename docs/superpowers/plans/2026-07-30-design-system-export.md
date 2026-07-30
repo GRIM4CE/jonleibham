@@ -52,6 +52,37 @@
 
 # Phase 0 — Resolve the upload contract
 
+> **RESOLVED 2026-07-30.** Findings below; Tasks 2–4 and 15 have been amended to match.
+>
+> **Project:** `19746144-6183-4f19-bbc3-c5c057d68436` — "Jon Leibham Portfolio DS",
+> verified `PROJECT_TYPE_DESIGN_SYSTEM`, `canEdit: true`.
+>
+> A separate, mature **"Dossier Design System"** project also exists
+> (`487c1bc2-b5ca-4c8c-837d-172f4496fabc`) with 16 components, six themes,
+> tokens and UI kits for the finance/todos/showcase apps. The user was shown
+> this and chose to create a separate portfolio project anyway. Its conventions
+> are still the reference for the format below, since the app produced them.
+>
+> 1. **`_ds_manifest.json` is compiled by the app**, not by us. It lists
+>    `components` (name + sourcePath) and `cards` (path, group, viewport,
+>    subtitle, name). The generator must not emit it.
+> 2. **The `@dsCard` marker carries four attributes**, not one:
+>    `group`, `viewport` (a `"WxH"` string), `name`, `subtitle`. Emitting only
+>    `group` would lose everything the pane shows on the card.
+> 3. **Cards link a shared `../styles.css`** rather than inlining the
+>    stylesheet, and wrap content in an element that sets
+>    `background: var(--ground); min-height: 100vh`. Verified against
+>    `guidelines/brand-mark.html` in the Dossier project.
+> 4. **`report_validate` remains unconfirmed** — no evidence it is required, and
+>    the manifest being app-compiled suggests it is optional telemetry. Treated
+>    as optional; confirm empirically at Task 4 and call it at Task 15 only if
+>    Task 4 shows it is needed.
+> 5. **`thin` / `variantsIdentical` remain undocumented.** Best reading: a card
+>    whose content is far smaller than its declared `viewport`, and a variant
+>    grid whose entries render identically. The mitigation stands unchanged —
+>    `MediaWell` (Task 10) and `Portrait` (Task 12) get deliberately fuller
+>    cards, and every card declares a viewport close to its real content size.
+
 ### Task 1: Establish what DesignSync actually requires
 
 No code. This resolves the spec's open question before the generator's output contract is fixed.
@@ -154,17 +185,16 @@ Create `scripts/design-card.css`. Plain CSS, class prefix `dsc-`, never imported
    Not a CSS Module and never imported by App: the bundle reads its app CSS
    from dist/assets/*.css, which only contains what App's tree imports. */
 
+/* The card's own ground. Modelled on `.dsroot` in the existing Dossier
+   project's guidelines cards: the pane supplies its own background, and
+   without this the components render invisible — the whole palette is dark. */
 .dsc-body {
-  margin: 0;
-  /* The Design System pane supplies its own background. Without this the
-     components render invisible — the whole palette is built for dark. */
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding: 40px;
   background: var(--ground);
   color: var(--text-primary);
   font-family: var(--font-body);
-}
-
-.dsc-card {
-  padding: 40px;
   display: flex;
   flex-direction: column;
   gap: 32px;
@@ -486,12 +516,18 @@ const { cards, renderCard } = await import(
 )
 
 await rm(out, { recursive: true, force: true })
-await mkdir(out, { recursive: true })
+await mkdir(path.join(out, 'cards'), { recursive: true })
+
+// One shared stylesheet at the bundle root, linked by every card as
+// `../styles.css`. This is the convention the existing Dossier project already
+// uses, and it beats inlining the whole stylesheet into all thirteen cards.
+// Cards therefore live one directory deep, so the relative link resolves.
+await writeFile(path.join(out, 'styles.css'), css)
 
 for (const card of cards) {
   const markup = renderCard(card)
   assertStyled(card, markup, css)
-  await writeFile(path.join(out, `${card.slug}.html`), page(card, markup, css))
+  await writeFile(path.join(out, 'cards', `${card.slug}.html`), page(card, markup))
 }
 
 await writeFile(path.join(out, 'cards.json'), `${JSON.stringify(cards.map(meta), null, 2)}\n`)
@@ -506,36 +542,49 @@ function meta(card) {
     group: card.group,
     subtitle: card.subtitle,
     viewport: card.viewport,
-    path: `${card.slug}.html`,
+    path: `cards/${card.slug}.html`,
   }
 }
 
 /**
- * The `@dsCard` marker has to be the very first line — the Design System pane
- * reads the card's group off it before parsing anything else.
+ * The `@dsCard` marker has to be the very first line — the app compiles
+ * `_ds_manifest.json` from it, so everything the pane shows on a card comes
+ * from these four attributes. Emitting only `group` loses the card's name,
+ * subtitle and dimensions.
+ *
+ * `viewport` is a `WxH` string, not two numbers.
+ *
+ * Verified against `guidelines/brand-mark.html` in the existing Dossier
+ * project, which is the format the app already produces.
  */
-function page(card, markup, styles) {
-  return `<!-- @dsCard group="${card.group}" -->
-<!doctype html>
+function page(card, markup) {
+  const { width, height } = card.viewport
+  const viewport = height ? `${width}x${height}` : `${width}`
+
+  return `<!-- @dsCard group="${attr(card.group)}" viewport="${viewport}" name="${attr(card.name)}" subtitle="${attr(card.subtitle ?? '')}" -->
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${card.name}</title>
+<title>${attr(card.name)}</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="${FONTS}" rel="stylesheet">
-<style>
-${styles}
-</style>
+<link rel="stylesheet" href="../styles.css">
 </head>
-<body class="dsc-body">
-<main class="dsc-card">
+<body>
+<div class="dsc-body">
 ${markup}
-</main>
+</div>
 </body>
 </html>
 `
+}
+
+/** The marker is an HTML comment holding quoted attributes — a stray `"` or
+ *  `--` would break the parse. Subtitles are prose, so this is not theoretical. */
+function attr(value) {
+  return String(value).replace(/"/g, '&quot;').replace(/--/g, '—')
 }
 
 /**
@@ -570,13 +619,21 @@ Expected: `design-bundle: 5 card(s) written to design-bundle/` and no `assertSty
 
 - [ ] **Step 5: Verify a card is genuinely standalone**
 
-Run: `head -3 design-bundle/button.html && grep -c "dsc-body" design-bundle/button.html && ls design-bundle`
+Run: `head -2 design-bundle/cards/button.html && ls design-bundle design-bundle/cards`
 
-Expected: line 1 is exactly `<!-- @dsCard group="Components" -->`; `dsc-body` appears (both the rule and the body class); `design-bundle/` holds `button.html`, `colors.html`, `icon.html`, `tabs.html`, `tag.html`, `cards.json`.
+Expected: line 1 carries all four attributes —
+
+```
+<!-- @dsCard group="Components" viewport="720x620" name="Button" subtitle="Solid / outline / ghost / icon, four sizes" -->
+```
+
+`design-bundle/` holds `styles.css`, `cards.json` and `cards/`; `cards/` holds `button.html`, `colors.html`, `icon.html`, `tabs.html`, `tag.html`.
 
 - [ ] **Step 6: Eyeball one card in a browser**
 
-Open `design-bundle/button.html` with the `preview_start` browser tool (`{url: "file://<abs path>/design-bundle/button.html"}`), then `computer {action: "screenshot"}`.
+Open `design-bundle/cards/button.html` with the `preview_start` browser tool (`{url: "file://<abs path>/design-bundle/cards/button.html"}`), then `computer {action: "screenshot"}`.
+
+The `../styles.css` link must resolve — if the card is unstyled, the bundle layout is wrong, not the CSS.
 
 Expected: gold pills legible on the dark ground, all four variants and four sizes visibly different from each other. **If everything is invisible, the ground rule failed — fix before uploading anything.** This is a local proxy for the pane check in Task 5, not a substitute for it.
 
@@ -614,28 +671,31 @@ Expected: 5 cards. Never upload a stale `design-bundle/`.
 
 Call `DesignSync`:
 - `method: "finalize_plan"`
-- `projectId`: from Task 1
-- `writes`: `["*.html"]`
+- `projectId`: `19746144-6183-4f19-bbc3-c5c057d68436`
+- `writes`: `["styles.css", "cards/*.html"]`
 - `localDir`: the absolute path to `design-bundle`
 
 Expected: a `planId`.
 
 - [ ] **Step 4: Write the files**
 
-Call `DesignSync` with `method: "write_files"`, the `planId`, and one entry per card using `localPath` (never inline `data` — `localPath` uploads from disk without the contents entering context):
+Call `DesignSync` with `method: "write_files"`, the `planId`, and one entry per file using `localPath` (never inline `data` — `localPath` uploads from disk without the contents entering context):
 
 ```
-{ path: "colors.html", localPath: "colors.html" }
-{ path: "button.html", localPath: "button.html" }
-{ path: "tag.html",    localPath: "tag.html" }
-{ path: "tabs.html",   localPath: "tabs.html" }
-{ path: "icon.html",   localPath: "icon.html" }
+{ path: "styles.css",       localPath: "styles.css" }
+{ path: "cards/colors.html", localPath: "cards/colors.html" }
+{ path: "cards/button.html", localPath: "cards/button.html" }
+{ path: "cards/tag.html",    localPath: "cards/tag.html" }
+{ path: "cards/tabs.html",   localPath: "cards/tabs.html" }
+{ path: "cards/icon.html",   localPath: "cards/icon.html" }
 ```
+
+`styles.css` must be in the same `write_files` batch — every card links it, and cards uploaded without it render unstyled.
 
 - [ ] **Step 5: Confirm the upload landed**
 
 Call `DesignSync` with `method: "list_files"` and the `projectId`.
-Expected: the five paths. This confirms **upload**, not render.
+Expected: six paths, and `_ds_manifest.json` appearing on its own — the app compiles that from the `@dsCard` markers, so its presence with five card entries is the first real signal the markers parsed. This still confirms **upload**, not render.
 
 - [ ] **Step 6: Hand the render gate to the user — STOP HERE**
 
@@ -2255,7 +2315,7 @@ List all thirteen paths, the `projectId`, and the local directory. This publishe
 
 - [ ] **Step 4: Finalize and write**
 
-`DesignSync` `finalize_plan` with `writes: ["*.html"]` and `localDir` set to the absolute path of `design-bundle`, then `write_files` with one `localPath` entry per card.
+`DesignSync` `finalize_plan` with `writes: ["styles.css", "cards/*.html"]` and `localDir` set to the absolute path of `design-bundle`, then `write_files` with one `localPath` entry per file — the thirteen cards **and** `styles.css`, which will have changed as the eight new components added their rules.
 
 - [ ] **Step 5: Confirm and hand back the render gate**
 
