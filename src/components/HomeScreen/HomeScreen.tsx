@@ -1,4 +1,4 @@
-import { Button, Icon } from '../../design-system'
+import { Button, Icon, LabeledNote } from '../../design-system'
 import { metrics, profile } from '../../data/profile'
 import { projects } from '../../data/projects'
 import styles from './HomeScreen.module.css'
@@ -86,10 +86,9 @@ export function HomeScreen() {
         <Icon name="chevronRight" size={18} className={styles.latestChevron} />
       </a>
 
-      <p className={styles.now}>
-        <span className={styles.nowLabel}>Now</span>
-        <span className={styles.nowText}>{profile.now}</span>
-      </p>
+      <LabeledNote label="Now" className={styles.now}>
+        {profile.now}
+      </LabeledNote>
     </section>
   )
 }

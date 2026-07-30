@@ -1,6 +1,6 @@
 import type { ReactElement } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
-import { Button, Icon, Tabs, Tag, toneClass, tones } from './design-system'
+import { Button, Icon, LabeledNote, Tabs, Tag, toneClass, tones } from './design-system'
 import type { IconName } from './design-system'
 import { Section } from './designCardChrome'
 
@@ -143,6 +143,22 @@ export const cards: DesignCard[] = [
           />
         </Section>
       </>
+    ),
+  },
+  {
+    slug: 'labeled-note',
+    name: 'LabeledNote',
+    group: 'Components',
+    subtitle: 'A small label and a line of text',
+    viewport: { width: 640, height: 220 },
+    render: () => (
+      <div className="dsc-col">
+        <LabeledNote label="Now">Building a design system for four apps to share.</LabeledNote>
+        <LabeledNote label="Why">Frontend that holds up under real traffic.</LabeledNote>
+        <LabeledNote label={<>Off&nbsp;clock</>}>
+          Bouldering, and a stubborn sourdough starter.
+        </LabeledNote>
+      </div>
     ),
   },
   {

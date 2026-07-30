@@ -181,29 +181,10 @@
 }
 
 /* ── Now line ─────────────────────────────────────────────────────────────*/
+/* Placement only — the label/text shape is LabeledNote's. */
 .now {
   margin-top: auto;
-  display: flex;
-  align-items: center;
-  gap: 12px;
   padding: 20px var(--gutter);
-}
-
-.nowLabel {
-  flex: none;
-  font-family: var(--font-mono);
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--accent);
-}
-
-.nowText {
-  font-size: 12.5px;
-  font-weight: 500;
-  line-height: 1.4;
-  color: var(--text-tertiary);
 }
 
 /* The Latest card belongs to the desktop column only. */
@@ -392,11 +373,11 @@
     padding: 22px 0 0;
   }
 
-  .nowLabel {
+  .now [data-note-label] {
     font-size: 10px;
   }
 
-  .nowText {
+  .now [data-note-text] {
     font-size: 14px;
   }
 }

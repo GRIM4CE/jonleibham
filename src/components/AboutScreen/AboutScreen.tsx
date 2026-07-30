@@ -1,4 +1,4 @@
-import { Button, Icon, Tabs, Tag } from '../../design-system'
+import { Button, Icon, LabeledNote, Tabs, Tag } from '../../design-system'
 import { profile } from '../../data/profile'
 import { STACK_GROUP, stackGroups } from '../../data/stack'
 import styles from './AboutScreen.module.css'
@@ -64,10 +64,9 @@ export function AboutScreen() {
       </div>
 
       <div className={styles.foot}>
-        <p className={styles.offClock}>
-          <span className={styles.offClockLabel}>Off&nbsp;clock</span>
-          <span className={styles.offClockText}>{profile.offClock}</span>
-        </p>
+        <LabeledNote label={<>Off&nbsp;clock</>} className={styles.offClock}>
+          {profile.offClock}
+        </LabeledNote>
         <div className={styles.actions}>
           <Button as="a" href={profile.links.email} size="md" className={styles.email}>
             Email me

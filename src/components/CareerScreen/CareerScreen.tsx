@@ -1,4 +1,4 @@
-import { Button, Icon } from '../../design-system'
+import { Button, Icon, LabeledNote } from '../../design-system'
 import { education, roles } from '../../data/career'
 import { profile } from '../../data/profile'
 import styles from './CareerScreen.module.css'
@@ -105,10 +105,9 @@ export function CareerScreen() {
           </div>
         </div>
 
-        <p className={styles.footer}>
-          <span className={styles.footerLabel}>Why</span>
-          <span className={styles.footerText}>{profile.why}</span>
-        </p>
+        <LabeledNote label="Why" className={styles.footer}>
+          {profile.why}
+        </LabeledNote>
       </div>
     </section>
   )
