@@ -55,9 +55,19 @@ CLAUDE.md already describes.
 the portfolio is a one-line edit in `src/data/projects.ts`. Optional final step,
 not a driver of the design.
 
-**Storybook hosts on Chromatic.** `@chromatic-com/storybook` is already a
-devDependency. Chromatic gives hosting plus visual-regression diffs per PR, and
-is cheaper to stand up than a second Amplify app.
+**Storybook hosts on a second Amplify app.** Matches how the portfolio already
+ships and keeps everything in the user's own AWS account. Chromatic was
+considered and rejected; `@chromatic-com/storybook` is removed from the addon
+list and from `devDependencies` rather than left as dead weight.
+
+The tradeoff accepted with that: **no visual-regression testing.** The a11y
+addon and `@storybook/addon-vitest` still run in `npm run test`, but nothing
+will catch an unintended visual change to a component. If that becomes painful
+later, it is a separate decision.
+
+**A new Claude Design project is created** rather than an existing one updated —
+`create_project`, not a push into something already there. `list_projects` still
+runs first, to name the new project distinctly from anything already present.
 
 **Screens are not design-system components.** `HomeScreen`, `WorkScreen`,
 `CareerScreen`, `AboutScreen`, `ProjectDetail` and `TabBar` are page-level
@@ -137,12 +147,20 @@ variants — `Button` (variants x sizes x block), `Tag`, `Icon` (the full set),
 
 ### Upload flow
 
-`list_projects` → confirm or `create_project` → `finalize_plan` → `write_files`.
+`list_projects` → `create_project` → `finalize_plan` → `write_files`.
+
+A **new** design-system project is created for this repo. `list_projects` still
+runs first — not to find a target to reuse, but to pick a name that does not
+collide with anything already there, and to confirm the account can write.
+
+`create_project` must produce a project of type
+`PROJECT_TYPE_DESIGN_SYSTEM`; that type is immutable at creation, so a push into
+a regular project never becomes a design system. Verify with `get_project`
+before the first `finalize_plan`.
 
 `write_files` publishes to claude.ai. Every `finalize_plan` / `write_files` pair
 is an explicit approval step: show the user the exact path list and the source
-directory, and wait for a yes. Run `list_projects` before assuming a project
-must be created — one may already exist.
+directory, and wait for a yes.
 
 ### Known risk
 
@@ -242,17 +260,43 @@ data drift apart. Moving the markup without the rules breaks styling silently;
 moving the rules into the design system undermines the tests' premise. If these
 are wanted later, that is its own scoped piece of work.
 
-## Part 3 — Storybook and Chromatic
+## Part 3 — Storybook, deployed on Amplify
 
 - Write stories for `Tabs`, currently the only design-system component without
   them, and for each of the eight new components.
-- Add the `chromatic` package and `.github/workflows/chromatic.yml`, running on
-  pull requests and pushes to `main`.
+- Remove `@chromatic-com/storybook` from `.storybook/main.ts` and from
+  `devDependencies`.
+- Add `amplify.storybook.yml`: a second build spec, for a second Amplify app
+  pointed at this same repository, publishing `storybook-static/`.
 
-**External prerequisite, owned by the user:** a Chromatic project and a
-`CHROMATIC_PROJECT_TOKEN` GitHub Actions secret. The workflow is written
-regardless; it will not pass until the secret exists. This is a manual step —
-account creation cannot be automated from here.
+### The Storybook build spec is not a copy of `amplify.yml`
+
+Two things in the portfolio's spec are actively wrong for Storybook, and
+copying it is the likely first mistake:
+
+- **`npm install --omit=dev` skips the entire Storybook tree.** That flag exists
+  precisely because the portfolio build never needs it. The Storybook app must
+  install devDependencies. Keep `PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1` — the
+  Playwright browsers are only needed by the browser-mode Vitest project, which
+  does not run on Amplify.
+- **The security headers would break Storybook.** `X-Frame-Options: DENY` and
+  `frame-ancestors 'none'` block Storybook's own same-origin preview iframe, and
+  `script-src 'self'` with no `'unsafe-inline'` fights a bundle that is entirely
+  JavaScript. The Storybook app needs its own, looser set — at minimum
+  `X-Frame-Options: SAMEORIGIN` and `frame-ancestors 'self'`.
+
+The exact CSP the built Storybook tolerates is **verified against a real build
+served locally**, not guessed. The zero-JS CSP is a property of the portfolio,
+not of this repository.
+
+Build command is `npm run build-storybook`; artifact base directory is
+`storybook-static`.
+
+**External prerequisite, owned by the user:** creating the second Amplify app in
+the AWS console, pointing it at this repo and at `amplify.storybook.yml`, and
+attaching a subdomain (e.g. `ds.jonleibham.com`). The build spec is written and
+committed regardless; it does nothing until an app is pointed at it. App
+creation cannot be automated from here.
 
 ## Verification
 
@@ -280,7 +324,8 @@ No extraction step is reported as done without that output.
 2. Extract the three duplicated components; verify.
 3. Extract the five primitives; verify.
 4. Stories for `Tabs` and all eight new components.
-5. Chromatic workflow.
+5. Drop Chromatic; add `amplify.storybook.yml` and verify its headers against a
+   real `build-storybook` output served locally.
 6. Regenerate the bundle and upload the full set.
 
 Step 1 is deliberately first because it carries the only unknown-unknowns.
@@ -291,4 +336,6 @@ Step 1 is deliberately first because it carries the only unknown-unknowns.
 - Extracting `IndexRow`, the timeline rail, or the utilities collapse.
 - Linking the deployed Storybook from the portfolio — a one-line data edit once
   a URL exists, and not required by anything above.
-- Creating the Chromatic account or the GitHub secret.
+- Visual-regression testing. Rejected with Chromatic; revisit separately if
+  unintended visual changes start slipping through.
+- Creating the second Amplify app or attaching its subdomain.
