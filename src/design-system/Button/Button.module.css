@@ -28,8 +28,8 @@
 }
 
 .variant-solid {
-  background: var(--btn-tone);
-  color: var(--btn-text);
+  background: var(--ds-accent);
+  color: var(--ds-text);
 }
 
 .variant-solid:hover {
@@ -39,28 +39,28 @@
 
 .variant-outline {
   background: transparent;
-  color: var(--btn-tone);
-  border-color: var(--btn-tone);
+  color: var(--ds-accent);
+  border-color: var(--ds-accent);
 }
 
 .variant-outline:hover {
-  background: var(--btn-tone);
-  color: var(--btn-text);
+  background: var(--ds-accent);
+  color: var(--ds-text);
   transform: translateY(-2px);
 }
 
 .variant-ghost {
   background: transparent;
-  color: var(--btn-tone);
+  color: var(--ds-accent);
 }
 
 .variant-ghost:hover {
-  background: color-mix(in srgb, var(--btn-tone) 12%, transparent);
+  background: color-mix(in srgb, var(--ds-accent) 12%, transparent);
 }
 
 .variant-gradient {
-  background: linear-gradient(135deg, var(--btn-tone) 0%, var(--btn-gradient-end) 100%);
-  color: var(--btn-text);
+  background: linear-gradient(135deg, var(--ds-accent) 0%, var(--ds-accent-2) 100%);
+  color: var(--ds-text);
 }
 
 .variant-gradient:hover {
@@ -69,6 +69,6 @@
 }
 
 .btn:focus-visible {
-  outline: 2px solid var(--btn-tone);
+  outline: 2px solid var(--ds-accent);
   outline-offset: 3px;
 }

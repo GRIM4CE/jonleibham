@@ -1,0 +1,13 @@
+{
+  // Dev-only sources: stories and unit tests. Both import packages that the
+  // Amplify production build omits (`npm install --omit=dev`), so they are
+  // excluded from tsconfig.app.json and typechecked here instead, against a
+  // full install. Run with `npm run typecheck:dev`.
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.dev.tsbuildinfo",
+    "types": ["vite/client", "vitest/globals"]
+  },
+  "include": ["src/**/*.stories.tsx", "src/**/*.test.ts"],
+  "exclude": []
+}

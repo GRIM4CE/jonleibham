@@ -15,6 +15,16 @@ export default defineConfig({
   plugins: [react()],
   test: {
     projects: [{
+      // Plain node tests. These mostly guard the CSS-only tab and filter
+      // machinery: the rules live in stylesheets but the values they key off
+      // come from TypeScript, and a mismatch fails silently in the browser.
+      extends: true,
+      test: {
+        name: 'unit',
+        environment: 'node',
+        include: ['src/**/*.test.ts'],
+      },
+    }, {
       extends: true,
       plugins: [
       // The plugin will run tests for the stories defined in your Storybook config

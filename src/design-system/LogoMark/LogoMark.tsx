@@ -1,5 +1,5 @@
-import type { CSSProperties } from 'react'
-import { toneVar, type Tone } from '../tokens'
+import { toneClass } from '../tones'
+import type { Tone } from '../tokens'
 import styles from './LogoMark.module.css'
 
 export interface LogoMarkProps {
@@ -10,9 +10,11 @@ export interface LogoMarkProps {
 }
 
 export function LogoMark({ text, accent = 'sunflowerGold', href = '#', size = 'md' }: LogoMarkProps) {
-  const style: CSSProperties = { '--logo-accent': toneVar[accent] } as CSSProperties
   return (
-    <a className={`${styles.logo} ${styles[`size-${size}`]}`} style={style} href={href}>
+    <a
+      className={`${styles.logo} ${styles[`size-${size}`]} ${toneClass('accent', accent)}`}
+      href={href}
+    >
       {text}
       <span className={styles.dot}>.</span>
     </a>

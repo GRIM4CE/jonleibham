@@ -85,3 +85,73 @@
     gap: 0.25rem;
   }
 }
+
+/* A thin tech-tinted rule at the top of each card. The tint used to come from
+   an inline `style` attribute, which the deployed CSP blocks, so each card
+   names its tint with `data-tint` and picks up the color here. Keep in step
+   with `TECH_TINT` in projects.data.ts — projects.test.ts enforces it. */
+[data-tint='fastapi'] { --tint: #0d9488; }
+[data-tint='python'] { --tint: #4b7fb5; }
+[data-tint='svelte'] { --tint: #e5502a; }
+[data-tint='vue'] { --tint: #3fa877; }
+[data-tint='next'] { --tint: #4b5162; }
+[data-tint='react'] { --tint: #3a95b8; }
+[data-tint='typescript'] { --tint: #3877c0; }
+[data-tint='swift'] { --tint: #e0533a; }
+[data-tint='node'] { --tint: #5a9350; }
+[data-tint='esp32'] { --tint: #c9463f; }
+[data-tint='arduino'] { --tint: #1a8f95; }
+[data-tint='default'] { --tint: #5b5f97; }
+
+/*
+ * Technology filtering, done entirely in CSS.
+ *
+ * The filter bar is a radio group (see Tabs.tsx). When one is checked, every
+ * card whose `data-tech` doesn't contain that family is hidden. "All" needs no
+ * rule — it is the default, everything-visible state.
+ *
+ * CSS can't compare two attribute values, so each filter needs its own rule.
+ * The filter lists are derived from the project data at runtime, so these can
+ * drift; `projects.test.ts` fails when a derived filter has no rule here.
+ */
+.filterScope {
+  display: block;
+}
+
+.filterScope:has(input[name='project-filter'][value='TypeScript']:checked)
+  [data-tech]:not([data-tech*='|TypeScript|']),
+.filterScope:has(input[name='project-filter'][value='Vue']:checked)
+  [data-tech]:not([data-tech*='|Vue|']),
+.filterScope:has(input[name='project-filter'][value='Express']:checked)
+  [data-tech]:not([data-tech*='|Express|']),
+.filterScope:has(input[name='project-filter'][value='React']:checked)
+  [data-tech]:not([data-tech*='|React|']),
+.filterScope:has(input[name='project-filter'][value='Claude API']:checked)
+  [data-tech]:not([data-tech*='|Claude API|']),
+.filterScope:has(input[name='project-filter'][value='Node.js']:checked)
+  [data-tech]:not([data-tech*='|Node.js|']),
+.filterScope:has(input[name='project-filter'][value='Python']:checked)
+  [data-tech]:not([data-tech*='|Python|']),
+.filterScope:has(input[name='project-filter'][value='Tailwind CSS']:checked)
+  [data-tech]:not([data-tech*='|Tailwind CSS|']),
+.filterScope:has(input[name='project-filter'][value='Vite']:checked)
+  [data-tech]:not([data-tech*='|Vite|']),
+.filterScope:has(input[name='project-filter'][value='AWS Lambda']:checked)
+  [data-tech]:not([data-tech*='|AWS Lambda|']),
+.filterScope:has(input[name='project-filter'][value='Docker']:checked)
+  [data-tech]:not([data-tech*='|Docker|']),
+.filterScope:has(input[name='project-filter'][value='ESP32']:checked)
+  [data-tech]:not([data-tech*='|ESP32|']),
+.filterScope:has(input[name='project-filter'][value='SQLite']:checked)
+  [data-tech]:not([data-tech*='|SQLite|']),
+.filterScope:has(input[name='project-filter'][value='Tailscale']:checked)
+  [data-tech]:not([data-tech*='|Tailscale|']),
+.filterScope:has(input[name='project-filter'][value='Web Audio API']:checked)
+  [data-tech]:not([data-tech*='|Web Audio API|']) {
+  display: none;
+}
+
+.filterScope:has(input[name='utility-filter'][value='Node.js']:checked)
+  [data-tech]:not([data-tech*='|Node.js|']) {
+  display: none;
+}

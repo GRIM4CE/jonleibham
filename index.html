@@ -38,8 +38,11 @@
     <meta name="theme-color" content="#5b5f97" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
+    <!-- A plain stylesheet link: the media="print" + onload swap this used to
+         use is an inline event handler, which the deployed CSP (script-src
+         'self') blocks — so the font never actually loaded for anyone with
+         JavaScript enabled. -->
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
     <title>Jon Leibham | Senior Software Engineer</title>
 
     <!-- Structured data: Person -->
@@ -68,7 +71,11 @@
     </script>
   </head>
   <body>
+    <!-- Filled in with prerendered markup at build time; see
+         scripts/prerender.mjs. The script below mounts the app in `npm run
+         dev` and, in a production build, only exists so Vite collects the CSS
+         — the prerender step removes it from the shipped page. -->
     <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <script type="module" src="/src/entry-client.tsx"></script>
   </body>
 </html>

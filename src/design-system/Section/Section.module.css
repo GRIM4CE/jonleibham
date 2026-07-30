@@ -1,5 +1,5 @@
 .section {
-  background: var(--section-bg);
+  background: var(--ds-bg);
   padding-left: 2rem;
   padding-right: 2rem;
 }
@@ -21,4 +21,5 @@
 
 .container {
   margin: 0 auto;
+  max-width: 1200px;
 }

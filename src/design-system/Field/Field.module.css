@@ -24,7 +24,7 @@
 .input:focus,
 .textarea:focus {
   outline: none;
-  border-color: var(--field-tone);
+  border-color: var(--ds-accent);
 }
 
 .textarea {

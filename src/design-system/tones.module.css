@@ -1,0 +1,82 @@
+/*
+ * Tone utility classes.
+ *
+ * Every design-system component used to set its CSS custom properties through
+ * an inline `style` attribute. The deployed Content-Security-Policy sets
+ * `style-src 'self'` with no `'unsafe-inline'`, which blocks style attributes
+ * outright — so those colors never landed in production. Tones are a closed
+ * set (see tokens.ts), so each one gets a real class here instead.
+ *
+ * Slots are generic rather than per-component (`--ds-accent` instead of
+ * `--card-accent`) so a single table covers all of them. Every component sets
+ * a class for each slot it reads, so no slot is ever inherited from an
+ * ancestor by accident.
+ *
+ * Keep in sync with `tones.ts` — `src/design-system/tones.test.ts` fails if a
+ * tone or slot is missing a class here.
+ */
+
+/* --ds-accent */
+.accent-paleSlate { --ds-accent: var(--color-pale-slate); }
+.accent-dustyGrape { --ds-accent: var(--color-dusty-grape); }
+.accent-sunflowerGold { --ds-accent: var(--color-sunflower-gold); }
+.accent-porcelain { --ds-accent: var(--color-porcelain); }
+.accent-grapefruitPink { --ds-accent: var(--color-grapefruit-pink); }
+.accent-flagRed { --ds-accent: var(--color-flag-red); }
+.accent-black { --ds-accent: var(--color-black); }
+.accent-midnightViolet { --ds-accent: var(--color-midnight-violet); }
+.accent-magentaBloom { --ds-accent: var(--color-magenta-bloom); }
+.accent-seaGreen { --ds-accent: var(--color-sea-green); }
+
+/* --ds-accent-2 */
+.accent2-paleSlate { --ds-accent-2: var(--color-pale-slate); }
+.accent2-dustyGrape { --ds-accent-2: var(--color-dusty-grape); }
+.accent2-sunflowerGold { --ds-accent-2: var(--color-sunflower-gold); }
+.accent2-porcelain { --ds-accent-2: var(--color-porcelain); }
+.accent2-grapefruitPink { --ds-accent-2: var(--color-grapefruit-pink); }
+.accent2-flagRed { --ds-accent-2: var(--color-flag-red); }
+.accent2-black { --ds-accent-2: var(--color-black); }
+.accent2-midnightViolet { --ds-accent-2: var(--color-midnight-violet); }
+.accent2-magentaBloom { --ds-accent-2: var(--color-magenta-bloom); }
+.accent2-seaGreen { --ds-accent-2: var(--color-sea-green); }
+
+/* --ds-bg */
+.bg-paleSlate { --ds-bg: var(--color-pale-slate); }
+.bg-dustyGrape { --ds-bg: var(--color-dusty-grape); }
+.bg-sunflowerGold { --ds-bg: var(--color-sunflower-gold); }
+.bg-porcelain { --ds-bg: var(--color-porcelain); }
+.bg-grapefruitPink { --ds-bg: var(--color-grapefruit-pink); }
+.bg-flagRed { --ds-bg: var(--color-flag-red); }
+.bg-black { --ds-bg: var(--color-black); }
+.bg-midnightViolet { --ds-bg: var(--color-midnight-violet); }
+.bg-magentaBloom { --ds-bg: var(--color-magenta-bloom); }
+.bg-seaGreen { --ds-bg: var(--color-sea-green); }
+
+/* --ds-text */
+.text-paleSlate { --ds-text: var(--color-pale-slate); }
+.text-dustyGrape { --ds-text: var(--color-dusty-grape); }
+.text-sunflowerGold { --ds-text: var(--color-sunflower-gold); }
+.text-porcelain { --ds-text: var(--color-porcelain); }
+.text-grapefruitPink { --ds-text: var(--color-grapefruit-pink); }
+.text-flagRed { --ds-text: var(--color-flag-red); }
+.text-black { --ds-text: var(--color-black); }
+.text-midnightViolet { --ds-text: var(--color-midnight-violet); }
+.text-magentaBloom { --ds-text: var(--color-magenta-bloom); }
+.text-seaGreen { --ds-text: var(--color-sea-green); }
+
+/* --ds-hover */
+.hover-paleSlate { --ds-hover: var(--color-pale-slate); }
+.hover-dustyGrape { --ds-hover: var(--color-dusty-grape); }
+.hover-sunflowerGold { --ds-hover: var(--color-sunflower-gold); }
+.hover-porcelain { --ds-hover: var(--color-porcelain); }
+.hover-grapefruitPink { --ds-hover: var(--color-grapefruit-pink); }
+.hover-flagRed { --ds-hover: var(--color-flag-red); }
+.hover-black { --ds-hover: var(--color-black); }
+.hover-midnightViolet { --ds-hover: var(--color-midnight-violet); }
+.hover-magentaBloom { --ds-hover: var(--color-magenta-bloom); }
+.hover-seaGreen { --ds-hover: var(--color-sea-green); }
+
+/* --ds-bg, from the Surface scale rather than the Tone scale */
+.surface-porcelain { --ds-bg: var(--color-porcelain); }
+.surface-paleSlate90 { --ds-bg: #f6f0e6; }
+.surface-dustyGrape90 { --ds-bg: #efe7d9; }

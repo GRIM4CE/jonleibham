@@ -6,11 +6,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Personal portfolio website for Jon Leibham, built with React 19, TypeScript, and Vite. Deployed via AWS Amplify.
 
+**The shipped site is static HTML and CSS with no JavaScript.** React is a build-time templating tool here, not a runtime dependency — see *Static generation* below.
+
 ## Commands
 
 - `npm run dev` — Start dev server (localhost:5173)
-- `npm run build` — TypeScript check + Vite production build (outputs to `dist/`)
+- `npm run build` — TypeScript check, Vite client build, SSR build, then prerender (outputs to `dist/`)
 - `npm run lint` — ESLint across the project
+- `npm run test` — Vitest (`unit` project in node, `storybook` project in a browser)
+- `npm run typecheck:dev` — Typecheck stories and tests, which the prod build excludes
 - `npm run preview` — Preview the production build locally
 
 Node version 24.12.0 is pinned via Volta.
@@ -22,16 +26,28 @@ Node version 24.12.0 is pinned via Volta.
 - `<Name>.module.css` — CSS Modules scoped styles
 - `index.ts` — Barrel re-export
 
+Reusable primitives live in `src/design-system/<Name>/` with the same shape.
+
 **Styling:** CSS Modules for component scoping, global design tokens (colors, typography) defined in `src/index.css`. No CSS framework — vanilla CSS only.
 
-**No backend:** The contact form uses client-side `mailto:` with email obfuscation (split into parts at runtime) and a honeypot field for spam protection.
+**Static generation:** `npm run build` runs three passes. Vite's client build emits the stylesheet (its entry, `src/entry-client.tsx`, mounts the app in `npm run dev` but in production exists only so Vite walks the component tree for CSS, and is deleted afterwards). Vite's SSR build compiles `src/entry-server.tsx`. Then `scripts/prerender.mjs` calls `renderToStaticMarkup`, injects the markup into `dist/index.html`, strips the module script, deletes the orphaned JS chunks, and fails the build if any script tag, inline style attribute, or inline event handler survives.
+
+Consequences to keep in mind when editing:
+
+- **No hooks, no event handlers, no browser APIs in components.** Anything that needs `useState` or `onClick` has to become CSS. Tab bars and filters use `<Tabs>`, which renders a hidden radio group; the consuming stylesheet reveals content with `:has(input[value='…']:checked)`. Because CSS can't compare two attribute values, every tab/filter needs its own rule — the tests in `about.test.ts` and `projects.test.ts` fail when the rules and the data drift apart.
+- **No inline `style` attributes.** The CSP in `amplify.yml` sets `style-src 'self'` with no `'unsafe-inline'`, so style attributes are dropped in production. Components set CSS custom properties through the tone classes in `src/design-system/tones.module.css` instead — `toneClass('accent', 'dustyGrape')`, `surfaceClass('porcelain')`.
+- **Build-time values freeze.** The footer's copyright year and the obfuscated email are evaluated during the build, not in the browser.
+
+**No backend:** Contact is a `mailto:` link in the footer. There is no form.
 
 **Deployment:** AWS Amplify configured in `amplify.yml` — builds with `npm run build`, serves from `dist/`, includes security headers and immutable asset caching.
 
 ## Key Files
 
 - `src/index.css` — Color palette and global CSS variables
-- `index.html` — SEO meta tags, Open Graph, Twitter cards, favicon/PWA config
+- `src/design-system/tones.module.css` — Tone/surface classes that replace inline CSS-var styles
+- `scripts/prerender.mjs` — Static HTML generation and the zero-JS assertions
+- `index.html` — Page shell: SEO meta tags, Open Graph, Twitter cards, favicon/PWA config
 - `amplify.yml` — AWS Amplify build pipeline and custom headers
 
 ## Future Ideas

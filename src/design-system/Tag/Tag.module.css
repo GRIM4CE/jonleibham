@@ -12,20 +12,20 @@
 }
 
 .variant-soft {
-  background: color-mix(in srgb, var(--tag-tone) 14%, transparent);
+  background: color-mix(in srgb, var(--ds-accent) 14%, transparent);
   /* Darken the tone for text so soft tags clear WCAG AA (4.5:1) on light surfaces. */
-  color: color-mix(in srgb, var(--tag-tone) 90%, black);
+  color: color-mix(in srgb, var(--ds-accent) 90%, black);
 }
 
 .variant-solid {
-  background: var(--tag-tone);
-  color: var(--tag-text);
+  background: var(--ds-accent);
+  color: var(--ds-text);
 }
 
 .variant-outline {
   background: transparent;
-  color: var(--tag-tone);
-  border-color: var(--tag-tone);
+  color: var(--ds-accent);
+  border-color: var(--ds-accent);
 }
 
 .interactive {
@@ -38,12 +38,12 @@
 }
 
 .interactive.selected {
-  background: var(--tag-tone);
-  color: var(--tag-text);
-  border-color: var(--tag-tone);
+  background: var(--ds-accent);
+  color: var(--ds-text);
+  border-color: var(--ds-accent);
 }
 
 .interactive:focus-visible {
-  outline: 2px solid var(--tag-tone);
+  outline: 2px solid var(--ds-accent);
   outline-offset: 2px;
 }

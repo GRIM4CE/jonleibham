@@ -1,6 +1,6 @@
 .card {
-  background: var(--card-bg);
-  color: var(--card-text);
+  background: var(--ds-bg);
+  color: var(--ds-text);
   border: 1px solid var(--color-border);
   border-radius: 10px;
   overflow: hidden;
@@ -16,6 +16,6 @@
 }
 
 .hoverable:hover {
-  border-color: var(--card-accent);
+  border-color: var(--ds-accent);
   transform: translateY(-2px);
 }

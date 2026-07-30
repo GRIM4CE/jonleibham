@@ -1,5 +1,6 @@
-import type { AnchorHTMLAttributes, ButtonHTMLAttributes, CSSProperties, ReactNode } from 'react'
-import { toneVar, type Tone } from '../tokens'
+import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from 'react'
+import { toneClass } from '../tones'
+import type { Tone } from '../tokens'
 import styles from './Button.module.css'
 
 export type ButtonVariant = 'solid' | 'outline' | 'ghost' | 'gradient'
@@ -30,19 +31,20 @@ export function Button(props: ButtonProps) {
     ...rest
   } = props as BaseProps & Record<string, unknown>
 
-  const style: CSSProperties = {
-    '--btn-tone': toneVar[tone],
-    '--btn-gradient-end': toneVar[gradientTone],
-    '--btn-text': toneVar[textTone],
-  } as CSSProperties
-
-  const className = `${styles.btn} ${styles[`variant-${variant}`]} ${styles[`size-${size}`]}`
+  const className = [
+    styles.btn,
+    styles[`variant-${variant}`],
+    styles[`size-${size}`],
+    toneClass('accent', tone),
+    toneClass('accent2', gradientTone),
+    toneClass('text', textTone),
+  ].join(' ')
 
   if (props.as === 'a') {
     const { as: _as, ...anchorRest } = rest as AnchorHTMLAttributes<HTMLAnchorElement> & { as?: string }
     void _as
     return (
-      <a className={className} style={style} {...anchorRest}>
+      <a className={className} {...anchorRest}>
         {children}
       </a>
     )
@@ -51,7 +53,7 @@ export function Button(props: ButtonProps) {
   const { as: _as, ...buttonRest } = rest as ButtonHTMLAttributes<HTMLButtonElement> & { as?: string }
   void _as
   return (
-    <button className={className} style={style} {...buttonRest}>
+    <button className={className} {...buttonRest}>
       {children}
     </button>
   )

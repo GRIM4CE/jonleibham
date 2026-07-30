@@ -2,8 +2,11 @@ import { Link } from '../../design-system'
 import styles from './Footer.module.css'
 
 export function Footer() {
+  // Both of these are evaluated during the prerender, not in the browser, so
+  // the year is frozen at whatever the last deploy was — and the address is
+  // plainly in the HTML. The split below no longer obfuscates anything; the
+  // `mailto:` href always gave it away to anything that parses links anyway.
   const currentYear = new Date().getFullYear()
-  // Obfuscated at runtime to keep the address away from naive scrapers.
   const email = ['jleibham', 'gmail.com'].join('@')
 
   return (
