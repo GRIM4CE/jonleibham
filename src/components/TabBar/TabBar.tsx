@@ -1,4 +1,4 @@
-import { Button, Icon, type IconName } from '../../design-system'
+import { AvailabilityPill, Button, Icon, Wordmark, type IconName } from '../../design-system'
 import { profile } from '../../data/profile'
 import styles from './TabBar.module.css'
 
@@ -43,8 +43,7 @@ export function TabBar() {
       {/* Rail only. Home carries the same name and pill in its brand row, so
           that row hides at this breakpoint rather than saying it twice. */}
       <div className={styles.brand}>
-        <span className={styles.wordmark}>{profile.name}</span>
-        <span className={styles.wordmarkTitle}>{profile.title}</span>
+        <Wordmark name={profile.name} title={profile.title} className={styles.wordmark} />
       </div>
 
       {/* `display: contents` on mobile, so the four anchors stay the tab bar's
@@ -66,10 +65,7 @@ export function TabBar() {
 
       {/* Rail only, pinned to the bottom edge. */}
       <div className={styles.foot}>
-        <span className={styles.availability}>
-          <i className={styles.dot} aria-hidden="true" />
-          <span className={styles.availabilityLabel}>{profile.availability}</span>
-        </span>
+        <AvailabilityPill className={styles.availability}>{profile.availability}</AvailabilityPill>
         <div className={styles.contact}>
           <Button
             as="a"

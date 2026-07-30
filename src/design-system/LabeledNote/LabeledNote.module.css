@@ -1,0 +1,25 @@
+/* The shape all three call sites share at mobile widths. Everything that
+   positions the block — margins, padding, borders — and every override above
+   768 stays with the screen that needs it. */
+.note {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.label {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.text {
+  font-size: 12.5px;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--text-tertiary);
+}

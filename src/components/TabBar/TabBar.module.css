@@ -116,23 +116,10 @@
     padding: 0 12px;
   }
 
+  /* Size and tracking only — both inherit down to the name span. */
   .wordmark {
-    display: block;
     font-size: 20px;
-    font-weight: 900;
     letter-spacing: -0.03em;
-    line-height: 1;
-  }
-
-  .wordmarkTitle {
-    display: block;
-    margin-top: 10px;
-    font-family: var(--font-mono);
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--text-tertiary);
   }
 
   .destinations {
@@ -168,32 +155,11 @@
     padding-top: 30px;
   }
 
+  /* Spacing only — the pill's own look is AvailabilityPill's. The rail is
+     roomier than Home's brand row. */
   .availability {
-    display: flex;
-    align-items: center;
     gap: 9px;
     padding: 9px 13px;
-    border: 1px solid var(--success-line);
-    background: var(--success-fill);
-    border-radius: var(--radius-pill);
-  }
-
-  .dot {
-    display: block;
-    flex: none;
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: var(--success);
-  }
-
-  .availabilityLabel {
-    font-family: var(--font-mono);
-    font-size: 9.5px;
-    font-weight: 700;
-    letter-spacing: 0.09em;
-    text-transform: uppercase;
-    color: var(--success);
   }
 
   .contact {

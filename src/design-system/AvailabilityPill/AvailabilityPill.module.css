@@ -1,0 +1,32 @@
+/* Gap and padding belong to the pill, not to whoever places it — without them
+   the dot sits flush against the label and the pill has no inset at all. These
+   are Home's values; the rail is roomier and overrides both. */
+.pill {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 12px 6px 10px;
+  border: 1px solid var(--success-line);
+  background: var(--success-fill);
+  border-radius: var(--radius-pill);
+}
+
+.dot {
+  display: block;
+  /* The rail's copy carried this and Home's did not; the dot is a fixed 7px
+     either way, so keeping it costs nothing and stops it ever compressing. */
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--success);
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--success);
+}

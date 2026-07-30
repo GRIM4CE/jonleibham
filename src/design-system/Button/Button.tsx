@@ -12,7 +12,10 @@ import styles from './Button.module.css'
  */
 export type ButtonVariant = 'solid' | 'outline' | 'ghost' | 'icon'
 
-/** sm = Career "Résumé" pill, md = 50px, lg = 52px, xl = 56px. */
+/**
+ * 32 / 38 / 44 / 52px. `lg` is the default and sits on 44 — the minimum hit
+ * target. `sm` is under it and is reserved for the Career "Résumé" pill.
+ */
 export type ButtonSize = 'sm' | 'md' | 'lg' | 'xl'
 
 interface BaseProps {

@@ -18,37 +18,13 @@
 /* The wordmark is the name, unpunctuated — no trailing period anywhere. */
 .wordmark {
   font-size: 17px;
-  font-weight: 900;
   letter-spacing: -0.02em;
-  line-height: 1;
 }
 
+/* Placement only. The pill's own spacing defaults to these values, so the
+   brand row just has to stop it stretching. */
 .availability {
-  display: flex;
-  align-items: center;
-  gap: 7px;
   flex: none;
-  padding: 6px 12px 6px 10px;
-  border: 1px solid var(--success-line);
-  background: var(--success-fill);
-  border-radius: var(--radius-pill);
-}
-
-.dot {
-  display: block;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--success);
-}
-
-.availabilityLabel {
-  font-family: var(--font-mono);
-  font-size: 9.5px;
-  font-weight: 700;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
-  color: var(--success);
 }
 
 /* ── Hero ─────────────────────────────────────────────────────────────────*/
@@ -181,29 +157,10 @@
 }
 
 /* ── Now line ─────────────────────────────────────────────────────────────*/
+/* Placement only — the label/text shape is LabeledNote's. */
 .now {
   margin-top: auto;
-  display: flex;
-  align-items: center;
-  gap: 12px;
   padding: 20px var(--gutter);
-}
-
-.nowLabel {
-  flex: none;
-  font-family: var(--font-mono);
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--accent);
-}
-
-.nowText {
-  font-size: 12.5px;
-  font-weight: 500;
-  line-height: 1.4;
-  color: var(--text-tertiary);
 }
 
 /* The Latest card belongs to the desktop column only. */
@@ -392,11 +349,11 @@
     padding: 22px 0 0;
   }
 
-  .nowLabel {
+  .now [data-note-label] {
     font-size: 10px;
   }
 
-  .nowText {
+  .now [data-note-text] {
     font-size: 14px;
   }
 }

@@ -1,4 +1,4 @@
-import { Button, Icon } from '../../design-system'
+import { AvailabilityPill, Button, Icon, LabeledNote, Wordmark } from '../../design-system'
 import { metrics, profile } from '../../data/profile'
 import { projects } from '../../data/projects'
 import styles from './HomeScreen.module.css'
@@ -18,11 +18,8 @@ export function HomeScreen() {
   return (
     <section id="home" data-screen="home" className={styles.screen} aria-label="Home">
       <header className={styles.brandRow}>
-        <span className={styles.wordmark}>{profile.name}</span>
-        <span className={styles.availability}>
-          <i className={styles.dot} aria-hidden="true" />
-          <span className={styles.availabilityLabel}>{profile.availability}</span>
-        </span>
+        <Wordmark name={profile.name} className={styles.wordmark} />
+        <AvailabilityPill className={styles.availability}>{profile.availability}</AvailabilityPill>
       </header>
 
       <div className={styles.hero}>
@@ -86,10 +83,9 @@ export function HomeScreen() {
         <Icon name="chevronRight" size={18} className={styles.latestChevron} />
       </a>
 
-      <p className={styles.now}>
-        <span className={styles.nowLabel}>Now</span>
-        <span className={styles.nowText}>{profile.now}</span>
-      </p>
+      <LabeledNote label="Now" className={styles.now}>
+        {profile.now}
+      </LabeledNote>
     </section>
   )
 }

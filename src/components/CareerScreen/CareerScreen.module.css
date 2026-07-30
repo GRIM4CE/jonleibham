@@ -195,29 +195,10 @@
 }
 
 /* ── Footer line ──────────────────────────────────────────────────────────*/
+/* Placement only — the label/text shape is LabeledNote's. */
 .footer {
   margin-top: auto;
-  display: flex;
-  align-items: center;
-  gap: 12px;
   padding: 20px var(--gutter);
-}
-
-.footerLabel {
-  flex: none;
-  font-family: var(--font-mono);
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--accent);
-}
-
-.footerText {
-  font-size: 12.5px;
-  font-weight: 500;
-  line-height: 1.4;
-  color: var(--text-tertiary);
 }
 
 /* The date gutter is a desktop device; on mobile the years read off the mono
@@ -396,11 +377,11 @@
   }
 
   /* The label is redundant once the line sits inside the education card. */
-  .footerLabel {
+  .footer [data-note-label] {
     display: none;
   }
 
-  .footerText {
+  .footer [data-note-text] {
     font-size: 14px;
     line-height: 1.5;
     color: var(--text-secondary);
