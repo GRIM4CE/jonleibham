@@ -47,7 +47,7 @@ export const cards: DesignCard[] = [
     name: 'Colors',
     group: 'Foundations',
     subtitle: 'Ten source tones, applied through the bg slot',
-    viewport: { width: 900, height: 520 },
+    viewport: { width: 900, height: 300 },
     render: () => (
       <div className="dsc-swatches">
         {tones.map((tone) => (
@@ -64,7 +64,7 @@ export const cards: DesignCard[] = [
     name: 'Button',
     group: 'Components',
     subtitle: 'Solid / outline / ghost / icon, four sizes',
-    viewport: { width: 720, height: 620 },
+    viewport: { width: 720, height: 410 },
     render: () => (
       <>
         <Section label="Variants">
@@ -101,7 +101,7 @@ export const cards: DesignCard[] = [
     name: 'Tag',
     group: 'Components',
     subtitle: 'Neutral / cloud / data, two sizes',
-    viewport: { width: 640, height: 320 },
+    viewport: { width: 640, height: 230 },
     render: () => (
       <>
         <Section label="Variants">
@@ -121,7 +121,7 @@ export const cards: DesignCard[] = [
     name: 'Tabs',
     group: 'Components',
     subtitle: 'Chips and underline, backed by a radio group rather than script',
-    viewport: { width: 720, height: 340 },
+    viewport: { width: 720, height: 240 },
     render: () => (
       <>
         <Section label="Chips">
@@ -150,7 +150,7 @@ export const cards: DesignCard[] = [
     name: 'Icon',
     group: 'Components',
     subtitle: 'The full inlined Lucide set plus two brand marks',
-    viewport: { width: 720, height: 260 },
+    viewport: { width: 720, height: 150 },
     render: () => (
       <Section label="All icons">
         {ICON_NAMES.map((name) => (

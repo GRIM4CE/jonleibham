@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build && vite build --ssr src/entry-server.tsx --outDir dist-ssr && node scripts/prerender.mjs",
+    "build:design": "npm run build && vite build --ssr src/entry-design.tsx --outDir dist-design && node scripts/build-design-bundle.mjs",
     "typecheck:dev": "tsc -p tsconfig.dev.json --noEmit",
     "test": "vitest run",
     "lint": "eslint .",
