@@ -32,6 +32,17 @@ export default defineConfig({
       storybookTest({
         configDir: path.join(dirname, '.storybook')
       })],
+      // @storybook/addon-vitest's setup file pulls in the Testing Library
+      // stack, which is CommonJS several levels down (aria-query, lz-string,
+      // pretty-format). Vite's browser mode was serving those raw, so the
+      // named imports failed and took every story file down with them.
+      //
+      // Naming the two parents rather than each CJS leaf: esbuild bundles a
+      // package's own dependencies into its optimized output, so this covers
+      // the subtree instead of chasing one module at a time.
+      optimizeDeps: {
+        include: ['@testing-library/jest-dom', '@testing-library/dom'],
+      },
       test: {
         name: 'storybook',
         browser: {
