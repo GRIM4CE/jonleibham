@@ -72,7 +72,7 @@
 
 /* ── Stack ────────────────────────────────────────────────────────────────*/
 .stack {
-  padding: 24px var(--gutter) 0;
+  padding: 24px var(--gutter) 12px;
 }
 
 .stackLabel {
