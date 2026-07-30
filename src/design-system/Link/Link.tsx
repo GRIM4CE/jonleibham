@@ -1,5 +1,6 @@
-import type { AnchorHTMLAttributes, CSSProperties, ReactNode } from 'react'
-import { toneVar, type Tone } from '../tokens'
+import type { AnchorHTMLAttributes, ReactNode } from 'react'
+import { toneClass } from '../tones'
+import type { Tone } from '../tokens'
 import styles from './Link.module.css'
 
 export interface LinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
@@ -19,22 +20,19 @@ export function Link({
   className = '',
   ...rest
 }: LinkProps) {
-  const style: CSSProperties = {
-    '--link-tone': toneVar[tone],
-    '--link-hover': toneVar[hoverTone],
-  } as CSSProperties
-
   const cls = [
     styles.link,
     styles[`weight-${weight}`],
     underline ? styles.underline : '',
+    toneClass('accent', tone),
+    toneClass('hover', hoverTone),
     className,
   ]
     .filter(Boolean)
     .join(' ')
 
   return (
-    <a className={cls} style={style} {...rest}>
+    <a className={cls} {...rest}>
       {children}
     </a>
   )

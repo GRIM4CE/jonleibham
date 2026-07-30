@@ -1,5 +1,6 @@
-import type { CSSProperties, HTMLAttributes, ReactNode } from 'react'
-import { toneVar, type Tone } from '../tokens'
+import type { HTMLAttributes, ReactNode } from 'react'
+import { toneClass } from '../tones'
+import type { Tone } from '../tokens'
 import styles from './Card.module.css'
 
 export type CardAccentSide = 'top' | 'left' | 'none'
@@ -25,23 +26,20 @@ export function Card({
   className = '',
   ...rest
 }: CardProps) {
-  const style: CSSProperties = {
-    '--card-accent': toneVar[accent],
-    '--card-bg': toneVar[bg],
-    '--card-text': toneVar[textTone],
-  } as CSSProperties
-
   const cls = [
     styles.card,
     styles[`accent-${accentSide}`],
     hoverable ? styles.hoverable : '',
+    toneClass('accent', accent),
+    toneClass('bg', bg),
+    toneClass('text', textTone),
     className,
   ]
     .filter(Boolean)
     .join(' ')
 
   return (
-    <Tag className={cls} style={style} {...rest}>
+    <Tag className={cls} {...rest}>
       {children}
     </Tag>
   )

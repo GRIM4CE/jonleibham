@@ -41,14 +41,41 @@
   color: var(--color-text);
 }
 
+/*
+ * Scope for the tab rules below: the radio group and every skill list have to
+ * share an ancestor for `:has()` to reach across them.
+ */
+.skills {
+  display: block;
+}
+
+/*
+ * All five lists are in the markup; only the one matching the checked radio is
+ * shown. CSS can't compare one attribute value against another, so each
+ * category needs its own rule — keep this list in step with `skillCategories`
+ * in about.data.ts. `about.test.ts` fails if they drift.
+ */
 .skillList {
-  display: flex;
+  display: none;
   flex-wrap: wrap;
   gap: 0.5rem;
   /* Reserve space for the tallest tab (Languages wraps to 3 rows) so
      switching tabs doesn't change the column height — keeps the photo static. */
   align-content: flex-start;
   min-height: 7.5rem;
+}
+
+.skills:has(input[name='skill-category'][value='Languages & Frameworks']:checked)
+  [data-category='Languages & Frameworks'],
+.skills:has(input[name='skill-category'][value='Testing']:checked)
+  [data-category='Testing'],
+.skills:has(input[name='skill-category'][value='Data & APIs']:checked)
+  [data-category='Data & APIs'],
+.skills:has(input[name='skill-category'][value='DevOps & Tools']:checked)
+  [data-category='DevOps & Tools'],
+.skills:has(input[name='skill-category'][value='AI']:checked)
+  [data-category='AI'] {
+  display: flex;
 }
 
 @media (max-width: 768px) {

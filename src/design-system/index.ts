@@ -1,4 +1,5 @@
 export * from './tokens'
+export * from './tones'
 export * from './Section'
 export * from './SectionTitle'
 export * from './Button'

@@ -1,5 +1,6 @@
-import type { CSSProperties, ReactNode } from 'react'
-import { toneVar, type Tone } from '../tokens'
+import type { ReactNode } from 'react'
+import { toneClass } from '../tones'
+import type { Tone } from '../tokens'
 import styles from './SectionTitle.module.css'
 
 export interface SectionTitleProps {
@@ -17,11 +18,15 @@ export function SectionTitle({
   as: Tag = 'h2',
   children,
 }: SectionTitleProps) {
+  const className = [
+    styles.title,
+    styles[`align-${align}`],
+    styles[`size-${size}`],
+    toneClass('accent', accent),
+  ].join(' ')
+
   return (
-    <Tag
-      className={`${styles.title} ${styles[`align-${align}`]} ${styles[`size-${size}`]}`}
-      style={{ '--title-accent': toneVar[accent] } as CSSProperties}
-    >
+    <Tag className={className}>
       <span className={styles.text}>{children}</span>
     </Tag>
   )

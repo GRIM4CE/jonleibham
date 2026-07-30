@@ -1,28 +1,15 @@
-import { useState } from 'react'
 import { Section, SectionTitle, Tag, Tabs } from '../../design-system'
+import {
+  DEFAULT_CATEGORY,
+  SKILLS_GROUP,
+  categoryLabels,
+  skillCategories,
+  skillCategoryNames,
+  type Category,
+} from './about.data'
 import styles from './About.module.css'
 
-const skillCategories = {
-  'Languages & Frameworks': ['JavaScript', 'TypeScript', 'HTML', 'CSS', 'Ruby', 'Python', 'Vue', 'React', 'Nuxt', 'Next.js', 'Node.js', 'Nest.js', 'Ruby on Rails', 'Storybook'],
-  Testing: ['Jest', 'Vitest', 'Cypress', 'K6', 'Chromatic', 'A11y'],
-  'Data & APIs': ['GraphQL', 'MySQL', 'NoSQL', 'MongoDB'],
-  'DevOps & Tools': ['Git', 'Docker', 'Kubernetes', 'Helm3', 'AWS', 'Vite', 'TurboRepo'],
-  AI: ['Claude', 'ChatGPT', 'Copilot', 'Cursor'],
-}
-
-type Category = keyof typeof skillCategories
-
-const categoryLabels: Record<Category, string> = {
-  'Languages & Frameworks': 'Languages',
-  Testing: 'Testing',
-  'Data & APIs': 'Data & APIs',
-  'DevOps & Tools': 'DevOps',
-  AI: 'AI',
-}
-
 export function About() {
-  const [activeTab, setActiveTab] = useState<Category>('Languages & Frameworks')
-
   return (
     <Section id="about" surface="paleSlate90">
       <SectionTitle accent="sunflowerGold">About Me</SectionTitle>
@@ -63,27 +50,35 @@ export function About() {
             </p>
           </div>
           <div className={styles.skills}>
-          <h3 className={styles.skillsHeading}>Technologies I work with:</h3>
+            <h3 className={styles.skillsHeading}>Technologies I work with:</h3>
 
-          <Tabs
-            items={Object.keys(skillCategories)}
-            active={activeTab}
-            onChange={(value) => setActiveTab(value as Category)}
-            renderLabel={(category) => categoryLabels[category as Category]}
-            label="Technology categories"
-          />
+            <Tabs
+              name={SKILLS_GROUP}
+              items={skillCategoryNames}
+              active={DEFAULT_CATEGORY}
+              renderLabel={(category) => categoryLabels[category as Category]}
+              label="Technology categories"
+            />
 
-          <div
-            className={styles.skillList}
-            aria-live="polite"
-            aria-label={`${activeTab} technologies`}
-          >
-            {skillCategories[activeTab].map((skill) => (
-              <Tag key={skill} tone="dustyGrape" variant="soft">
-                {skill}
-              </Tag>
+            {/*
+              Every category ships in the markup and the stylesheet reveals the
+              one whose radio is checked. It costs 35 short strings and buys a
+              page that needs no JavaScript to switch tabs.
+            */}
+            {skillCategoryNames.map((category) => (
+              <div
+                key={category}
+                className={styles.skillList}
+                data-category={category}
+                aria-label={`${category} technologies`}
+              >
+                {skillCategories[category].map((skill) => (
+                  <Tag key={skill} tone="dustyGrape" variant="soft">
+                    {skill}
+                  </Tag>
+                ))}
+              </div>
             ))}
-          </div>
           </div>
         </div>
       </div>

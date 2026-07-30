@@ -1,5 +1,6 @@
-import type { ButtonHTMLAttributes, CSSProperties, ReactNode } from 'react'
-import { toneVar, type Tone } from '../tokens'
+import type { ButtonHTMLAttributes, ReactNode } from 'react'
+import { toneClass } from '../tones'
+import type { Tone } from '../tokens'
 import styles from './Tag.module.css'
 
 export type TagVariant = 'soft' | 'solid' | 'outline'
@@ -18,34 +19,27 @@ export function Tag({
   variant = 'soft',
   selected = false,
   interactive = false,
-  textTone,
+  textTone = 'porcelain',
   children,
   ...rest
 }: TagProps) {
-  const style: CSSProperties = {
-    '--tag-tone': toneVar[tone],
-    '--tag-text': textTone ? toneVar[textTone] : 'var(--color-porcelain)',
-  } as CSSProperties
-
   const className = [
     styles.tag,
     styles[`variant-${variant}`],
     interactive ? styles.interactive : '',
     selected ? styles.selected : '',
+    toneClass('accent', tone),
+    toneClass('text', textTone),
   ]
     .filter(Boolean)
     .join(' ')
 
   if (interactive) {
     return (
-      <button type="button" className={className} style={style} {...rest}>
+      <button type="button" className={className} {...rest}>
         {children}
       </button>
     )
   }
-  return (
-    <span className={className} style={style}>
-      {children}
-    </span>
-  )
+  return <span className={className}>{children}</span>
 }

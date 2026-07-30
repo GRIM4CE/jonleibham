@@ -1,11 +1,11 @@
 import type {
-  CSSProperties,
   InputHTMLAttributes,
   LabelHTMLAttributes,
   ReactNode,
   TextareaHTMLAttributes,
 } from 'react'
-import { toneVar, type Tone } from '../tokens'
+import { toneClass } from '../tones'
+import type { Tone } from '../tokens'
 import styles from './Field.module.css'
 
 export interface FieldProps {
@@ -14,12 +14,7 @@ export interface FieldProps {
 }
 
 export function Field({ tone = 'magentaBloom', children }: FieldProps) {
-  const style: CSSProperties = { '--field-tone': toneVar[tone] } as CSSProperties
-  return (
-    <div className={styles.field} style={style}>
-      {children}
-    </div>
-  )
+  return <div className={`${styles.field} ${toneClass('accent', tone)}`}>{children}</div>
 }
 
 function FieldLabel(props: LabelHTMLAttributes<HTMLLabelElement>) {

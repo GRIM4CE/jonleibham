@@ -35,7 +35,7 @@
   width: 64px;
   height: 4px;
   border-radius: 2px;
-  background: var(--title-accent);
+  background: var(--ds-accent);
 }
 
 .align-left .text::after {

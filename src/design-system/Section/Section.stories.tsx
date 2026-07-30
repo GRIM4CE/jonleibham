@@ -10,7 +10,6 @@ const meta = {
   argTypes: {
     surface: { control: 'select', options: surfaces },
     paddingY: { control: 'select', options: ['sm', 'md', 'lg'] },
-    maxWidth: { control: { type: 'number', min: 600, max: 1600, step: 50 } },
   },
 } satisfies Meta<typeof Section>
 
