@@ -160,7 +160,7 @@ export const cards: DesignCard[] = [
     name: 'Wordmark',
     group: 'Brand',
     subtitle: 'Name alone, and name over a role line',
-    viewport: { width: 520, height: 190 },
+    viewport: { width: 520, height: 160 },
     render: () => (
       <div className="dsc-col">
         <Wordmark name="Jon Leibham" />
@@ -173,7 +173,7 @@ export const cards: DesignCard[] = [
     name: 'AvailabilityPill',
     group: 'Components',
     subtitle: 'Status dot and label',
-    viewport: { width: 520, height: 170 },
+    viewport: { width: 520, height: 140 },
     render: () => (
       <div className="dsc-col">
         <AvailabilityPill>Open to roles</AvailabilityPill>
@@ -186,7 +186,7 @@ export const cards: DesignCard[] = [
     name: 'LabeledNote',
     group: 'Components',
     subtitle: 'A small label and a line of text',
-    viewport: { width: 640, height: 220 },
+    viewport: { width: 640, height: 170 },
     render: () => (
       <div className="dsc-col">
         <LabeledNote label="Now">Building a design system for four apps to share.</LabeledNote>
