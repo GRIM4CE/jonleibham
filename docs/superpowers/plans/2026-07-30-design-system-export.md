@@ -10,6 +10,25 @@
 
 **Spec:** `docs/superpowers/specs/2026-07-30-design-system-export-design.md`
 
+## Status — 2026-07-30
+
+| Task | State |
+| --- | --- |
+| 1 Contract + project | done — `19746144-6183-4f19-bbc3-c5c057d68436` |
+| 2 Card declarations | done |
+| 3 Bundle generator | done — plus `scripts/measure-design-cards.mjs`, unplanned |
+| 4 Upload five cards | **HELD — needs the user.** `write_files` publishes to claude.ai and the render gate needs eyes on the pane |
+| 5 LabeledNote | done |
+| 6 AvailabilityPill | done |
+| 7 Wordmark | done |
+| 8–12 remaining extractions | not started — MetricStrip, FactList, MediaWell, SectionHeading, Portrait |
+| 13–15 Storybook, Amplify, full upload | not started |
+
+Bundle currently builds 8 cards, all within 4–11% of their measured content
+height. Two unplanned fixes landed on the way: `eslint.config.js` (lint was
+failing repo-wide, 103 errors) and `vitest.config.ts` (the storybook test
+project could not import at all, so no story test had ever run).
+
 ## Global Constraints
 
 - **No hooks, no event handlers, no browser APIs in any `src/` component.** The site prerenders with zero JS. Anything needing state becomes CSS.
