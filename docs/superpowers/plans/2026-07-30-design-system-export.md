@@ -19,6 +19,7 @@
 - **Design-system components never import from `src/data/`.** They take props.
 - **Every extracted component owns its internal shape only.** Each call site keeps its own positioning/visibility wrapper class in its existing screen module. This is why every extracted component takes a `className` passthrough.
 - **Verification after every task:** `npm run build && npm run test && npm run lint && npm run typecheck:dev`. `npm run build` is the meaningful gate — it is the only thing that runs `scripts/prerender.mjs`.
+- **KNOWN BROKEN (pre-existing, found at Task 2): `npm run test`'s `storybook` browser project cannot import.** `@storybook/addon-vitest`'s setup file does `import { elementRoles } from 'aria-query'`; the package is CJS and Vite's browser-mode dep optimizer does not surface its named exports, so all three existing story files fail to import. Verified on a clean tree at `origin/main` — 3 failed / 4 passed there, unchanged by any work here. The `unit` project is unaffected and passes. **This must be fixed before Phase 2**, where Tasks 5–12 each add a story whose tests would otherwise never run. Likely fix: add `aria-query` to `optimizeDeps.include` or `test.server.deps.inline` in `vitest.config.ts`. Until then, read "`npm run test` passes" as "the `unit` project passes and the `storybook` project fails exactly as it did before."
 - Commit after every task. Branch is `design-system/export-and-storybook`, based on `origin/main`.
 
 ---
@@ -30,6 +31,7 @@
 | Path | Responsibility |
 | --- | --- |
 | `src/entry-design.tsx` | Declares `cards: DesignCard[]` — one card per component/foundation. SSR entry for the bundle. |
+| `src/designCardChrome.tsx` | The `Section` component used by the cards. Separate module so `entry-design.tsx` exports only data and functions — mixing a component in trips `react-refresh/only-export-components`. |
 | `src/entry-design.test.ts` | Drift guard: every design-system directory has a card. |
 | `scripts/build-design-bundle.mjs` | Renders each card to standalone HTML; asserts every rendered class is styled. |
 | `scripts/design-card.css` | Plain (non-module) gallery chrome: dark ground, card padding, variant rows. |
