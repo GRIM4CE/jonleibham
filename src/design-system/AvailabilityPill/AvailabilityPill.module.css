@@ -1,0 +1,29 @@
+/* The border, fill and radius both call sites share. Gap and padding differ
+   between Home and the rail, so those stay with the screens. */
+.pill {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--success-line);
+  background: var(--success-fill);
+  border-radius: var(--radius-pill);
+}
+
+.dot {
+  display: block;
+  /* The rail's copy carried this and Home's did not; the dot is a fixed 7px
+     either way, so keeping it costs nothing and stops it ever compressing. */
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--success);
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--success);
+}

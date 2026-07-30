@@ -1,4 +1,4 @@
-import { Button, Icon, type IconName } from '../../design-system'
+import { AvailabilityPill, Button, Icon, type IconName } from '../../design-system'
 import { profile } from '../../data/profile'
 import styles from './TabBar.module.css'
 
@@ -66,10 +66,7 @@ export function TabBar() {
 
       {/* Rail only, pinned to the bottom edge. */}
       <div className={styles.foot}>
-        <span className={styles.availability}>
-          <i className={styles.dot} aria-hidden="true" />
-          <span className={styles.availabilityLabel}>{profile.availability}</span>
-        </span>
+        <AvailabilityPill className={styles.availability}>{profile.availability}</AvailabilityPill>
         <div className={styles.contact}>
           <Button
             as="a"

@@ -1,6 +1,6 @@
 import type { ReactElement } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
-import { Button, Icon, LabeledNote, Tabs, Tag, toneClass, tones } from './design-system'
+import { AvailabilityPill, Button, Icon, LabeledNote, Tabs, Tag, toneClass, tones } from './design-system'
 import type { IconName } from './design-system'
 import { Section } from './designCardChrome'
 
@@ -143,6 +143,19 @@ export const cards: DesignCard[] = [
           />
         </Section>
       </>
+    ),
+  },
+  {
+    slug: 'availability-pill',
+    name: 'AvailabilityPill',
+    group: 'Components',
+    subtitle: 'Status dot and label',
+    viewport: { width: 520, height: 170 },
+    render: () => (
+      <div className="dsc-col">
+        <AvailabilityPill>Open to roles</AvailabilityPill>
+        <AvailabilityPill>Available from March 2027</AvailabilityPill>
+      </div>
     ),
   },
   {
