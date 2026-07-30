@@ -8,7 +8,19 @@ import reactRefresh from 'eslint-plugin-react-refresh'
 import tseslint from 'typescript-eslint'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
-export default defineConfig([globalIgnores(['dist']), {
+export default defineConfig([globalIgnores([
+  'dist',
+  // Build output. `storybook-static` holds minified vendor bundles that
+  // account for most of the noise; the rest are this repo's own artifacts.
+  'dist-ssr',
+  'dist-design',
+  'design-bundle',
+  'storybook-static',
+  // Agent scratch space. It holds git worktrees — full copies of this repo,
+  // tsconfig included — and a second candidate root makes `tsconfigRootDir`
+  // ambiguous, which fails the parse for every TypeScript file in the project.
+  '.claude',
+]), {
   files: ['**/*.{ts,tsx}'],
   extends: [
     js.configs.recommended,
