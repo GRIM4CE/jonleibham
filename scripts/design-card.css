@@ -1,0 +1,79 @@
+/* Gallery chrome for the exported Claude Design cards.
+   Not a CSS Module and never imported by App: the bundle reads its app CSS
+   from dist/assets/*.css, which only contains what App's tree imports. This
+   file is concatenated onto that stylesheet by scripts/build-design-bundle.mjs. */
+
+/* The card's own ground. Modelled on `.dsroot` in the Dossier project's
+   guidelines cards: the Design System pane supplies its own background, and
+   without this the components render invisible — the whole palette is dark. */
+.dsc-body {
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding: 40px;
+  background: var(--ground);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.dsc-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.dsc-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+.dsc-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.dsc-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.dsc-swatches {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 12px;
+}
+
+.dsc-swatch {
+  border-radius: 12px;
+  border: 1px solid var(--hairline);
+  overflow: hidden;
+}
+
+/* `toneClass('bg', …)` sets the `--ds-bg` variable and nothing else — the tone
+   classes only ever declare custom properties. Reading it is on us. */
+.dsc-chip {
+  height: 64px;
+  background: var(--ds-bg);
+}
+
+.dsc-name {
+  display: block;
+  padding: 8px 10px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.dsc-pane {
+  width: 320px;
+  max-width: 100%;
+}
