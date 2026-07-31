@@ -7,23 +7,11 @@
   padding-inline: var(--gutter);
 }
 
-.headerRow {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-
 .heading {
   font-size: 32px;
   font-weight: 900;
   line-height: 1;
   letter-spacing: -0.035em;
-}
-
-.search {
-  flex: none;
-  color: var(--text-tertiary);
 }
 
 .meta {
@@ -389,10 +377,6 @@
 
   .header {
     flex: none;
-  }
-
-  .headerRow {
-    gap: 18px;
   }
 
   .heading {

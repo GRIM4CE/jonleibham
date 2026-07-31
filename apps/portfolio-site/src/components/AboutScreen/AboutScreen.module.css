@@ -240,11 +240,12 @@
 
 /*
  * From 1024 the rail's foot appears and carries Email / LinkedIn / GitHub on
- * every screen, so the marks here would be a second copy of the same two
- * links. Below that the rail is icon-only and has no foot, so they stay.
+ * every screen, so this row would be a second copy of the same three links —
+ * Email included, which is why the whole row goes rather than just the marks.
+ * Below that the rail is icon-only and has no foot, so they stay.
  */
 @media (min-width: 1024px) {
-  .actions > a:not(.email) {
+  .actions {
     display: none;
   }
 }

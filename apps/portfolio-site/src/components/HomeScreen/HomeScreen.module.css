@@ -283,9 +283,16 @@
     letter-spacing: 0.1em;
   }
 
-  /* Already a row by this point; only the gutter has to go. */
+  /*
+   * Already a row by this point; only the gutter has to go. The bottom margin
+   * is the floor under the Latest card's gap: that card is separated by
+   * `margin-top: auto`, which is slack and nothing else, so on a pane too short
+   * to leave any it resolves to 0 and the card lands flush against these
+   * buttons. A real margin holds the gap open whether or not slack exists.
+   */
   .actions {
     padding: 12px 0 0;
+    margin-bottom: 22px;
   }
 
   /*
