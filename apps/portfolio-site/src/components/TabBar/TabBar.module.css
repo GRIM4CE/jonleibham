@@ -2,24 +2,24 @@
  * The raised bar the whole app sits on. No fill behind the active tab, no pill
  * and no indicator rule — color alone carries the state.
  *
- * The brand block and the foot belong to the rail; below 768 they are not
- * rendered at all, which also keeps them out of the accessibility tree.
+ * The foot belongs to the rail; below 768 it is not rendered at all, which
+ * also keeps it out of the accessibility tree.
  */
 .tabs {
   flex: none;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  /* Five cells: the four screens plus the outbound Storybook link. */
+  grid-template-columns: repeat(5, 1fr);
   padding: 12px 12px max(26px, env(safe-area-inset-bottom));
   background: var(--ground-raised);
   border-top: 1px solid var(--hairline-soft);
 }
 
-.brand,
 .foot {
   display: none;
 }
 
-/* The four anchors are the grid's cells, so the wrapper has to disappear. */
+/* The five anchors are the grid's cells, so the wrapper has to disappear. */
 .destinations {
   display: contents;
 }
@@ -48,8 +48,8 @@
  * rather than a DOM change: the nav stays last in source order, as it was on
  * mobile, so nothing about the reading order shifts with the viewport.
  *
- * At this step it is icon-only at 72px wide — the labels and the brand and
- * contact blocks come back at 1024, where there is room for them.
+ * At this step it is icon-only at 72px wide — the labels and the contact block
+ * come back at 1024, where there is room for them.
  */
 @media (min-width: 768px) {
   .tabs {
@@ -109,21 +109,6 @@
 @media (min-width: 1024px) {
   .tabs {
     padding: 36px 24px 30px;
-  }
-
-  .brand {
-    display: block;
-    padding: 0 12px;
-  }
-
-  /* Size and tracking only — both inherit down to the name span. */
-  .wordmark {
-    font-size: 20px;
-    letter-spacing: -0.03em;
-  }
-
-  .destinations {
-    margin-top: 44px;
   }
 
   .tab {

@@ -34,6 +34,8 @@ export const profile = {
     email: 'mailto:jleibham@gmail.com',
     linkedin: 'https://www.linkedin.com/in/jonleibham',
     github: 'https://github.com/GRIM4CE',
+    /** The design system's own Storybook, deployed from apps/storybook. */
+    storybook: 'https://storybook.jonleibham.com/',
   },
 } as const
 

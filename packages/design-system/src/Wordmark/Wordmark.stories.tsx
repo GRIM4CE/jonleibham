@@ -14,10 +14,10 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-/** Home's brand row: the name alone. */
+/** The name alone. */
 export const NameOnly: Story = { args: { name: 'Jon Leibham' } }
 
-/** The rail's head, from 768 up. */
+/** With the role line under it. */
 export const WithTitle: Story = {
   args: { name: 'Jon Leibham', title: 'Senior Software Engineer' },
 }

@@ -9,13 +9,18 @@ import tseslint from 'typescript-eslint'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([globalIgnores([
-  'dist',
   // Build output. `storybook-static` holds minified vendor bundles that
   // account for most of the noise; the rest are this repo's own artifacts.
-  'dist-ssr',
-  'dist-design',
-  'design-bundle',
-  'storybook-static',
+  //
+  // Every pattern is `**/`-prefixed. A bare `dist` is anchored to the
+  // directory holding this config, which was the repo root before the
+  // workspaces split and is now nowhere near the output — a Storybook build
+  // then put 13 errors into `npm run lint` from inside its own vendor bundle.
+  '**/dist',
+  '**/dist-ssr',
+  '**/dist-design',
+  '**/design-bundle',
+  '**/storybook-static',
   // Agent scratch space. It holds git worktrees — full copies of this repo,
   // tsconfig included — and a second candidate root makes `tsconfigRootDir`
   // ambiguous, which fails the parse for every TypeScript file in the project.
