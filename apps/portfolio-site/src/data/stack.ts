@@ -14,7 +14,18 @@ export interface StackGroup {
 export const stackGroups: StackGroup[] = [
   {
     name: 'Frontend',
-    items: ['TypeScript', 'React', 'Vue 2/3', 'Next.js', 'Nuxt', 'RSC', 'Tailwind', 'Vite'],
+    items: [
+      'TypeScript',
+      'React',
+      'Vue 2/3',
+      'Next.js',
+      'Nuxt',
+      'Vite',
+      'Sass',
+      'CSS Modules',
+      'CSS Variables',
+      'Design Tokens',
+    ],
   },
   {
     name: 'Systems',
