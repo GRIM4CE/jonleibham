@@ -17,7 +17,7 @@ function InIndex({ children }: { children: React.ReactNode }) {
 }
 
 const meta = {
-  title: 'Portfolio/IndexRow',
+  title: 'Portfolio/Components/IndexRow',
   component: IndexRow,
   parameters: {
     layout: 'fullscreen',

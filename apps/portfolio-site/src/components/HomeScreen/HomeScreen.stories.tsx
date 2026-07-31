@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite'
 import { HomeScreen } from './HomeScreen'
 
 const meta = {
-  title: 'Portfolio/HomeScreen',
+  title: 'Portfolio/Screens/HomeScreen',
   component: HomeScreen,
   parameters: {
     layout: 'fullscreen',

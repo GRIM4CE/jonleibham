@@ -3,7 +3,7 @@ import { ProjectDetail } from './ProjectDetail'
 import { findWork, projects, utilities } from '../../data/projects'
 
 const meta = {
-  title: 'Portfolio/ProjectDetail',
+  title: 'Portfolio/Screens/ProjectDetail',
   component: ProjectDetail,
   parameters: {
     layout: 'fullscreen',

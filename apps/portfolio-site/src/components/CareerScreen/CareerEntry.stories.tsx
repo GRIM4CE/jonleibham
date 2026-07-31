@@ -9,7 +9,7 @@ function InTimeline({ children }: { children: React.ReactNode }) {
 }
 
 const meta = {
-  title: 'Portfolio/CareerEntry',
+  title: 'Portfolio/Components/CareerEntry',
   component: CareerEntry,
   parameters: {
     layout: 'fullscreen',
