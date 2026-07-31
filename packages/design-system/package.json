@@ -1,0 +1,28 @@
+{
+  "name": "@jonleibham/design-system",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "main": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./tokens.css": "./src/tokens.css"
+  },
+  "scripts": {
+    "build": "vite build",
+    "build:design": "npm run build && node scripts/build-design-bundle.mjs",
+    "measure:design": "node scripts/measure-design-cards.mjs",
+    "test": "vitest run",
+    "typecheck:dev": "tsc -p tsconfig.dev.json --noEmit"
+  },
+  "peerDependencies": {
+    "react": "^19",
+    "react-dom": "^19"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.0.4",
+    "typescript": "~6.0.3",
+    "vite": "^8.1.5",
+    "vitest": "^4.1.10"
+  }
+}

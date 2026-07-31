@@ -2,10 +2,10 @@
 description: Rebuild the design bundle and push it to the Claude Design project
 ---
 
-Push `src/design-system/` to the Claude Design project **Jon Leibham Portfolio DS**
+Push `packages/design-system/` to the Claude Design project **Jon Leibham Portfolio DS**
 (`19746144-6183-4f19-bbc3-c5c057d68436`).
 
-Run after a merge that touches `src/design-system/` or `src/entry-design.tsx`.
+Run after a merge that touches `packages/design-system/` or `packages/design-system/src/entry-design.tsx`.
 
 ## Why this is a command and not CI
 
@@ -18,13 +18,13 @@ deliberately — this is that something.
 1. **Get current.** `git checkout main && git pull`. Never push a bundle built
    from a stale or dirty tree — say so and stop if the tree is dirty.
 
-2. **Build.** `npm run build:design`. This runs the full `npm run build` first,
-   because the generator reads the stylesheet that pass emits to
-   `dist/assets/*.css`.
+2. **Build.** `npm run build:design`. This runs the package's own library build first,
+   because the generator reads the single stylesheet that build emits to
+   `packages/design-system/dist/`.
 
-3. **Measure.** `node scripts/measure-design-cards.mjs`. If it flags any card
+3. **Measure.** `npm run measure:design`. If it flags any card
    with more than 40px of unused height, retune that card's `viewport` in
-   `src/entry-design.tsx`, rebuild, and re-measure. A card that declares far
+   `packages/design-system/src/entry-design.tsx`, rebuild, and re-measure. A card that declares far
    more height than it uses renders as a mostly-empty box in the pane.
    Negative waste means the content overflows — fix that too.
 
@@ -49,11 +49,11 @@ deliberately — this is that something.
 6. **Upload.**
    - `finalize_plan` with `projectId`, `writes: ["styles.css", "cards/*.html"]`,
      `deletes: []` (required, even when empty), and `localDir` set to the
-     absolute path of `design-bundle`.
+     absolute path of `packages/design-system/design-bundle`.
    - `write_files` with the returned `planId` and one entry per file using
      `localPath`, never inline `data` — `localPath` uploads straight from disk
      without the contents entering context.
-   - Do **not** upload `design-bundle/cards.json`. It is local metadata for the
+   - Do **not** upload `packages/design-system/design-bundle/cards.json`. It is local metadata for the
      measure script; the app compiles its own `_ds_manifest.json` from the
      `@dsCard` markers.
 
@@ -72,5 +72,5 @@ Line 1 of every card must be the marker, carrying all four attributes:
 ```
 
 `viewport` is a `WxH` string. Emitting only `group` loses the card's name,
-subtitle and dimensions in the pane. `scripts/build-design-bundle.mjs` handles
+subtitle and dimensions in the pane. `packages/design-system/scripts/build-design-bundle.mjs` handles
 this; the note is here so a change to it does not quietly regress.

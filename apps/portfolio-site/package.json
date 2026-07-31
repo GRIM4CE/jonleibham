@@ -1,0 +1,27 @@
+{
+  "name": "@jonleibham/portfolio-site",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build && vite build --ssr src/entry-server.tsx --outDir dist-ssr && node scripts/prerender.mjs",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "typecheck:dev": "tsc -p tsconfig.dev.json --noEmit"
+  },
+  "dependencies": {
+    "@jonleibham/design-system": "*",
+    "@types/node": "^26.1.1",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.4",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "typescript": "~6.0.3",
+    "vite": "^8.1.5"
+  },
+  "devDependencies": {
+    "vitest": "^4.1.10"
+  }
+}
