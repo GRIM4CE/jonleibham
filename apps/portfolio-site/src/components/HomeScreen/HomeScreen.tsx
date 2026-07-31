@@ -1,4 +1,4 @@
-import { AvailabilityPill, Button, Icon, LabeledNote, Wordmark } from '@jonleibham/design-system'
+import { AvailabilityPill, Button, Icon, LabeledNote } from '@jonleibham/design-system'
 import { metrics, profile } from '../../data/profile'
 import { projects } from '../../data/projects'
 import styles from './HomeScreen.module.css'
@@ -16,9 +16,11 @@ const latest = projects.find((project) => project.featured) ?? projects[0]
  */
 export function HomeScreen() {
   return (
-    <section id="home" data-screen="home" className={styles.screen} aria-label="Home">
+    <section id="home" data-screen="home" className={styles.screen} aria-label="Overview">
+      {/* No wordmark: the hero underneath is the name, at 60-odd pixels, so a
+          17px copy of it directly above only said it twice. The row is left
+          for the pill, which has nowhere else to be below 1024. */}
       <header className={styles.brandRow}>
-        <Wordmark name={profile.name} className={styles.wordmark} />
         <AvailabilityPill className={styles.availability}>{profile.availability}</AvailabilityPill>
       </header>
 

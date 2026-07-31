@@ -7,18 +7,14 @@
 }
 
 /* ── Brand row ────────────────────────────────────────────────────────────*/
+/* Just the pill now, held to the right where it sat when the wordmark was
+   still its left-hand partner. */
 .brandRow {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 12px;
   padding-inline: var(--gutter);
-}
-
-/* The wordmark is the name, unpunctuated — no trailing period anywhere. */
-.wordmark {
-  font-size: 17px;
-  letter-spacing: -0.02em;
 }
 
 /* Placement only. The pill's own spacing defaults to these values, so the
@@ -197,8 +193,8 @@
 /* ── Desktop ───────────────────────────────────────────────────────────────
  * Same stack order as mobile at a bigger measure. The one addition is the
  * Latest card, which fills the space the taller column opens up above the Now
- * line. The brand row hands off to the rail later, at 1024 — see the bottom of
- * this file.
+ * line. The brand row hands its pill to the rail's foot later, at 1024 — see
+ * the bottom of this file.
  */
 @media (min-width: 768px) {
   .hero {
@@ -359,10 +355,9 @@
 }
 
 /*
- * The brand row goes only once the rail is wide enough to have taken over both
- * its jobs. Between 768 and 1023 the rail is icon-only and has no head or
- * foot, so the name and — more to the point — the "open to roles" pill still
- * have to live here, or they are on no screen at any width.
+ * The brand row goes once the rail's foot appears and takes over its one job.
+ * Between 768 and 1023 the rail is icon-only with no foot, so the "open to
+ * roles" pill still has to live here, or it is on no screen at any width.
  */
 @media (min-width: 1024px) {
   .brandRow {

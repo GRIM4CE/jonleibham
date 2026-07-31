@@ -15,6 +15,9 @@ export interface WordmarkProps {
  * Sets no `font-size` or `letter-spacing` on the name — it inherits, so the
  * container decides the size and there is no `size` prop. Renders `<span>`s, so
  * wrap it in a heading if the page needs one.
+ *
+ * No screen in the portfolio renders it today; it is kept for the next app
+ * that needs a masthead.
  */
 export function Wordmark({ name, title, className = '' }: WordmarkProps) {
   return (

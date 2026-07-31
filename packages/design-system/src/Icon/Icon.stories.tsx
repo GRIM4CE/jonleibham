@@ -10,8 +10,8 @@ const meta = {
     docs: {
       description: {
         component: [
-          'Inlined Lucide paths, plus the LinkedIn and GitHub marks. The set is',
-          'closed — `iconNames` in `icons.ts` is all of it.',
+          'Inlined Lucide paths, plus the LinkedIn, GitHub and Storybook marks.',
+          'The set is closed — `iconNames` in `icons.ts` is all of it.',
           '',
           'Color comes from `currentColor`, so set `color` on the parent. Every icon',
           'is `aria-hidden`, so an icon-only control needs its own `aria-label`.',
@@ -82,7 +82,11 @@ export const Sizes: Story = {
   ),
 }
 
-/** Filled rather than stroked, so they hold up at small sizes. */
+/**
+ * Filled rather than stroked, so they hold up at small sizes. Each is drawn on
+ * whatever grid its owner published — Storybook's is a 14, not Lucide's 24 —
+ * which `BRAND_VIEWBOX` absorbs so `size` still means the same thing.
+ */
 export const BrandMarks: Story = {
   render: () => (
     <div
@@ -96,6 +100,7 @@ export const BrandMarks: Story = {
     >
       <Icon name="linkedin" size={19} />
       <Icon name="github" size={19} />
+      <Icon name="storybook" size={19} />
     </div>
   ),
 }

@@ -21,7 +21,8 @@ export const WithTitle: Story = {
   args: { name: 'Jon Leibham', title: 'Senior Software Engineer' },
 }
 
-/** The name inheriting its size from the container: 17px, then 20px. */
+/** The same component at two container sizes — 17px and 20px — to show the
+ * name inheriting rather than taking a prop. */
 export const InheritedSizes: Story = {
   args: { name: 'Jon Leibham', title: 'Senior Software Engineer' },
   render: (args) => (

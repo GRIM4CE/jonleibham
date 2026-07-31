@@ -1,53 +1,48 @@
 import { create } from 'storybook/theming'
 
-/**
- * Storybook's chrome, in the design system's own palette. The components are
- * built for the dark ground and there is no light mode to switch to.
+/*
+ * Storybook's chrome, in the design system's palette.
  *
- * Values are copied from `tokens.css` rather than imported: this is
- * manager-side config, so it cannot read a CSS custom property. Keep them in
- * step by hand.
+ * Shared by `manager.ts` (sidebar, toolbar) and `preview.ts` (docs pages).
+ * Those are two separate React apps, so the theme has to be handed to each —
+ * the manager's config does not reach inside the preview iframe.
+ *
+ * Storybook's own logo and link are replaced with the name, set as text rather
+ * than an image: the JL tile is a favicon, and at the 100px Storybook gives a
+ * brand image it read as a badge stuck to the sidebar. It goes back to
+ * jonleibham.com, since this Storybook is a wing of the portfolio rather than
+ * a site of its own.
+ *
+ * The palette is lifted from packages/design-system/src/tokens.css by hand.
+ * Neither app loads the design system's stylesheet, so the values cannot be
+ * `var(--ground)` here — they are copies, and a token change has to be
+ * repeated in this file.
  */
 export const dossierDark = create({
   base: 'dark',
 
-  brandTitle: 'Jon Leibham · Design System',
-  brandUrl: 'https://jonleibham.com',
-  brandTarget: '_blank',
+  // No brandImage, so this renders as the header text itself.
+  brandTitle: 'Jon Leibham',
+  brandUrl: 'https://jonleibham.com/',
+  brandTarget: '_self',
 
-  // --accent / --dusty-grape
-  colorPrimary: '#ffc145',
-  colorSecondary: '#ffc145',
-
-  // --ground / --ground-raised / --surface
   appBg: '#1a0f16',
   appContentBg: '#1a0f16',
   appPreviewBg: '#1a0f16',
-  appBorderColor: 'rgba(255, 255, 251, 0.12)',
-  appBorderRadius: 8,
-
-  // --text-primary / --text-secondary / --text-tertiary
-  textColor: '#fffffb',
-  textInverseColor: '#1a0f16',
-  textMutedColor: '#8989b2',
+  appBorderColor: 'rgba(184, 184, 209, 0.18)',
+  appBorderRadius: 12,
 
   barBg: '#241521',
-  barTextColor: '#b8b8d1',
-  barHoverColor: '#ffc145',
   barSelectedColor: '#ffc145',
+  barTextColor: '#b8b8d1',
 
-  inputBg: '#241521',
-  inputBorder: 'rgba(255, 255, 251, 0.16)',
+  colorPrimary: '#ffc145',
+  colorSecondary: '#ffc145',
+  textColor: '#fffffb',
+  textInverseColor: '#1a0f16',
+  textMutedColor: '#b8b8d1',
+
+  inputBg: '#2e1d26',
+  inputBorder: 'rgba(184, 184, 209, 0.18)',
   inputTextColor: '#fffffb',
-  inputBorderRadius: 6,
-
-  buttonBg: '#241521',
-  buttonBorder: 'rgba(255, 255, 251, 0.16)',
-
-  booleanBg: '#241521',
-  booleanSelectedBg: '#2e1d26',
-
-  fontBase:
-    '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
-  fontCode: 'ui-monospace, SFMono-Regular, Menlo, Monaco, "Courier New", monospace',
 })

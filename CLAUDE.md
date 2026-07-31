@@ -83,7 +83,7 @@ Consequences to keep in mind when editing:
 - **CSS Modules scopes ids, not just class names.** A `#home` selector inside a `.module.css` compiles to `#App-module_home_4GdE4` and matches nothing in the rendered markup — no build error, no styling. Cross-module hooks are data attributes instead: `data-screen`, `data-tab`, `data-detail`, `data-cat`, `data-stack`. `src/App.test.ts` fails if an id selector reappears.
 - **Build-time values freeze.** Anything derived from `Date` or the environment is evaluated during the build, not in the browser.
 
-**Navigation:** the five screens (Home, Work, Career, About) and one detail screen per project all live in the same document. `src/App.module.css` shows whichever screen the URL hash targets and falls back to Home when nothing is targeted, so every screen has a real URL and the browser's own back button works. A detail screen keeps the Work tab lit via `:has(section[data-detail]:target)`.
+**Navigation:** the four screens (Overview, Work, Career, About) and one detail screen per project all live in the same document. Overview's id, hash and `data-screen` are all still `home` — only its label reads Overview, and every `:target` rule is written against `home`. The nav carries a fifth item, an outbound link to the deployed Storybook. `src/App.module.css` shows whichever screen the URL hash targets and falls back to Home when nothing is targeted, so every screen has a real URL and the browser's own back button works. A detail screen keeps the Work tab lit via `:has(section[data-detail]:target)`.
 
 **No backend:** Contact is a `mailto:` link — the secondary action on Home and the primary action on About. There is no form.
 
