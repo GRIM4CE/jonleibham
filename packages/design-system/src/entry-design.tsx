@@ -9,6 +9,7 @@ import {
   AvailabilityPill,
   Button,
   Icon,
+  iconNames,
   LabeledNote,
   Tabs,
   Tag,
@@ -16,7 +17,6 @@ import {
   tones,
   Wordmark,
 } from './index'
-import type { IconName } from './index'
 import { Section } from './designCardChrome'
 
 /**
@@ -39,22 +39,6 @@ export interface DesignCard {
   viewport: { width: number; height?: number }
   render: () => ReactElement
 }
-
-const ICON_NAMES: IconName[] = [
-  'home',
-  'layoutGrid',
-  'briefcase',
-  'user',
-  'search',
-  'arrowLeft',
-  'arrowUpRight',
-  'chevronRight',
-  'download',
-  'share',
-  'graduationCap',
-  'linkedin',
-  'github',
-]
 
 export const cards: DesignCard[] = [
   {
@@ -206,11 +190,13 @@ export const cards: DesignCard[] = [
     slug: 'icon',
     name: 'Icon',
     group: 'Components',
-    subtitle: 'The full inlined Lucide set plus two brand marks',
+    subtitle: 'The full inlined Lucide set plus three brand marks',
     viewport: { width: 720, height: 150 },
     render: () => (
+      // Straight from `iconNames` rather than a list copied here — a card that
+      // silently omits a glyph is worse than no card.
       <Section label="All icons">
-        {ICON_NAMES.map((name) => (
+        {iconNames.map((name) => (
           <Icon key={name} name={name} size={24} />
         ))}
       </Section>

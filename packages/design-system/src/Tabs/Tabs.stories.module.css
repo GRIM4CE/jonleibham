@@ -1,0 +1,35 @@
+/*
+ * Story-local, and the point of the `Reveal` story: this is the stylesheet a
+ * consumer has to write. `Tabs` ships the bar and its checked styling; which
+ * panel shows is the consumer's `:has()` rule, because the selection lives in a
+ * radio group rather than in state.
+ *
+ * See `WorkScreen.module.css` and `AboutScreen.module.css` in the portfolio for
+ * the real ones.
+ */
+.demo {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  inline-size: 420px;
+}
+
+.panel {
+  display: none;
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+/*
+ * One rule per item — CSS cannot compare the checked input's value against a
+ * panel's attribute, so the pairing has to be written out. The tests in the
+ * portfolio's `projects.test.ts` and `stack.test.ts` exist to catch these
+ * drifting from the data.
+ */
+.demo:has(input[value='Overview']:checked) [data-panel='Overview'],
+.demo:has(input[value='Stack']:checked) [data-panel='Stack'],
+.demo:has(input[value='Notes']:checked) [data-panel='Notes'] {
+  display: block;
+}

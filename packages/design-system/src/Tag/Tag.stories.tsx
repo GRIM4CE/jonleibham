@@ -7,11 +7,46 @@ const meta = {
   component: Tag,
   parameters: {
     layout: 'centered',
+    docs: {
+      description: {
+        component: [
+          'A small pill for a technology name.',
+          '',
+          'Static text — no dismiss control, no interactive state, and no `href`. Wrap it',
+          'in a `<Button as="a">` if a chip has to be clickable.',
+          '',
+          'Color is by category rather than by call site: pass names through',
+          '`tagVariantFor(tech)` so the same technology reads the same everywhere. It',
+          'matches cloud and infrastructure names to `cloud`, data stores to `data`, and',
+          'leaves everything else `neutral`.',
+        ].join('\n'),
+      },
+    },
   },
   tags: ['autodocs'],
   argTypes: {
-    variant: { control: 'inline-radio', options: ['neutral', 'cloud', 'data'] },
-    size: { control: 'inline-radio', options: ['sm', 'md'] },
+    variant: {
+      control: 'inline-radio',
+      options: ['neutral', 'cloud', 'data'],
+      description:
+        '`cloud` reads gold, `data` green, `neutral` everything else. Prefer ' +
+        '`tagVariantFor(tech)` over picking one by hand.',
+      table: {
+        type: { summary: "'neutral' | 'cloud' | 'data'" },
+        defaultValue: { summary: 'neutral' },
+      },
+    },
+    size: {
+      control: 'inline-radio',
+      options: ['sm', 'md'],
+      description: '`sm` for dense lists, `md` for chips that stand on their own.',
+      table: { type: { summary: "'sm' | 'md'" }, defaultValue: { summary: 'sm' } },
+    },
+    children: {
+      control: 'text',
+      description: "The chip's label. Usually a technology name.",
+      table: { type: { summary: 'ReactNode' } },
+    },
   },
 } satisfies Meta<typeof Tag>
 
