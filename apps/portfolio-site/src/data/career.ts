@@ -34,7 +34,7 @@ export const roles: Role[] = [
     dates: '2018 to 2024',
     badge: '5 yrs',
     proofPoints: [
-      'Primary engineer on the Vue/Nuxt to Next.js migration across 1.5M+ listings for 7.6M monthly users, rebuilding the component library in React.',
+      'Primary engineer on the Vue/Nuxt to Next.js migration across 1.5M+ listings serving 1.7M daily page views, rebuilding the component library in React.',
       'Led 15+ engineers onto a shared design system. Load time 2s to 0.5s, bundles 80% smaller.',
     ],
   },

@@ -43,13 +43,13 @@ export const profile = {
 /**
  * Three numbers, each tied to where it happened. A bare "7.6M / USERS" made the
  * reader guess whose users, and "100% ACCESSIBLE" was a self-assessment sitting
- * beside two measured results — it is replaced by one.
+ * beside two measured results — both are replaced by measured ones.
  *
  * Every figure here is also in `career.ts`, so the Career screen backs up what
  * the hero claims. Keep them in step.
  */
 export const metrics = [
-  { value: '7.6', unit: 'M', label: 'Monthly users at RE/MAX' },
+  { value: '1.7', unit: 'M', label: 'Daily page views at RE/MAX' },
   { value: '2', unit: 'x', label: 'Product conversion at Songfinch' },
   { value: '80', unit: '%', label: 'Smaller bundles at RE/MAX' },
 ] as const
