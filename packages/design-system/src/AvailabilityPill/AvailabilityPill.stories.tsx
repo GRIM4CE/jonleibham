@@ -14,7 +14,7 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-/** As it reads in Home's brand row below 768. */
+/** As it reads in Home's brand row below 1024. */
 export const Default: Story = { args: { children: 'Open to roles' } }
 
 export const LongerLabel: Story = { args: { children: 'Available from March 2027' } }
