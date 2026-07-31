@@ -21,7 +21,7 @@ import styles from './WorkScreen.module.css'
  * not in play is `display: none` and so is out of the accessibility tree too —
  * exactly one of the two is ever read.
  */
-function IndexRow({ project }: { project: Project }) {
+export function IndexRow({ project }: { project: Project }) {
   const className = [
     styles.row,
     styles[`accent-${project.accent}`],
@@ -54,6 +54,55 @@ function IndexRow({ project }: { project: Project }) {
         </div>
       </a>
     </li>
+  )
+}
+
+/**
+ * The five utilities, behind a collapse.
+ *
+ * A checkbox rather than a `<details>`, because the filters have to be able to
+ * force it open — selecting "Utilities" or "AI" reveals these rows regardless
+ * of the toggle, and CSS cannot reach into a `<details>` element's open state.
+ *
+ * The summary lines are the preview shown while it is shut, and are
+ * `aria-hidden`: the same titles are in the rows below at every state, so
+ * without it each utility would be announced twice.
+ */
+export function UtilitiesCollapse() {
+  return (
+    <div className={styles.collapse}>
+      <input
+        type="checkbox"
+        id="utilities-toggle"
+        className={styles.toggle}
+        aria-controls="utility-rows"
+      />
+      <label className={styles.collapseHeader} htmlFor="utilities-toggle">
+        <span className={styles.collapseLabel}>{utilities.length} more utilities</span>
+        <Icon name="chevronRight" size={18} className={styles.chevron} />
+      </label>
+
+      <div className={styles.summary} aria-hidden="true">
+        <span className={styles.summaryLine}>
+          {utilities
+            .slice(0, 3)
+            .map((utility) => utility.title)
+            .join(' · ')}
+        </span>
+        <span className={styles.summaryLine}>
+          {utilities
+            .slice(3)
+            .map((utility) => utility.title)
+            .join(' · ')}
+        </span>
+      </div>
+
+      <ul className={styles.utilityRows} id="utility-rows">
+        {utilities.map((utility) => (
+          <IndexRow key={utility.id} project={utility} />
+        ))}
+      </ul>
+    </div>
   )
 }
 
@@ -119,46 +168,7 @@ export function WorkScreen() {
             ))}
           </ul>
 
-          {/*
-           * The utilities collapse. A checkbox rather than <details> because the
-           * filters need to be able to force it open — selecting "Utilities" or
-           * "AI" reveals these rows regardless of the toggle, which CSS cannot
-           * do to a <details> element's open state.
-           */}
-          <div className={styles.collapse}>
-            <input
-              type="checkbox"
-              id="utilities-toggle"
-              className={styles.toggle}
-              aria-controls="utility-rows"
-            />
-            <label className={styles.collapseHeader} htmlFor="utilities-toggle">
-              <span className={styles.collapseLabel}>{utilities.length} more utilities</span>
-              <Icon name="chevronRight" size={18} className={styles.chevron} />
-            </label>
-
-            {/* The preview shown while the collapse is shut. */}
-            <div className={styles.summary} aria-hidden="true">
-              <span className={styles.summaryLine}>
-                {utilities
-                  .slice(0, 3)
-                  .map((utility) => utility.title)
-                  .join(' · ')}
-              </span>
-              <span className={styles.summaryLine}>
-                {utilities
-                  .slice(3)
-                  .map((utility) => utility.title)
-                  .join(' · ')}
-              </span>
-            </div>
-
-            <ul className={styles.utilityRows} id="utility-rows">
-              {utilities.map((utility) => (
-                <IndexRow key={utility.id} project={utility} />
-              ))}
-            </ul>
-          </div>
+          <UtilitiesCollapse />
         </div>
       </div>
     </section>
