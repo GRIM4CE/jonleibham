@@ -24,21 +24,25 @@ applications:
             # where npm workspaces and the single lockfile live. Amplify's
             # documented mechanism for this — no cd needed.
             #
-            # `npm install` rather than `npm ci`: Vite 8's rolldown/oxc
-            # toolchain has platform-specific wasm32-wasi optional deps
-            # (@emnapi/*) that npm prunes from a macOS-generated lockfile, so
-            # `npm ci` fails the strict sync check on the linux-x64 builder.
+            # `npm ci`, not `npm install`. Deployment 3 failed with
+            # "Cannot find module '@oxc-resolver/binding-linux-x64-gnu'" — npm's
+            # optional-dependency bug (npm/cli#4828). Amplify had restored a
+            # cached node_modules and npm layered onto it, so the linux-x64
+            # native binding was never fetched even though the lockfile lists
+            # it. `npm ci` deletes node_modules and installs the lockfile
+            # exactly, which is both the fix and the reason node_modules is no
+            # longer cached below: caching a tree that ci discards is pointless,
+            # and here it was actively breaking the build.
             #
             # The old single-package spec used --omit=dev. It is dropped here
             # rather than carried over: a root install now resolves three
             # workspaces at once, and the flag's exact effect on workspace
             # linking has not been verified on the builder. Worth revisiting as
-            # an optimisation once both apps deploy green — not while the
-            # deploy itself is the thing being proven.
+            # an optimisation once both apps deploy green.
             #
             # PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD avoids a ~300MB Chromium pull
             # that only the browser-mode Vitest project would use.
-            - PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm install --no-audit --no-fund --prefer-offline
+            - PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm ci --no-audit --no-fund
         build:
           commands:
             - npm run build -w @jonleibham/portfolio-site
@@ -46,9 +50,9 @@ applications:
         baseDirectory: apps/portfolio-site/dist
         files:
           - '**/*'
-      cache:
-        paths:
-          - node_modules/**/*
+      # No node_modules cache: `npm ci` deletes the directory before
+      # installing, so caching it buys nothing and a stale tree is what broke
+      # deployment 3. The npm HTTP cache still makes installs fast.
       customHeaders:
         - pattern: '**/*'
           headers:
@@ -81,7 +85,7 @@ applications:
           commands:
             - nvm use 2>/dev/null || nvm install
             - node -v && npm -v
-            - PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm install --no-audit --no-fund --prefer-offline
+            - PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm ci --no-audit --no-fund
         build:
           commands:
             - npm run build-storybook -w @jonleibham/storybook
@@ -89,9 +93,9 @@ applications:
         baseDirectory: apps/storybook/storybook-static
         files:
           - '**/*'
-      cache:
-        paths:
-          - node_modules/**/*
+      # No node_modules cache: `npm ci` deletes the directory before
+      # installing, so caching it buys nothing and a stale tree is what broke
+      # deployment 3. The npm HTTP cache still makes installs fast.
       customHeaders:
         - pattern: '**/*'
           headers:
