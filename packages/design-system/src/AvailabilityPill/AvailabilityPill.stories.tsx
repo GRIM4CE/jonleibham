@@ -6,7 +6,6 @@ const meta = {
   component: AvailabilityPill,
   parameters: {
     layout: 'centered',
-    backgrounds: { default: 'ground', values: [{ name: 'ground', value: '#1a0f16' }] },
   },
   tags: ['autodocs'],
 } satisfies Meta<typeof AvailabilityPill>
@@ -14,7 +13,8 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-/** As it reads in Home's brand row below 768. */
+/** The label must say the status on its own — "Open to roles", not "Open". */
 export const Default: Story = { args: { children: 'Open to roles' } }
 
+/** No truncation: a longer label just makes the pill wider. */
 export const LongerLabel: Story = { args: { children: 'Available from March 2027' } }

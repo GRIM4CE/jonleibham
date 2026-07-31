@@ -1,19 +1,20 @@
 import styles from './Wordmark.module.css'
 
 export interface WordmarkProps {
+  /** The name. Renders at the inherited font size. */
   name: string
-  /** The role line beneath. Rail only — Home shows the name alone. */
+  /** An optional role line beneath, in 9px uppercase mono. */
   title?: string
+  /** Where the name's `font-size` and `letter-spacing` come from. */
   className?: string
 }
 
 /**
- * The name, optionally over a role line.
+ * A name, optionally over a role line.
  *
- * Home shows it in the brand row below 768 at 17px; the rail shows it with the
- * title from 768 up at 20px. Those two declarations — and the letter-spacing
- * that goes with them — stay on the screens' own `.wordmark` classes and
- * inherit down, so the name span deliberately sets neither.
+ * Sets no `font-size` or `letter-spacing` on the name — it inherits, so the
+ * container decides the size and there is no `size` prop. Renders `<span>`s, so
+ * wrap it in a heading if the page needs one.
  */
 export function Wordmark({ name, title, className = '' }: WordmarkProps) {
   return (

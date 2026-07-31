@@ -7,7 +7,6 @@ const meta = {
   component: Tag,
   parameters: {
     layout: 'centered',
-    backgrounds: { default: 'ground', values: [{ name: 'ground', value: '#1a0f16' }] },
   },
   tags: ['autodocs'],
   argTypes: {
@@ -19,29 +18,27 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
+/** The default — languages, frameworks, anything the other two don't claim. */
 export const Neutral: Story = {
   args: { variant: 'neutral', size: 'sm', children: 'TypeScript' },
 }
 
-/** Cloud and infrastructure read gold. */
+/** Cloud and infrastructure. */
 export const Cloud: Story = {
   args: { variant: 'cloud', size: 'sm', children: 'AWS Lambda' },
 }
 
-/** Data stores read green. */
+/** Data stores. */
 export const Data: Story = {
   args: { variant: 'data', size: 'sm', children: 'Turso (libSQL)' },
 }
 
-/** The larger step, used for the About screen's stack chips. */
+/** The larger step, for chips that stand on their own. */
 export const Medium: Story = {
   args: { variant: 'neutral', size: 'md', children: 'Design Systems' },
 }
 
-/**
- * A real stack, colored by `tagVariantFor` — the coding is by category, not
- * decoration.
- */
+/** The intended usage: colors come from `tagVariantFor`, not the call site. */
 export const Stack: Story = {
   args: { children: null },
   render: () => (
