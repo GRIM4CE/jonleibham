@@ -161,7 +161,10 @@
   display: flex;
   align-items: center;
   gap: 14px;
-  margin: 22px var(--gutter) 0;
+  /* The bottom margin used to come from the "why" line sitting under this.
+     Without it the card butts straight into the tab bar. The desktop rule
+     resets margin entirely, so this is mobile-only. */
+  margin: 22px var(--gutter);
   padding: 16px 18px;
   border-radius: var(--radius-card-sm);
   background: var(--tint-fill-strong);

@@ -22,7 +22,7 @@ export const profile = {
     // Renders in --text-secondary via `.bioBody`, so it reads as the quieter
     // half of the pair. Deliberately names no frameworks — the stack tabs
     // directly below already list them.
-    "I don't stay in one lane. I've owned the design file, the component library, the API behind it and the pipeline that ships it. I work AI-natively, with Claude Code in the loop daily, which puts my time into the decisions instead of the typing.",
+    "I've owned the component library and the pipeline that ships it, I work with designers to turn a file into a system that holds up, and I push on API contracts until they are fast and shaped for the front end. I work AI-natively, with Claude Code in the loop daily, which puts my time into the decisions instead of the typing.",
   ],
   /** All three read at the same weight on purpose — the row scans as one unit. */
   employers: ['Songfinch', 'RE/MAX', '20+ clients'],

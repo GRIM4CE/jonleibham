@@ -85,11 +85,26 @@
   color: var(--text-tertiary);
 }
 
+/*
+ * Every panel occupies the same cell, so the well takes the height of the
+ * tallest group and a tab change shifts nothing below it. Frontend and Quality
+ * run to two rows of chips; the other three are one, which was a 32px jump.
+ */
+.panels {
+  display: grid;
+}
+
 .panel {
-  display: none;
+  grid-area: 1 / 1;
+  display: flex;
   flex-wrap: wrap;
+  align-content: flex-start;
   gap: 7px;
   margin-top: 15px;
+  /* Not `display: none` — a panel out of flow contributes no height, which
+     would put the shift straight back. `visibility` keeps the box and still
+     takes it out of the accessibility tree, so only the open group is read. */
+  visibility: hidden;
 }
 
 /*
@@ -102,7 +117,7 @@
 .stack:has(input[name='stack-tab'][value='Quality']:checked) .panel[data-stack='Quality'],
 .stack:has(input[name='stack-tab'][value='Backend']:checked) .panel[data-stack='Backend'],
 .stack:has(input[name='stack-tab'][value='Platform']:checked) .panel[data-stack='Platform'] {
-  display: flex;
+  visibility: visible;
 }
 
 /* ── Foot ─────────────────────────────────────────────────────────────────*/
