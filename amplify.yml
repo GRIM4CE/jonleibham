@@ -12,6 +12,7 @@ applications:
   # ── The portfolio ────────────────────────────────────────────────────────
   - appRoot: apps/portfolio-site
     frontend:
+      buildPath: '/'
       phases:
         preBuild:
           commands:
@@ -19,9 +20,9 @@ applications:
             # (see .nvmrc); only fall back to a download if the image lacks it.
             - nvm use 2>/dev/null || nvm install
             - node -v && npm -v
-            # npm workspaces install from the repository root, and the single
-            # lockfile lives there. Amplify runs these commands from appRoot,
-            # so the install has to walk back up.
+            # buildPath '/' runs install and build from the repo root, which is
+            # where npm workspaces and the single lockfile live. Amplify's
+            # documented mechanism for this — no cd needed.
             #
             # `npm install` rather than `npm ci`: Vite 8's rolldown/oxc
             # toolchain has platform-specific wasm32-wasi optional deps
@@ -37,17 +38,17 @@ applications:
             #
             # PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD avoids a ~300MB Chromium pull
             # that only the browser-mode Vitest project would use.
-            - cd ../.. && PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm install --no-audit --no-fund --prefer-offline
+            - PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm install --no-audit --no-fund --prefer-offline
         build:
           commands:
-            - npm run build
+            - npm run build -w @jonleibham/portfolio-site
       artifacts:
-        baseDirectory: dist
+        baseDirectory: apps/portfolio-site/dist
         files:
           - '**/*'
       cache:
         paths:
-          - ../../node_modules/**/*
+          - node_modules/**/*
       customHeaders:
         - pattern: '**/*'
           headers:
@@ -74,22 +75,23 @@ applications:
   # ── Storybook ────────────────────────────────────────────────────────────
   - appRoot: apps/storybook
     frontend:
+      buildPath: '/'
       phases:
         preBuild:
           commands:
             - nvm use 2>/dev/null || nvm install
             - node -v && npm -v
-            - cd ../.. && PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm install --no-audit --no-fund --prefer-offline
+            - PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm install --no-audit --no-fund --prefer-offline
         build:
           commands:
-            - npm run build-storybook
+            - npm run build-storybook -w @jonleibham/storybook
       artifacts:
-        baseDirectory: storybook-static
+        baseDirectory: apps/storybook/storybook-static
         files:
           - '**/*'
       cache:
         paths:
-          - ../../node_modules/**/*
+          - node_modules/**/*
       customHeaders:
         - pattern: '**/*'
           headers:
