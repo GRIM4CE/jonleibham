@@ -14,13 +14,15 @@ export const profile = {
   locationShort: 'Milwaukee, WI',
   availability: 'Open to roles',
   positioning:
-    'Ten years of frontend at national consumer scale. Design systems, monorepos, and the migrations nobody volunteers for.',
-  now: 'Design systems at Songfinch. AI-native side projects on my own hardware.',
+    '10+ years of frontend engineering at national consumer scale. I like turning complicated systems into simple ones.',
+  now: 'Frontend architecture at Songfinch. AI-native side projects on my own hardware.',
   offClock: 'Woodworking, synth building, cooking, my wife and son.',
-  why: "A designer's eye, an engineer's discipline. It is why the systems get adopted.",
   bio: [
-    'I build the design systems and monorepos that let teams ship consistent experiences at scale, with accessibility enforced structurally and visual regression guarding every component.',
-    'I ship in both Vue and React, work AI-natively with Claude Code and Cursor, and bring a BFA in graphic design to the table when I sit down with product designers.',
+    "Greenfield builds, legacy rebuilds, startups, national platforms. I build the monorepos and design systems that hold teams together, and I'm often the one prototyping an idea with product before anyone knows what the answer is.",
+    // Renders in --text-secondary via `.bioBody`, so it reads as the quieter
+    // half of the pair. Deliberately names no frameworks — the stack tabs
+    // directly below already list them.
+    "I've owned the component library and the pipeline that ships it, I work with designers to turn a file into a system that holds up, and I push on API contracts until they are fast and shaped for the front end. I work AI-natively, with Claude Code in the loop daily, which puts my time into the decisions instead of the typing.",
   ],
   /** All three read at the same weight on purpose — the row scans as one unit. */
   employers: ['Songfinch', 'RE/MAX', '20+ clients'],
@@ -40,8 +42,21 @@ export const profile = {
 } as const
 
 /** The unit character carries the accent; the number stays porcelain. */
+/**
+ * Four numbers, each tied to where it happened. A bare "7.6M / USERS" made the
+ * reader guess whose users, and "100% ACCESSIBLE" was a self-assessment sitting
+ * among measured results.
+ *
+ * Order matters: the grid is 2×2, so the two RE/MAX figures share the top row
+ * and the two Songfinch ones the bottom. Reordering this array regroups the
+ * card — check it still pairs by company.
+ *
+ * Every figure here is also in `career.ts`, so the Career screen backs up what
+ * the hero claims. Keep them in step.
+ */
 export const metrics = [
-  { value: '7.6', unit: 'M', label: 'Users' },
-  { value: '2', unit: 'x', label: 'Conversion' },
-  { value: '100', unit: '%', label: 'Accessible' },
+  { value: '1.7', unit: 'M', label: 'Daily page views — RE/MAX' },
+  { value: '80', unit: '%', label: 'Smaller bundle size — RE/MAX' },
+  { value: '2', unit: 'x', label: 'Product conversion — Songfinch' },
+  { value: '66', unit: '%', label: 'Higher AOV — Songfinch' },
 ] as const

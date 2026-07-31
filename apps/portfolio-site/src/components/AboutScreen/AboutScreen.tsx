@@ -52,15 +52,24 @@ export function AboutScreen() {
           label="Choose a part of the stack"
           variant="underline"
         />
-        {stackGroups.map((group) => (
-          <div key={group.name} className={styles.panel} data-stack={group.name}>
-            {group.items.map((item) => (
-              <Tag key={item} size="md">
-                {item}
-              </Tag>
-            ))}
-          </div>
-        ))}
+        {/*
+         * The panels share one grid cell rather than replacing each other, so
+         * the well is always as tall as the longest group and switching tabs
+         * moves nothing below it. That is why they hide with `visibility`
+         * rather than `display` — a `display: none` panel would not contribute
+         * its height, which is the whole point.
+         */}
+        <div className={styles.panels}>
+          {stackGroups.map((group) => (
+            <div key={group.name} className={styles.panel} data-stack={group.name}>
+              {group.items.map((item) => (
+                <Tag key={item} size="md">
+                  {item}
+                </Tag>
+              ))}
+            </div>
+          ))}
+        </div>
       </div>
 
       <div className={styles.foot}>

@@ -25,7 +25,7 @@ export const roles: Role[] = [
     current: true,
     proofPoints: [
       'One Storybook design system replacing 4 styling paradigms across 5+ apps, cutting UI integration time 30%.',
-      'Shipped the Vue 3 video feed in the purchase funnel: 1.2M views, conversion 3.5% to 7%.',
+      'Shipped the Vue 3 video feed in the purchase funnel: 1.2M views, conversion 3.5% to 7%, average order value up 66%.',
     ],
   },
   {
@@ -34,7 +34,7 @@ export const roles: Role[] = [
     dates: '2018 to 2024',
     badge: '5 yrs',
     proofPoints: [
-      'Primary engineer on the Vue/Nuxt to Next.js migration across 1.5M+ listings, rebuilding the component library in React.',
+      'Primary engineer on the Vue/Nuxt to Next.js migration across 1.5M+ listings serving 1.7M daily page views, rebuilding the component library in React.',
       'Led 15+ engineers onto a shared design system. Load time 2s to 0.5s, bundles 80% smaller.',
     ],
   },

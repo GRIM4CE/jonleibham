@@ -1,7 +1,88 @@
-import { Button, Icon, LabeledNote } from '@jonleibham/design-system'
-import { education, roles } from '../../data/career'
+import { Button, Icon } from '@jonleibham/design-system'
+import { education, roles, type Role } from '../../data/career'
 import { profile } from '../../data/profile'
 import styles from './CareerScreen.module.css'
+
+/**
+ * One role on the timeline: the desktop date gutter, the rail that carries the
+ * chronology, and the entry body.
+ *
+ * `isLast` is not cosmetic — it decides whether a connecting line is drawn
+ * below the dot at all, so the timeline stops rather than trailing off.
+ *
+ * Both the gutter and the rail are `aria-hidden`. The dates they show are
+ * repeated in prose inside the body at every width, so announcing them here
+ * would say every year twice.
+ */
+export function CareerEntry({ role, isLast }: { role: Role; isLast: boolean }) {
+  return (
+    <li className={styles.entry}>
+      {/*
+       * The desktop gutter. Hidden below 768, where the same dates read off the
+       * mono line under the company instead.
+       *
+       * Roles that carry a tenure badge put their range on top and the tenure
+       * beneath; Freelance has only the range, in `badge`.
+       */}
+      <span className={styles.dates} aria-hidden="true">
+        <span className={role.current ? styles.datesRangeCurrent : styles.datesRange}>
+          {role.dates || role.badge}
+        </span>
+        {role.dates && <span className={styles.datesTenure}>{role.badge}</span>}
+      </span>
+
+      <span className={styles.rail} aria-hidden="true">
+        <i
+          className={[
+            styles.dot,
+            role.current ? styles.dotCurrent : styles.dotPast,
+            isLast ? styles.dotLast : '',
+          ]
+            .filter(Boolean)
+            .join(' ')}
+        />
+        {!isLast && <i className={`${styles.line} ${role.current ? styles.lineCurrent : ''}`} />}
+      </span>
+
+      <div className={styles.entryBody}>
+        <div className={styles.entryHead}>
+          <h3 className={role.muted ? styles.companyMuted : styles.company}>{role.company}</h3>
+          <span className={role.current ? styles.badgeNow : styles.badge}>{role.badge}</span>
+        </div>
+        {role.title && (
+          <p className={styles.role}>
+            {role.title}
+            {/* Folded away on desktop, where the gutter has the years. */}
+            <span className={styles.roleDates}> · {role.dates}</span>
+          </p>
+        )}
+        {role.proofPoints.map((point) => (
+          <p key={point} className={role.muted ? styles.proofMuted : styles.proof}>
+            {point}
+          </p>
+        ))}
+      </div>
+    </li>
+  )
+}
+
+/**
+ * The degree, under a filled gold cap. Fixed content from `data/career.ts` —
+ * there is only ever one of these, so it takes no props.
+ */
+export function EducationCard() {
+  return (
+    <div className={styles.education}>
+      <span className={styles.educationIcon} aria-hidden="true">
+        <Icon name="graduationCap" size={19} />
+      </span>
+      <div>
+        <p className={styles.degree}>{education.degree}</p>
+        <p className={styles.school}>{education.school}</p>
+      </div>
+    </div>
+  )
+}
 
 /**
  * The scannable employment history. The rail on the left is the only thing
@@ -33,81 +114,17 @@ export function CareerScreen() {
 
       <ol className={styles.timeline}>
         {roles.map((role, index) => (
-          <li key={role.company} className={styles.entry}>
-            {/*
-             * The desktop gutter. Hidden below 768, where the same dates read
-             * off the mono line under the company instead — and `aria-hidden`
-             * because that line is still in the document at every width, so
-             * without it the years would be announced twice.
-             *
-             * Roles that carry a tenure badge put their range on top and the
-             * tenure beneath; Freelance has only the range, in `badge`.
-             */}
-            <span className={styles.dates} aria-hidden="true">
-              <span className={role.current ? styles.datesRangeCurrent : styles.datesRange}>
-                {role.dates || role.badge}
-              </span>
-              {role.dates && <span className={styles.datesTenure}>{role.badge}</span>}
-            </span>
-
-            <span className={styles.rail} aria-hidden="true">
-              <i
-                className={[
-                  styles.dot,
-                  role.current ? styles.dotCurrent : styles.dotPast,
-                  index === lastIndex ? styles.dotLast : '',
-                ]
-                  .filter(Boolean)
-                  .join(' ')}
-              />
-              {index !== lastIndex && (
-                <i className={`${styles.line} ${role.current ? styles.lineCurrent : ''}`} />
-              )}
-            </span>
-
-            <div className={styles.entryBody}>
-              <div className={styles.entryHead}>
-                <h3 className={role.muted ? styles.companyMuted : styles.company}>
-                  {role.company}
-                </h3>
-                <span className={role.current ? styles.badgeNow : styles.badge}>{role.badge}</span>
-              </div>
-              {role.title && (
-                <p className={styles.role}>
-                  {role.title}
-                  {/* Folded away on desktop, where the gutter has the years. */}
-                  <span className={styles.roleDates}> · {role.dates}</span>
-                </p>
-              )}
-              {role.proofPoints.map((point) => (
-                <p key={point} className={role.muted ? styles.proofMuted : styles.proof}>
-                  {point}
-                </p>
-              ))}
-            </div>
-          </li>
+          <CareerEntry key={role.company} role={role} isLast={index === lastIndex} />
         ))}
       </ol>
 
       {/*
-       * Two stacked blocks on mobile — `display: contents` keeps them that way
-       * — and a single pinned card on desktop, where the degree and the "why"
-       * line share one tinted row separated by a rule.
+       * Holds only the degree. A "why" line used to sit beside it across a
+       * rule, which is why the card styling is on this wrapper rather than on
+       * EducationCard itself.
        */}
       <div className={styles.foot}>
-        <div className={styles.education}>
-          <span className={styles.educationIcon} aria-hidden="true">
-            <Icon name="graduationCap" size={19} />
-          </span>
-          <div>
-            <p className={styles.degree}>{education.degree}</p>
-            <p className={styles.school}>{education.school}</p>
-          </div>
-        </div>
-
-        <LabeledNote label="Why" className={styles.footer}>
-          {profile.why}
-        </LabeledNote>
+        <EducationCard />
       </div>
     </section>
   )
