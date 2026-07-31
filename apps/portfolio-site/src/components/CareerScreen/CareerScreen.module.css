@@ -194,13 +194,6 @@
   color: var(--text-secondary);
 }
 
-/* ── Footer line ──────────────────────────────────────────────────────────*/
-/* Placement only — the label/text shape is LabeledNote's. */
-.footer {
-  margin-top: auto;
-  padding: 20px var(--gutter);
-}
-
 /* The date gutter is a desktop device; on mobile the years read off the mono
    line under the company. */
 .dates {
@@ -336,7 +329,9 @@
     padding-bottom: 30px;
   }
 
-  /* Education and the "why" line become one row, pinned to the bottom. */
+  /* The tinted card, pinned to the bottom. It holds only the degree — it used
+     to pair it with a "why" line across a rule, which is why the card styling
+     lives here rather than on `.education`. */
   .foot {
     display: flex;
     align-items: center;
@@ -370,21 +365,4 @@
     font-size: 10px;
   }
 
-  .footer {
-    margin-top: 0;
-    padding: 0 0 0 20px;
-    border-left: 1px solid rgba(184, 184, 209, 0.22);
-  }
-
-  /* The label is redundant once the line sits inside the education card. */
-  .footer [data-note-label] {
-    display: none;
-  }
-
-  .footer [data-note-text] {
-    font-size: 14px;
-    line-height: 1.5;
-    color: var(--text-secondary);
-    text-wrap: pretty;
-  }
 }

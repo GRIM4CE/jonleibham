@@ -17,7 +17,6 @@ export const profile = {
     'Ten years of frontend engineering at national consumer scale. I like turning complicated systems into simple ones.',
   now: 'Frontend architecture at Songfinch. AI-native side projects on my own hardware.',
   offClock: 'Woodworking, synth building, cooking, my wife and son.',
-  why: "A designer's eye, an engineer's discipline. It is why the systems get adopted.",
   bio: [
     'I build the design systems and monorepos that let teams ship consistent experiences at scale, with accessibility enforced structurally and visual regression guarding every component.',
     'I ship in both Vue and React, work AI-natively with Claude Code and Cursor, and bring a BFA in graphic design to the table when I sit down with product designers.',
@@ -41,15 +40,20 @@ export const profile = {
 
 /** The unit character carries the accent; the number stays porcelain. */
 /**
- * Three numbers, each tied to where it happened. A bare "7.6M / USERS" made the
+ * Four numbers, each tied to where it happened. A bare "7.6M / USERS" made the
  * reader guess whose users, and "100% ACCESSIBLE" was a self-assessment sitting
- * beside two measured results — both are replaced by measured ones.
+ * among measured results.
+ *
+ * Order matters: the grid is 2×2, so the two RE/MAX figures share the top row
+ * and the two Songfinch ones the bottom. Reordering this array regroups the
+ * card — check it still pairs by company.
  *
  * Every figure here is also in `career.ts`, so the Career screen backs up what
  * the hero claims. Keep them in step.
  */
 export const metrics = [
-  { value: '1.7', unit: 'M', label: 'Daily page views at RE/MAX' },
-  { value: '2', unit: 'x', label: 'Product conversion at Songfinch' },
-  { value: '80', unit: '%', label: 'Smaller bundles at RE/MAX' },
+  { value: '1.7', unit: 'M', label: 'Daily page views — RE/MAX' },
+  { value: '80', unit: '%', label: 'Smaller bundle size — RE/MAX' },
+  { value: '2', unit: 'x', label: 'Product conversion — Songfinch' },
+  { value: '66', unit: '%', label: 'Higher AOV — Songfinch' },
 ] as const

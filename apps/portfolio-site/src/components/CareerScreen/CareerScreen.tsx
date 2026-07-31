@@ -1,4 +1,4 @@
-import { Button, Icon, LabeledNote } from '@jonleibham/design-system'
+import { Button, Icon } from '@jonleibham/design-system'
 import { education, roles, type Role } from '../../data/career'
 import { profile } from '../../data/profile'
 import styles from './CareerScreen.module.css'
@@ -119,16 +119,12 @@ export function CareerScreen() {
       </ol>
 
       {/*
-       * Two stacked blocks on mobile — `display: contents` keeps them that way
-       * — and a single pinned card on desktop, where the degree and the "why"
-       * line share one tinted row separated by a rule.
+       * Holds only the degree. A "why" line used to sit beside it across a
+       * rule, which is why the card styling is on this wrapper rather than on
+       * EducationCard itself.
        */}
       <div className={styles.foot}>
         <EducationCard />
-
-        <LabeledNote label="Why" className={styles.footer}>
-          {profile.why}
-        </LabeledNote>
       </div>
     </section>
   )

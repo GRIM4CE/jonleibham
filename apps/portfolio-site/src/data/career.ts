@@ -25,7 +25,7 @@ export const roles: Role[] = [
     current: true,
     proofPoints: [
       'One Storybook design system replacing 4 styling paradigms across 5+ apps, cutting UI integration time 30%.',
-      'Shipped the Vue 3 video feed in the purchase funnel: 1.2M views, conversion 3.5% to 7%.',
+      'Shipped the Vue 3 video feed in the purchase funnel: 1.2M views, conversion 3.5% to 7%, average order value up 66%.',
     ],
   },
   {

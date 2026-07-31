@@ -98,9 +98,15 @@
 }
 
 /* ── Metric strip ─────────────────────────────────────────────────────────*/
+/*
+ * 2×2 rather than one row of four. Four across a phone leaves each label about
+ * 80px, and these labels carry an attribution now. The pairing is not incidental
+ * — the array in profile.ts is ordered so the top row is RE/MAX and the bottom
+ * Songfinch.
+ */
 .metrics {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   margin: 0 var(--gutter);
   padding: 0;
 }
@@ -114,9 +120,19 @@
   padding: 15px 0 14px;
 }
 
-.metric + .metric {
+/*
+ * The hairlines are positional, so they cannot use `.metric + .metric` any more:
+ * in a two-column grid the third cell starts a new row, and a left border there
+ * would draw against the outer edge. Column two takes the vertical rule, row two
+ * the horizontal one.
+ */
+.metric:nth-child(2n) {
   padding-left: 16px;
   border-left: 1px solid var(--hairline);
+}
+
+.metric:nth-child(n + 3) {
+  border-top: 1px solid var(--hairline);
 }
 
 .metricValue {
@@ -252,7 +268,7 @@
     padding: 20px 0 18px;
   }
 
-  .metric + .metric {
+  .metric:nth-child(2n) {
     padding-left: 26px;
   }
 
