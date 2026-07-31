@@ -6,6 +6,10 @@ import react from '@vitejs/plugin-react';
 // (`tsc -b && vite build`) never loads the Vitest/Storybook/Playwright tooling.
 export default defineConfig({
   plugins: [react()],
+  // Vite does not read PORT on its own, and its own "5173 is taken, trying
+  // 5174" fallback picks a port nothing else knows about. Honoring PORT lets a
+  // harness that assigned us one actually find the server.
+  server: { port: Number(process.env.PORT) || 5173 },
   css: {
     modules: {
       // The client pass writes the stylesheet and the SSR pass writes the

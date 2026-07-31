@@ -7,7 +7,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 npm-workspaces monorepo for Jon Leibham's personal projects.
 
 - `apps/portfolio-site` — the portfolio. Deployed to AWS Amplify.
-- `apps/storybook` — hosts the design system's stories. Deployed to AWS Amplify.
+- `apps/storybook` — hosts the stories. Deployed to AWS Amplify. It owns no story
+  of its own: each lives beside its component, in the package or the app that owns
+  it, and the two are kept apart by title prefix — `Components/` for the shared
+  library, `Portfolio/` for the app's screens.
 - `packages/design-system` — shared component library. Not deployed; both apps
   compile it from source.
 
