@@ -133,15 +133,22 @@
 }
 
 /* Single words, so they never wrap and the three columns stay level. */
+/*
+ * The label carries an attribution now ("Monthly users at RE/MAX"), not a single
+ * word, so it has to wrap — `nowrap` here used to be safe and would now overflow
+ * the third of a phone screen each metric gets. `text-wrap: balance` keeps the
+ * two lines close in length instead of leaving one orphan word.
+ */
 .metricLabel {
   margin-top: 8px;
   font-family: var(--font-mono);
   font-size: 9px;
   font-weight: 500;
-  letter-spacing: 0.08em;
+  line-height: 1.5;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--text-tertiary);
-  white-space: nowrap;
+  text-wrap: balance;
 }
 
 /* ── Actions ──────────────────────────────────────────────────────────────*/

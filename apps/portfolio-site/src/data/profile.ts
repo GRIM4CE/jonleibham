@@ -15,7 +15,7 @@ export const profile = {
   availability: 'Open to roles',
   positioning:
     'Ten years of frontend engineering at national consumer scale. I like turning complicated systems into simple ones.',
-  now: 'Design systems at Songfinch. AI-native side projects on my own hardware.',
+  now: 'Frontend architecture at Songfinch. AI-native side projects on my own hardware.',
   offClock: 'Woodworking, synth building, cooking, my wife and son.',
   why: "A designer's eye, an engineer's discipline. It is why the systems get adopted.",
   bio: [
@@ -40,8 +40,16 @@ export const profile = {
 } as const
 
 /** The unit character carries the accent; the number stays porcelain. */
+/**
+ * Three numbers, each tied to where it happened. A bare "7.6M / USERS" made the
+ * reader guess whose users, and "100% ACCESSIBLE" was a self-assessment sitting
+ * beside two measured results — it is replaced by one.
+ *
+ * Every figure here is also in `career.ts`, so the Career screen backs up what
+ * the hero claims. Keep them in step.
+ */
 export const metrics = [
-  { value: '7.6', unit: 'M', label: 'Users' },
-  { value: '2', unit: 'x', label: 'Conversion' },
-  { value: '100', unit: '%', label: 'Accessible' },
+  { value: '7.6', unit: 'M', label: 'Monthly users at RE/MAX' },
+  { value: '2', unit: 'x', label: 'Product conversion at Songfinch' },
+  { value: '80', unit: '%', label: 'Smaller bundles at RE/MAX' },
 ] as const
