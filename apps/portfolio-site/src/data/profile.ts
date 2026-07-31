@@ -14,7 +14,7 @@ export const profile = {
   locationShort: 'Milwaukee, WI',
   availability: 'Open to roles',
   positioning:
-    'Ten years of frontend at national consumer scale. Design systems, monorepos, and the migrations nobody volunteers for.',
+    'Ten years of frontend engineering at national consumer scale. I like turning complicated systems into simple ones.',
   now: 'Design systems at Songfinch. AI-native side projects on my own hardware.',
   offClock: 'Woodworking, synth building, cooking, my wife and son.',
   why: "A designer's eye, an engineer's discipline. It is why the systems get adopted.",

@@ -3,7 +3,7 @@ import { EducationCard } from './CareerScreen'
 import styles from './CareerScreen.module.css'
 
 const meta = {
-  title: 'Portfolio/Components/EducationCard',
+  title: 'Components/EducationCard',
   component: EducationCard,
   parameters: {
     layout: 'centered',

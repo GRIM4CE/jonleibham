@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite'
 import { TabBar } from './TabBar'
 
 const meta = {
-  title: 'Portfolio/Components/TabBar',
+  title: 'Components/TabBar',
   component: TabBar,
   parameters: {
     layout: 'fullscreen',

@@ -3,7 +3,7 @@ import { UtilitiesCollapse } from './WorkScreen'
 import styles from './WorkScreen.module.css'
 
 const meta = {
-  title: 'Portfolio/Components/UtilitiesCollapse',
+  title: 'Components/UtilitiesCollapse',
   component: UtilitiesCollapse,
   parameters: {
     layout: 'fullscreen',
