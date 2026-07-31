@@ -1,5 +1,6 @@
 import type { Preview } from '@storybook/react-vite'
 import '@jonleibham/design-system/tokens.css'
+import { dossierDark } from './theme'
 
 const preview: Preview = {
   parameters: {
@@ -8,6 +9,15 @@ const preview: Preview = {
        color: /(background|color)$/i,
        date: /Date$/i,
       },
+    },
+
+    /*
+     * Docs pages render inside the preview iframe, so `manager.ts`'s theme does
+     * not reach them — they need the same theme set again here. Without it the
+     * prose and prop tables came back white around examples drawn on #1a0f16.
+     */
+    docs: {
+      theme: dossierDark,
     },
 
     /*
