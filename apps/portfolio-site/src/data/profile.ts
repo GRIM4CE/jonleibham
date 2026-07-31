@@ -19,7 +19,10 @@ export const profile = {
   offClock: 'Woodworking, synth building, cooking, my wife and son.',
   bio: [
     "Greenfield builds, legacy rebuilds, startups, national platforms. I build the monorepos and design systems that hold teams together, and I'm often the one prototyping an idea with product before anyone knows what the answer is.",
-    'I ship in both Vue and React, work AI-natively with Claude Code and Cursor, and bring a BFA in graphic design to the table when I sit down with product designers.',
+    // Renders in --text-secondary via `.bioBody`, so it reads as the quieter
+    // half of the pair. Deliberately names no frameworks — the stack tabs
+    // directly below already list them.
+    "I don't stay in one lane. I've owned the design file, the component library, the API behind it and the pipeline that ships it. I work AI-natively, with Claude Code in the loop daily, which puts my time into the decisions instead of the typing.",
   ],
   /** All three read at the same weight on purpose — the row scans as one unit. */
   employers: ['Songfinch', 'RE/MAX', '20+ clients'],

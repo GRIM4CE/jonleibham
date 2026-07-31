@@ -99,7 +99,8 @@
  */
 .stack:has(input[name='stack-tab'][value='Frontend']:checked) .panel[data-stack='Frontend'],
 .stack:has(input[name='stack-tab'][value='Systems']:checked) .panel[data-stack='Systems'],
-.stack:has(input[name='stack-tab'][value='Testing']:checked) .panel[data-stack='Testing'],
+.stack:has(input[name='stack-tab'][value='Quality']:checked) .panel[data-stack='Quality'],
+.stack:has(input[name='stack-tab'][value='Backend']:checked) .panel[data-stack='Backend'],
 .stack:has(input[name='stack-tab'][value='Platform']:checked) .panel[data-stack='Platform'] {
   display: flex;
 }
