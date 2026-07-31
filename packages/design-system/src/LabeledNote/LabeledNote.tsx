@@ -3,30 +3,22 @@ import styles from './LabeledNote.module.css'
 
 export interface LabeledNoteProps {
   /**
-   * The small leading label — "Now", "Why", "Off clock". `ReactNode` so a
-   * caller can pass text containing a non-breaking space.
+   * The leading label — "Now", "Why". Rendered uppercase. A `ReactNode` rather
+   * than a string so a two-word label can hold itself together with `&nbsp;`.
    */
   label: ReactNode
+  /** The line of text the label introduces. */
   children: ReactNode
-  /**
-   * The call site's own positioning class. Never omit it at a call site that
-   * had one: margins, padding and borders stay in the screen module.
-   */
+  /** All spacing — the component sets none, so it sits flush without one. */
   className?: string
 }
 
 /**
- * A small label followed by a line of text.
+ * A short uppercase label and a line of text, as one `<p>`.
  *
- * Home's "Now", Career's "Why" and About's "Off clock" share this shape at
- * mobile widths — the label and text rules were byte-identical across all
- * three — but they diverge above 768: Career drops the label entirely and
- * recolors its text, and the three settle on different type sizes.
- *
- * So this owns the mobile base and nothing else. `data-note-label` and
- * `data-note-text` are the hooks screens override those parts through, the
- * same cross-module device `data-screen` and `data-tab` use — a screen module
- * cannot reach a class scoped to this one.
+ * For a single named aside. Use a `<dl>` once there is more than one pair.
+ * Restyle the parts through `data-note-label` and `data-note-text` — a caller's
+ * CSS module cannot reach a class scoped to this one.
  */
 export function LabeledNote({ label, children, className = '' }: LabeledNoteProps) {
   return (

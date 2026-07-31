@@ -48,11 +48,26 @@ const BRAND_VIEWBOX: Partial<Record<IconName, string>> = {
 }
 
 export interface IconProps extends Omit<SVGProps<SVGSVGElement>, 'name'> {
+  /**
+   * Which glyph to draw. The set is closed — `iconNames` in `./icons` is the
+   * whole table, and adding one means adding its path there.
+   */
   name: IconName
-  /** Both width and height; Lucide's grid is square. */
+  /** Both width and height in px; Lucide's grid is square. Defaults to 22. */
   size?: number
 }
 
+/**
+ * A single glyph, drawn inline.
+ *
+ * Every icon is `aria-hidden` and unfocusable, so an icon never contributes an
+ * accessible name. When one is the only content of a control, that control
+ * needs its own `aria-label` — see the `icon` variant of `Button`.
+ *
+ * Color comes from `currentColor`: set `color` on the parent rather than
+ * passing a fill. Size is set on the element rather than inherited from the
+ * font, so it does not scale with surrounding text.
+ */
 export function Icon({ name, size = 22, ...rest }: IconProps) {
   const brand = BRAND[name]
 
