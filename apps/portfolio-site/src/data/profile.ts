@@ -14,11 +14,11 @@ export const profile = {
   locationShort: 'Milwaukee, WI',
   availability: 'Open to roles',
   positioning:
-    'Ten years of frontend engineering at national consumer scale. I like turning complicated systems into simple ones.',
+    '10+ years of frontend engineering at national consumer scale. I like turning complicated systems into simple ones.',
   now: 'Frontend architecture at Songfinch. AI-native side projects on my own hardware.',
   offClock: 'Woodworking, synth building, cooking, my wife and son.',
   bio: [
-    'I build the design systems and monorepos that let teams ship consistent experiences at scale, with accessibility enforced structurally and visual regression guarding every component.',
+    "Greenfield builds, legacy rebuilds, startups, national platforms. I build the monorepos and design systems that hold teams together, and I'm often the one prototyping an idea with product before anyone knows what the answer is.",
     'I ship in both Vue and React, work AI-natively with Claude Code and Cursor, and bring a BFA in graphic design to the table when I sit down with product designers.',
   ],
   /** All three read at the same weight on purpose — the row scans as one unit. */
