@@ -31,8 +31,9 @@ const meta = {
     className: {
       control: false,
       description:
-        'Placement, and overrides for the default gap and padding. The pill sets no ' +
-        'margin of its own.',
+        'Placement, and overrides for the default gap and padding. Those two belong ' +
+        "to the pill rather than to whoever places it — the values are Home's, and " +
+        "the portfolio's rail overrides both to sit roomier.",
       table: { type: { summary: 'string' }, defaultValue: { summary: "''" } },
     },
   },

@@ -12,8 +12,8 @@ const meta = {
         component: [
           'A small pill for a technology name.',
           '',
-          'Static text — no dismiss control, no interactive state, and no `href`. Wrap it',
-          'in a `<Button as="a">` if a chip has to be clickable.',
+          'Static text — no dismiss control, no interactive state and no `href`. Nothing',
+          'in the portfolio needs a clickable chip, so no variant of one exists here.',
           '',
           'Color is by category rather than by call site: pass names through',
           '`tagVariantFor(tech)` so the same technology reads the same everywhere. It',
