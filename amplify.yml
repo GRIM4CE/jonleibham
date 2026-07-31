@@ -42,7 +42,14 @@ applications:
             #
             # PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD avoids a ~300MB Chromium pull
             # that only the browser-mode Vitest project would use.
-            - PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm ci --no-audit --no-fund
+            # Amplify restores an environment cache before this phase runs, and a
+            # partially-populated node_modules is what npm's optional-dependency
+            # bug (npm/cli#4828) feeds on. Start from nothing.
+            - rm -rf node_modules
+            # NODE_ENV is forced off production for the install. If the Amplify
+            # app has NODE_ENV=production set, npm omits devDependencies — and
+            # the build tooling lives there.
+            - NODE_ENV=development PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm ci --no-audit --no-fund
         build:
           commands:
             - npm run build -w @jonleibham/portfolio-site
@@ -85,7 +92,16 @@ applications:
           commands:
             - nvm use 2>/dev/null || nvm install
             - node -v && npm -v
-            - PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm ci --no-audit --no-fund
+            - rm -rf node_modules
+            - NODE_ENV=development PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm ci --no-audit --no-fund
+            # Three deployments died on "Cannot find module
+            # '@oxc-resolver/binding-linux-x64-gnu'" — a transitive optional dep
+            # of storybook. The lockfile lists it and a linux `npm ci` resolves
+            # it in a dry run, so this should never fire; it is here because
+            # "should never fire" has now been wrong three times. Verifying is
+            # cheap, and a missing native binding otherwise surfaces as a
+            # 40-line stack trace rather than a one-line cause.
+            - test -d node_modules/@oxc-resolver/binding-linux-x64-gnu || npm install --no-save --no-audit --no-fund @oxc-resolver/binding-linux-x64-gnu
         build:
           commands:
             - npm run build-storybook -w @jonleibham/storybook
