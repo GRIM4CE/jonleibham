@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite'
 import { Wordmark } from './Wordmark'
 
 const meta = {
-  title: 'Design System/Wordmark',
+  title: 'Components/Wordmark',
   component: Wordmark,
   parameters: {
     layout: 'centered',

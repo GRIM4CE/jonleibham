@@ -3,7 +3,7 @@ import { Icon } from './Icon'
 import { iconNames } from './icons'
 
 const meta = {
-  title: 'Design System/Icon',
+  title: 'Components/Icon',
   component: Icon,
   parameters: {
     layout: 'centered',

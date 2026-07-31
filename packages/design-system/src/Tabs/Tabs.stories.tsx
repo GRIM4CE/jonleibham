@@ -3,7 +3,7 @@ import { Tabs } from './Tabs'
 import styles from './Tabs.stories.module.css'
 
 const meta = {
-  title: 'Design System/Tabs',
+  title: 'Components/Tabs',
   component: Tabs,
   parameters: {
     layout: 'centered',

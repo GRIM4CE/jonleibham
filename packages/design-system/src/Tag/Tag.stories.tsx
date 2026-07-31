@@ -3,7 +3,7 @@ import { Tag } from './Tag'
 import { tagVariantFor } from './tagVariant'
 
 const meta = {
-  title: 'Design System/Tag',
+  title: 'Components/Tag',
   component: Tag,
   parameters: {
     layout: 'centered',

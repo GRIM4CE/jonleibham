@@ -9,7 +9,7 @@ import { tones } from '../tokens'
  * So these argTypes are the prop table. Keep them in step with `Button.tsx`.
  */
 const meta = {
-  title: 'Design System/Button',
+  title: 'Components/Button',
   component: Button,
   parameters: {
     layout: 'centered',

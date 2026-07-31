@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite'
 import { LabeledNote } from './LabeledNote'
 
 const meta = {
-  title: 'Design System/LabeledNote',
+  title: 'Components/LabeledNote',
   component: LabeledNote,
   parameters: {
     layout: 'centered',

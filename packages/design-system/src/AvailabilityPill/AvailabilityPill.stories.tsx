@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite'
 import { AvailabilityPill } from './AvailabilityPill'
 
 const meta = {
-  title: 'Design System/AvailabilityPill',
+  title: 'Components/AvailabilityPill',
   component: AvailabilityPill,
   parameters: {
     layout: 'centered',
