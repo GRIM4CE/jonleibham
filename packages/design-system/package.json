@@ -16,13 +16,13 @@
     "typecheck:dev": "tsc -p tsconfig.dev.json --noEmit"
   },
   "peerDependencies": {
-    "react": "^19",
-    "react-dom": "^19"
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
   },
   "devDependencies": {
-    "@vitejs/plugin-react": "^6.0.4",
+    "@vitejs/plugin-react": "^6.1.1",
     "typescript": "~6.0.3",
-    "vite": "^8.1.5",
+    "vite": "^8.3.0",
     "vitest": "^4.1.10"
   }
 }
