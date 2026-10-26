@@ -128,10 +128,7 @@ export function WorkScreen() {
         {/* `display: contents` on mobile, a flex row from 768 up. */}
         <div className={styles.topRow}>
           <div className={styles.header}>
-            <div className={styles.headerRow}>
-              <h2 className={styles.heading}>Selected work</h2>
-              <Icon name="search" size={21} className={styles.search} />
-            </div>
+            <h2 className={styles.heading}>Selected work</h2>
             <p className={styles.meta}>
               {projects.length} projects · {span}
             </p>
