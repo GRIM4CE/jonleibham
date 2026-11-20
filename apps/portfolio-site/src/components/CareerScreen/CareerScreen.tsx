@@ -1,5 +1,6 @@
 import { Button, Icon } from '@jonleibham/design-system'
 import { education, roles, type Role } from '../../data/career'
+import { courses } from '../../data/courses'
 import { profile } from '../../data/profile'
 import styles from './CareerScreen.module.css'
 
@@ -85,6 +86,48 @@ export function EducationCard() {
 }
 
 /**
+ * What came after the degree: a short, hand-picked list of recent courses,
+ * each linking to its page on master.dev, and one link out to the full
+ * profile. Fixed content from `data/courses.ts`, so it takes no props.
+ *
+ * Title and instructor only. No progress and no dates — see the note in the
+ * data file for why.
+ */
+export function CoursesCard() {
+  return (
+    <div className={styles.courses}>
+      <h3 className={styles.coursesLabel}>Recent courses</h3>
+      <ul className={styles.courseList}>
+        {courses.map((course) => (
+          <li key={course.url} className={styles.course}>
+            <a
+              className={styles.courseTitle}
+              href={course.url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {course.title}
+              <span className="sr-only"> (opens in a new tab)</span>
+            </a>
+            <span className={styles.courseInstructor}>{course.instructor}</span>
+          </li>
+        ))}
+      </ul>
+      <a
+        className={styles.coursesLink}
+        href={profile.links.masterdev}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        All courses on master.dev
+        <span className="sr-only"> (opens in a new tab)</span>
+        <Icon name="arrowUpRight" size={12} />
+      </a>
+    </div>
+  )
+}
+
+/**
  * The scannable employment history. The rail on the left is the only thing
  * carrying chronology, so the current role's dot is solid gold and everything
  * before it is hollow.
@@ -119,12 +162,13 @@ export function CareerScreen() {
       </ol>
 
       {/*
-       * Holds only the degree. A "why" line used to sit beside it across a
-       * rule, which is why the card styling is on this wrapper rather than on
-       * EducationCard itself.
+       * The degree and what came after it. From 768 up the two share one
+       * tinted card split by a rule, which is why the card styling is on this
+       * wrapper rather than on either child; below that each is its own card.
        */}
       <div className={styles.foot}>
         <EducationCard />
+        <CoursesCard />
       </div>
     </section>
   )
