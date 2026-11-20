@@ -53,7 +53,9 @@ that exports both a component and a helper trips the `react-refresh` lint rule, 
 helpers get their own module — see `Tag/tagVariant.ts` and `Icon/icons.ts`.
 
 **Content** is static data in `apps/portfolio-site/src/data/`: `projects.ts` (the Work index and every
-detail screen), `career.ts`, `stack.ts` and `profile.ts`. The index shows seven
+detail screen), `career.ts`, `stack.ts`, `profile.ts` and `courses.ts` (the
+hand-picked "Recent courses" list in the Career foot — curated, not scraped
+from master.dev). The index shows seven
 curated projects; the five utilities sit behind the collapse. Promoting or demoting
 one is a data edit and nothing more.
 

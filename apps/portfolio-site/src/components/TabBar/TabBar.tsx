@@ -113,6 +113,18 @@ export function TabBar() {
           >
             <Icon name="github" size={17} />
           </Button>
+          <Button
+            as="a"
+            href={profile.links.masterdev}
+            variant="icon"
+            size="md"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="master.dev course profile (opens in a new tab)"
+            className={styles.contactAction}
+          >
+            <Icon name="graduationCap" size={17} />
+          </Button>
         </div>
       </div>
     </nav>

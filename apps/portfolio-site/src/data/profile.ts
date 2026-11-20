@@ -36,6 +36,8 @@ export const profile = {
     email: 'mailto:jleibham@gmail.com',
     linkedin: 'https://www.linkedin.com/in/jonleibham',
     github: 'https://github.com/GRIM4CE',
+    /** Public course profile; the Career screen's course list links here. */
+    masterdev: 'https://master.dev/u/grimace/',
     /** The design system's own Storybook, deployed from apps/storybook. */
     storybook: 'https://storybook.jonleibham.com/',
   },

@@ -102,6 +102,17 @@ export function AboutScreen() {
           >
             <Icon name="github" size={19} />
           </Button>
+          <Button
+            as="a"
+            href={profile.links.masterdev}
+            variant="icon"
+            size="lg"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="master.dev course profile (opens in a new tab)"
+          >
+            <Icon name="graduationCap" size={19} />
+          </Button>
         </div>
       </div>
     </section>
