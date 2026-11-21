@@ -12,14 +12,14 @@
   },
   "dependencies": {
     "@jonleibham/design-system": "*",
-    "@types/node": "^26.1.2",
+    "@types/node": "^26.6.6",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^6.0.4",
+    "@vitejs/plugin-react": "^6.2.1",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "typescript": "~6.0.3",
-    "vite": "^8.3.5"
+    "vite": "^8.3.6"
   },
   "devDependencies": {
     "vitest": "^5.0.5"
